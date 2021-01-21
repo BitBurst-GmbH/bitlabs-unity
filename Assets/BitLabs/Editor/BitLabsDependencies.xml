@@ -44,9 +44,6 @@
     <!-- Global set of sources to search for Cocoapods.
          These sources will be searched for all Cocoapods specified by
          iosPod. -->
-    <sources>
-      <source>https://cocoapods.mycompany.com/Specs</source>
-    </sources>
     <!-- iosPod supports the following attributes:
          * "name" (required)
            Name of the Cocoapod.
@@ -74,16 +71,13 @@
          * "subspecs" (optional)
            Subspecs to include for the pod.
      -->
-    <iosPod name="BitLabs" path="../BitLabs" version="~> 0.1"
+    <iosPod name="BitLabs" version="~> 0.1"
             minTargetSdk="12.0">
       <!-- Set of source URIs to search for this Cocoapod spec.
            By default Cocoapods will attempt to fetch the pod specs from:
            * $HOME/.cocoapods/repos
            * https://github.com/CocoaPods/Specs
            -->
-      <sources>
-        <source>https://github.com/CocoaPods/Specs</source>
-      </sources>
     </iosPod>
   </iosPods>
 </dependencies>

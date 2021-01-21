@@ -10,7 +10,7 @@ public class SDKCaller : MonoBehaviour
 
     AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
-    AndroidJavaObject bridge = new AndroidJavaObject("ai.bitlabs.sdk");
+    AndroidJavaObject bridge = new AndroidJavaObject("ai.bitlabs.sdk.BitLabsSDK");
 
     object[] parameters = new object[3];
     parameters[0] = currentActivity;
