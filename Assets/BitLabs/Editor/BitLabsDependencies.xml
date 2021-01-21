@@ -71,13 +71,5 @@
          * "subspecs" (optional)
            Subspecs to include for the pod.
      -->
-    <iosPod name="BitLabs" version="~> 0.1"
-            minTargetSdk="12.0">
-      <!-- Set of source URIs to search for this Cocoapod spec.
-           By default Cocoapods will attempt to fetch the pod specs from:
-           * $HOME/.cocoapods/repos
-           * https://github.com/CocoaPods/Specs
-           -->
-    </iosPod>
   </iosPods>
 </dependencies>
