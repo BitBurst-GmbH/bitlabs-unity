@@ -20,7 +20,7 @@
          * Local Android SDK Maven repo.
          Additional repositories can be added using the "repositories" element.
     -->
-    <androidPackage spec="ai.bitlabs:sdk:1.1.5">
+    <androidPackage spec="ai.bitlabs:sdk:1.1.9">
       <!-- androidSdkPackageIds is optional and contains the set of Android
            SDK package manager components (packages) this package requires.
            If the package can't be found in any of the specified repositories,
