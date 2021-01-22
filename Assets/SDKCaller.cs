@@ -9,11 +9,14 @@ public class SDKCaller : MonoBehaviour
 
   [DllImport ("__Internal")]
   private static extern void _init(string token, string uid);
-    
+  
+  [DllImport ("__Internal")]
+  private static extern void _show();
     
   public void CallNativePlugin() {
     #if UNITY_IOS
     _init("6c7083df-b97e-4d29-9d90-798fd088bc08", "UnityUser");
+    _show();
 
     #elif UNITY_ANDROID
     

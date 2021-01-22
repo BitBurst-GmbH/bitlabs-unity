@@ -207,10 +207,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@class UIViewController;
 
 SWIFT_CLASS("_TtC7BitLabs7BitLabs")
 @interface BitLabs : NSObject
 + (BitLabs * _Nonnull)InitWithToken:(NSString * _Nonnull)token uid:(NSString * _Nonnull)uid SWIFT_WARN_UNUSED_RESULT;
+- (void)showWithParent:(UIViewController * _Nonnull)p;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end

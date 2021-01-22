@@ -7,11 +7,17 @@ extern void UnitySendMessage(const char * className,const char * methodName, con
 
 @implementation BitLabsWrapper
 
+BitLabs *bitlabs;
+
 extern "C" {
     BitLabs* _init(const char *token, const char *uid) {
-        BitLabs *bitlabs = [BitLabs InitWithToken:[[NSString alloc] initWithCString:token encoding:NSUTF8StringEncoding] uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
+        bitlabs = [BitLabs InitWithToken:[[NSString alloc] initWithCString:token encoding:NSUTF8StringEncoding] uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
         
         return bitlabs;
+    }
+    
+    void _show() {
+        [bitlabs showWithParent:UnityGetGLViewController()];
     }
 }
 
