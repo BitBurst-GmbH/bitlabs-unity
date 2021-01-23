@@ -7,7 +7,7 @@ public class BitLabsExample : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BitLabs.init("6c7083df-b97e-4d29-9d90-798fd088bc08", "unity_user");
+        BitLabs.init("YOUR_TOKEN", "YOUR_USER_ID");
     }
     
     public void showSurveys() {
