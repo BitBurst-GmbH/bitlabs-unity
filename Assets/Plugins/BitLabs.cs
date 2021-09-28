@@ -30,7 +30,7 @@ public class BitLabs : MonoBehaviour {
         
         bitlabsObject = new AndroidJavaObject ("ai.bitlabs.sdk.BitLabsSDK");
         bitlabsCompanion = bitlabsObject.GetStatic<AndroidJavaObject> ("Companion");
-        bitlabsCompanion.Call("init", currentActivity, "6c7083df-b97e-4d29-9d90-798fd088bc08", "UnityUser");
+        bitlabsCompanion.Call("init", currentActivity, token, uid);
         #endif
     }
     

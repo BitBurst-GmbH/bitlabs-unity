@@ -1,9 +1,8 @@
 <dependencies>
   <packages>
-    <package>ai.bitlabs:sdk:1.1.9</package>
+    <package>com.github.BitBurst-GmbH:bitlabs-android-library:1.1.11</package>
   </packages>
   <files>
-    <file>Assets/Plugins/Android/ai.bitlabs.sdk-1.1.9.aar</file>
     <file>Assets/Plugins/Android/androidx.activity.activity-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.annotation.annotation-1.1.0.jar</file>
     <file>Assets/Plugins/Android/androidx.appcompat.appcompat-1.2.0.aar</file>
@@ -31,12 +30,12 @@
     <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-animated-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.volley.volley-1.1.1.aar</file>
+    <file>Assets/Plugins/Android/com.android.volley.volley-1.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library-1.1.11.aar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>
     <file>Assets/Plugins/Android/org.jetbrains.annotations-13.0.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-1.4.10.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-common-1.4.10.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk7-1.4.10.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-1.4.32.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-common-1.4.32.jar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />

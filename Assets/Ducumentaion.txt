@@ -1,0 +1,14 @@
+Welcome to the Unity SDK of BitLabs.
+Please read our integration carefully. More information can be found at https://bitlabs.ai/
+
+1. Initiate the SDK before you use it:
+
+	// Start is called before the first frame update
+	void Start()
+	{
+	   BitLabs.init("YOUR_TOKEN", "YOUR_USER_ID");
+	}
+
+2. Call the .show() function to open the Offer Wall/Router Link
+
+	BitLabs.show();

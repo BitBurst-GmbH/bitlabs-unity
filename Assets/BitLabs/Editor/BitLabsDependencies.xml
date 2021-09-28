@@ -8,7 +8,7 @@
          These repos will be searched for all packages specified by
          androidPackage. -->
     <repositories>
-      <repository>https://dl.bintray.com/bitburst/mobile</repository>
+      <repository>https://jitpack.io</repository>
     </repositories>
     <!-- The "spec" attribute is *required* and provides the Maven package
          specification.
@@ -20,7 +20,7 @@
          * Local Android SDK Maven repo.
          Additional repositories can be added using the "repositories" element.
     -->
-    <androidPackage spec="ai.bitlabs:sdk:1.1.9">
+    <androidPackage spec="com.github.BitBurst-GmbH:bitlabs-android-library:1.1.11">
       <!-- androidSdkPackageIds is optional and contains the set of Android
            SDK package manager components (packages) this package requires.
            If the package can't be found in any of the specified repositories,
@@ -32,10 +32,10 @@
       </androidSdkPackageIds>
       
       "repositories" are optional and contain the set of additional
-           repository URIs to search for this package. -->
+           repository URIs to search for this package.
       <repositories>
         <repository>https://maven.google.com</repository>
-      </repositories>
+      </repositories> -->
     </androidPackage>
   </androidPackages>
 
