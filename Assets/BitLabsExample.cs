@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BitLabsExample : MonoBehaviour
 {
+    public string Token = "YOUR_TOKEN";
+    public string UserId = "YOUR_USER_ID";
+
     // Start is called before the first frame update
     void Start()
     {
-        BitLabs.init("YOUR_TOKEN", "YOUR_USER_ID");
+        BitLabs.init(Token, UserId);
     }
     
     public void showSurveys() {
