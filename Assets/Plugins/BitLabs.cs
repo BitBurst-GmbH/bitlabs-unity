@@ -4,22 +4,6 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 
-class ResponseCallback : AndroidJavaProxy
-{
-    public ResponseCallback() : base("ai.bitlabs.sdk.BitLabsSDK.$Listener") {}
-    void onResponse(AndroidJavaObject result) {
-        Debug.Log("BitLabs has Survey Result: " + result);
-    }
-}
-
-class ErrorResponseCallback : AndroidJavaProxy
-{
-    public ErrorResponseCallback() : base("ai.bitlabs.sdk.BitLabsSDK.$ErrorListener") {}
-    void onError(AndroidJavaObject result) {
-        Debug.Log("BitLabs has Survey ErrorResult: " + result);
-    }
-}
-
 public class BitLabs : MonoBehaviour {
 
     [DllImport ("__Internal")]
@@ -29,7 +13,7 @@ public class BitLabs : MonoBehaviour {
     private static extern void _show();
     
     [DllImport ("__Internal")]
-    private static extern void _setTags(Dictionary<string, object> tags);
+    private static extern void _appendTag(string key, string value);
     
     private static AndroidJavaClass unityPlayer;
     private static AndroidJavaObject currentActivity;
@@ -63,7 +47,7 @@ public class BitLabs : MonoBehaviour {
     
     public static void appendTag(string key, string value) {
         #if UNITY_IOS
-        _setTags(tags);
+        _appendTag(key, value);
         #elif UNITY_ANDROID
         bitlabsCompanion.Call("appendTag", key, value);
         #endif

@@ -19,6 +19,10 @@ extern "C" {
     void _show() {
         [bitlabs showWithParent:UnityGetGLViewController()];
     }
+    
+    void _appendTag(const char *key, const char *value) {
+        [bitlabs appendTagWithKey: [[NSString alloc] initWithCString:key encoding:NSUTF8StringEncoding] value: [[NSString alloc] initWithCString:value encoding:NSUTF8StringEncoding]];
+    }
 }
 
 @end
