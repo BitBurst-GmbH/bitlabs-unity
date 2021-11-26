@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BitLabsExample : MonoBehaviour
 {
-    private string Token = "97e3efee-576b-4ef5-a28c-f15065cc2938";
-    private string UserId = "YOUR_USER_ID";
+    public string Token = "YOUR_TOKEN";
+    public string UserId = "YOUR_USER_ID";
 
     // Start is called before the first frame update
     void Start()
