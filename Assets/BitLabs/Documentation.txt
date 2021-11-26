@@ -1,0 +1,47 @@
+Welcome to the Unity SDK of BitLabs.
+Please read our integration carefully. More information can be found at https://bitlabs.ai/.
+
+1. Initiate the SDK before you use it:
+
+	// Start is called before the first frame update
+	void Start()
+	{
+	   BitLabs.init("YOUR_TOKEN", "YOUR_USER_ID");
+	}
+
+The developer can choose the user id to identify a unique user.
+We will send you a callback with this user id included for each transaction.
+Typically, the user id is a UUID.
+
+2. Call the .show() function to open the Offer Wall/Router Link
+
+	BitLabs.show();
+
+3. Optional: You can use .appendTag() to pass Tags to the SDK. These tags will be passed back in the callback
+
+	BitLabs.appendTag("userType", "new");
+        	BitLabs.appendTag("isPremium", "false");
+
+4. Optional (Android only so far): Call the .setHasSurveys() to get feedback about available surveys
+
+	// Set the name of the GameObject you would like to receive the feedback
+	BitLabs.setHasSurveys(gameObject.name);
+	
+	// Create a receiver Method
+	public void OnHasSurveys (string surveyAvailable){
+        	   Debug.Log("BitLabs Unity OnHasSurveys: " + surveyAvailable);
+    	}
+
+5. Optional (Android only so far): Call the .setOnReward() to receive client-side callbacks to reward the user. We highly recommend using server-to-server callbacks!
+
+	// Set the name of the GameObject you would like to receive the feedback
+	BitLabs.setOnReward(gameObject.name);
+	
+	// Create a receiver Method
+	public void OnReward (string payout){
+	   Debug.Log("BitLabs Unity OnReward: " + payout);
+    	}
+
+Supported Countries: US,DE,FR,GB,IT,ES,MX,AU,IN,CA,BR,NL,SG,BE,PH,ID,SE,TH,NZ,CH,DK,AT,RU,PL,IE,AR,PT,NO,JP,SA,AE,MA,BG,BH,CL,CO,CR,CZ,DO,EC,EG,FI,GH,GR,HK,HR,HU,IL,JO,KE,KR,KW,KZ,LU,MY,NG,OM,PA,PE,PK,PR,PY,QA,RO,RS,SI,SK,TR,TW,UA,UY,VN,ZA
+
+Please note that we are not allowed to enter surveys via VPN. Users are only allowed to take part in surveys in their own country due to quality insurance.
