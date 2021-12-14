@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class BitLabs : MonoBehaviour {
 
+    #if UNITY_IOS
+    
     [DllImport ("__Internal")]
     private static extern void _init(string token, string uid);
   
@@ -15,10 +17,14 @@ public class BitLabs : MonoBehaviour {
     [DllImport ("__Internal")]
     private static extern void _appendTag(string key, string value);
     
+    #elif UNITY_ANDROID
+    
     private static AndroidJavaClass unityPlayer;
     private static AndroidJavaObject currentActivity;
     private static AndroidJavaObject bitlabsObject;
     private static AndroidJavaObject bitlabsCompanion;
+    
+    #endif
 
     public static void init(string token, string uid) {
         #if UNITY_IOS
