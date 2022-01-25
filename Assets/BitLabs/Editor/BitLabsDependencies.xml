@@ -7,5 +7,10 @@
     <androidPackage spec="com.github.BitBurst-GmbH:bitlabs-android-library:1.2.1">
     </androidPackage>
   </androidPackages>
+  
+    <iosPods>
+      <iosPod name="BitLabs" version="~> 0.1.1" bitcodeEnabled="true"
+              minTargetSdk="12.0" addToAllTargets="false" />
+    </iosPods>
 
 </dependencies>
