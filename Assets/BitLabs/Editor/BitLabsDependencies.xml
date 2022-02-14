@@ -9,8 +9,8 @@
   </androidPackages>
   
     <iosPods>
-      <iosPod name="BitLabs" version="~> 0.1.1" bitcodeEnabled="true"
-              minTargetSdk="12.0" addToAllTargets="false" />
+      <iosPod name="BitLabs" version="~> 0.1.5" bitcodeEnabled="true"
+              minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 
 </dependencies>
