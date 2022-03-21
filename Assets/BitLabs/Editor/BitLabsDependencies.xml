@@ -4,12 +4,12 @@
     <repositories>
       <repository>https://jitpack.io</repository>
     </repositories>
-    <androidPackage spec="com.github.BitBurst-GmbH:bitlabs-android-library:1.2.1">
+    <androidPackage spec="com.github.BitBurst-GmbH:bitlabs-android-library:1.2.2">
     </androidPackage>
   </androidPackages>
   
     <iosPods>
-      <iosPod name="BitLabs" version="~> 0.1.5" bitcodeEnabled="true"
+      <iosPod name="BitLabs" version="~> 0.1.7" bitcodeEnabled="true"
               minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 

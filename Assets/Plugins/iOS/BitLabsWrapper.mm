@@ -17,7 +17,7 @@ extern "C" {
     }
     
     void _show() {
-        [bitlabs showWithParent:UnityGetGLViewController()];
+        [bitlabs showWithParent:UnityGetGLViewController() sdk: @"UNITY"];
     }
     
     void _appendTag(const char *key, const char *value) {
