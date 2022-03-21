@@ -47,7 +47,7 @@ public class BitLabs : MonoBehaviour {
         #if UNITY_IOS
         _show();
         #elif UNITY_ANDROID
-        bitlabsCompanion.Call("show", currentActivity);
+        bitlabsCompanion.Call("show", currentActivity, "UNITY");
         #endif
     }
     
