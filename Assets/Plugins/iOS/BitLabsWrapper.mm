@@ -3,7 +3,7 @@
 #import <BitLabs/BitLabs-Swift.h>
 #import "BitLabsWrapper.h"
 
-extern void UnitySendMessage(const char * className,const char * methodName, const char * param);
+extern void UnitySendMessage(const char * gameObjectName, const char * methodName, const char * methodParam);
 
 @implementation BitLabsWrapper
 
@@ -11,17 +11,40 @@ BitLabs *bitlabs;
 
 extern "C" {
     BitLabs* _init(const char *token, const char *uid) {
-        bitlabs = [BitLabs InitWithToken:[[NSString alloc] initWithCString:token encoding:NSUTF8StringEncoding] uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
+        bitlabs = [BitLabs shared];
+        [bitlabs configureWithToken:[[NSString alloc] initWithCString:token encoding:NSUTF8StringEncoding]
+         uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
         
         return bitlabs;
     }
-    
-    void _show() {
-        [bitlabs showWithParent:UnityGetGLViewController() sdk: @"UNITY"];
+
+    void _setTags(NSDictionary *tags) {
+        [bitlabs setTags:tags];
+    }
+
+    void _addTag(const char *key, const char *value) {
+        [bitlabs addTagWithKey: [[NSString alloc] initWithCString:key encoding:NSUTF8StringEncoding] 
+        value: [[NSString alloc] initWithCString:value encoding:NSUTF8StringEncoding]];
+    }
+
+    void _checkSurveys(const char *gameObject) {
+        NSString *name = [NSString stringWithUTF8String:gameObject];
+        [bitlabs checkSurveys:^(bool hasSurveys) {
+            const char *hasSurveysStr = [@(hasSurveys).stringValue UTF8String];
+            UnitySendMessage([name UTF8String], "checkSurveysCallback", hasSurveysStr);
+        }];
+    }
+
+    void _setRewardCompletionHandler(const char *gameObject) {
+        NSString *name = [NSString stringWithUTF8String:gameObject];
+        [bitlabs setRewardCompletionHandler:^(float payout) {
+            const char *payoutStr = [@(payout).stringValue UTF8String];
+            UnitySendMessage([name UTF8String], "rewardCallback", payoutStr);
+        }];
     }
     
-    void _appendTag(const char *key, const char *value) {
-        [bitlabs appendTagWithKey: [[NSString alloc] initWithCString:key encoding:NSUTF8StringEncoding] value: [[NSString alloc] initWithCString:value encoding:NSUTF8StringEncoding]];
+    void _launchOfferWall() {
+        [bitlabs launchOfferWallWithParent: UnityGetGLViewController()];
     }
 }
 

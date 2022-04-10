@@ -11,23 +11,26 @@ public class BitLabsExample : MonoBehaviour
     void Start()
     {
         BitLabs.init(Token, UserId);
-        
-        BitLabs.appendTag("userType", "new");
-        BitLabs.appendTag("isPremium", "false");
-        
-        BitLabs.setHasSurveys(gameObject.name);
-        BitLabs.setOnReward(gameObject.name);
+
+        BitLabs.addTag("userType", "new");
+        BitLabs.addTag("isPremium", "false");
+
+        BitLabs.checkSurveys(gameObject.name);
+        BitLabs.setRewardCallback(gameObject.name);
     }
-    
-    public void showSurveys() {
-        BitLabs.show();
+
+    public void showSurveys()
+    {
+        BitLabs.launchOfferWall();
     }
-    
-    public void OnHasSurveys (string surveyAvailable){
-        Debug.Log("BitLabs Unity OnHasSurveys: " + surveyAvailable);
+
+    public void checkSurveysCallback(string surveyAvailable)
+    {
+        Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
     }
-    
-    public void OnReward (string payout){
-        Debug.Log("BitLabs Unity OnReward: " + payout);
+
+    public void rewardCallback(string payout)
+    {
+        Debug.Log("BitLabs Unity onReward: " + payout);
     }
 }
