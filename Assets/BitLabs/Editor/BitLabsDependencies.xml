@@ -4,7 +4,7 @@
     <repositories>
       <repository>https://jitpack.io</repository>
     </repositories>
-    <androidPackage spec="com.github.BitBurst-GmbH:bitlabs-android-library:1.2.2">
+    <androidPackage spec="com.github.BitBurst-GmbH.bitlabs-android-library:unity:2.1.2">
     </androidPackage>
   </androidPackages>
   
