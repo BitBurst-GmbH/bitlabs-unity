@@ -16,6 +16,7 @@ public class BitLabsExample : MonoBehaviour
         BitLabs.addTag("isPremium", "false");
 
         BitLabs.checkSurveys(gameObject.name);
+        BitLabs.getSurveys(gameObject.name);
         BitLabs.setRewardCallback(gameObject.name);
     }
 
@@ -27,6 +28,12 @@ public class BitLabsExample : MonoBehaviour
     public void checkSurveysCallback(string surveyAvailable)
     {
         Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
+    }
+
+    public void getSurveysCallback(string surveysJson)
+    {
+        //TODO: Deserialise the json into native C# object
+        Debug.Log("BitLabs Unity getSurveys: " + surveysString);
     }
 
     public void rewardCallback(string payout)
