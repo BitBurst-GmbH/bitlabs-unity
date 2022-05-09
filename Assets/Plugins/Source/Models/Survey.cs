@@ -1,12 +1,4 @@
-using System;
-using UnityEngine;
-
-public class SurveyList
-{
-    public Survey[] surveys;
-}
-
-[Serializable]
+[System.Serializable]
 public class Survey
 {
     public int networkId;
@@ -20,23 +12,7 @@ public class Survey
     public string link;
     public int missingQuestions;
 
-    public void open() 
+    public void open()
     {
     }
 }
-
-[Serializable]
-public class Details
-{
-    public Category category;
-}
-
-[Serializable]
-public class Category
-{
-    public string name;
-    public string iconUrl;
-}
-
-
-

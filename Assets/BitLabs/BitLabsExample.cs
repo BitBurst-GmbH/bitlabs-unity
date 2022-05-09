@@ -16,13 +16,17 @@ public class BitLabsExample : MonoBehaviour
         BitLabs.addTag("isPremium", "false");
 
         BitLabs.checkSurveys(gameObject.name);
-        BitLabs.getSurveys(gameObject.name);
         BitLabs.setRewardCallback(gameObject.name);
     }
 
     public void showSurveys()
     {
         BitLabs.launchOfferWall();
+    }
+
+    public void getSurveys()
+    {
+        BitLabs.getSurveys(gameObject.name);
     }
 
     public void checkSurveysCallback(string surveyAvailable)
@@ -32,12 +36,21 @@ public class BitLabsExample : MonoBehaviour
 
     public void getSurveysCallback(string surveysJson)
     {
-        //TODO: Deserialise the json into native C# object
-        Debug.Log("BitLabs Unity getSurveys: " + surveysString);
+        SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
+        foreach (var survey in surveyList.surveys)
+        {
+            Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.details.category.name);
+        }
     }
 
     public void rewardCallback(string payout)
     {
         Debug.Log("BitLabs Unity onReward: " + payout);
     }
+}
+
+[System.Serializable]
+class SurveyList
+{
+    public Survey[] surveys;
 }
