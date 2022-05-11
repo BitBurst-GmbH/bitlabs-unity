@@ -35,6 +35,21 @@ extern "C" {
         }];
     }
 
+    void _getSurveys(const char *gameObject) {
+        NSString *name = [NSString stringWithUTF8String:gameObject];
+        [bitlabs getSurveys:^(NSArray<Survey*> *surveys) {
+            NSMutableArray *array = [NSMutableArray new];
+            for(Survey* survey in surveys) {
+                [array addObject:[survey asDictionary]];
+            }
+            NSData* data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *surveysStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            
+            const char *jsonStr = [surveysStr UTF8String];
+            UnitySendMessage([name UTF8String], "getSurveysCallback", jsonStr);
+        }];
+    }
+
     void _setRewardCompletionHandler(const char *gameObject) {
         NSString *name = [NSString stringWithUTF8String:gameObject];
         [bitlabs setRewardCompletionHandler:^(float payout) {

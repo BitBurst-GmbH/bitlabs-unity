@@ -8,28 +8,31 @@ public class BitLabs : MonoBehaviour
 {
 
 #if UNITY_IOS
-    [DllImport ("__Internal")]
-    private static extern void _init(string token, string uid);
+        [DllImport ("__Internal")]
+        private static extern void _init(string token, string uid);
 
-    [DllImport ("__Internal")]
-    private static extern void _launchOfferWall();
+        [DllImport ("__Internal")]
+        private static extern void _launchOfferWall();
 
-    [DllImport ("__Internal")]
-    private static extern void _setTags(Dictionary<string,string> tags);
-    
-    [DllImport ("__Internal")]
-    private static extern void _addTag(string key, string value);
+        [DllImport ("__Internal")]
+        private static extern void _setTags(Dictionary<string,string> tags);
 
-    [DllImport ("__Internal")]
-    private static extern void _checkSurveys(string gameObject);
+        [DllImport ("__Internal")]
+        private static extern void _addTag(string key, string value);
 
-    [DllImport ("__Internal")]
-    private static extern void _setRewardCompletionHandler(string gameObject);
+        [DllImport ("__Internal")]
+        private static extern void _checkSurveys(string gameObject);
+
+        [DllImport ("__Internal")]
+        private static extern void _getSurveys(string gameObject);
+
+        [DllImport ("__Internal")]
+        private static extern void _setRewardCompletionHandler(string gameObject);
 #elif UNITY_ANDROID
-    private static AndroidJavaClass unityPlayer;
-    private static AndroidJavaObject currentActivity;
-    private static AndroidJavaObject bitlabsObject;
-    private static AndroidJavaObject bitlabs;
+        private static AndroidJavaClass unityPlayer;
+        private static AndroidJavaObject currentActivity;
+        private static AndroidJavaObject bitlabsObject;
+        private static AndroidJavaObject bitlabs;
 #endif
 
     public static void init(string token, string uid)
@@ -80,6 +83,15 @@ public class BitLabs : MonoBehaviour
         _checkSurveys(gameObject);
 #elif UNITY_ANDROID
         bitlabs.Call("checkSurveys", gameObject);
+#endif
+    }
+
+    public static void getSurveys(string gameObject)
+    {
+#if UNITY_IOS
+        _getSurveys(gameObject);
+#elif UNITY_ANDROID
+        bitlabs.Call("getSurveys", gameObject);
 #endif
     }
 

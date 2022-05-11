@@ -24,13 +24,37 @@ public class BitLabsExample : MonoBehaviour
         BitLabs.launchOfferWall();
     }
 
+    public void getSurveys()
+    {
+        BitLabs.getSurveys(gameObject.name);
+    }
+
     public void checkSurveysCallback(string surveyAvailable)
     {
         Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
+    }
+
+    public void getSurveysCallback(string surveysJson)
+    {
+        SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
+        foreach (var survey in surveyList.surveys)
+        {
+            Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.details.category.name);
+        }
     }
 
     public void rewardCallback(string payout)
     {
         Debug.Log("BitLabs Unity onReward: " + payout);
     }
+}
+
+
+// This class is used to deserialise the JSON Array of Surveys
+// It's necessary if you're using JsonUtility for Deserialisation
+// If you use another Library or namespace, then you may not need such a class
+[System.Serializable]
+class SurveyList
+{
+    public Survey[] surveys;
 }
