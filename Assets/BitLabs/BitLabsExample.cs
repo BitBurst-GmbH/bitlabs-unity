@@ -49,6 +49,10 @@ public class BitLabsExample : MonoBehaviour
     }
 }
 
+
+// This class is used to deserialise the JSON Array of Surveys
+// It's necessary if you're using JsonUtility for Deserialisation
+// If you use another Library or namespace, then you may not need such a class
 [System.Serializable]
 class SurveyList
 {

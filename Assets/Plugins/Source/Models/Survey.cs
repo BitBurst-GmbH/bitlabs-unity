@@ -11,8 +11,4 @@ public class Survey
     public int rating;
     public string link;
     public int missingQuestions;
-
-    public void open()
-    {
-    }
 }
