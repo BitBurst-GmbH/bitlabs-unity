@@ -46,7 +46,7 @@ public class BitLabs : MonoBehaviour
 
         bitlabsObject = new AndroidJavaObject ("ai.bitlabs.sdk.BitLabs");
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject> ("INSTANCE");
-        bitlabs.Call("init", token, uid);
+        bitlabs.Call("init", currentActivity, token, uid);
 #endif
     }
 
