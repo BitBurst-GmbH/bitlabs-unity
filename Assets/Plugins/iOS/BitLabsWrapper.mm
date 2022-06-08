@@ -61,6 +61,10 @@ extern "C" {
     void _launchOfferWall() {
         [bitlabs launchOfferWallWithParent: UnityGetGLViewController()];
     }
+    
+    void _requestTrackingAuthorization() {
+        [bitlabs requestTrackingAuthorization];
+    }
 }
 
 @end

@@ -15,8 +15,17 @@ public class BitLabsExample : MonoBehaviour
         BitLabs.addTag("userType", "new");
         BitLabs.addTag("isPremium", "false");
 
-        BitLabs.checkSurveys(gameObject.name);
         BitLabs.setRewardCallback(gameObject.name);
+    }
+
+    public void authorizeTracking()
+    {
+        BitLabs.requestTrackingAuthorization();
+    }
+
+    public void checkSurveys()
+    {
+        BitLabs.checkSurveys(gameObject.name);
     }
 
     public void showSurveys()
