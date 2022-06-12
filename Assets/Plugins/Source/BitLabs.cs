@@ -28,6 +28,9 @@ public class BitLabs : MonoBehaviour
 
         [DllImport ("__Internal")]
         private static extern void _setRewardCompletionHandler(string gameObject);
+
+        [DllImport ("__Internal")]
+        private static extern void _requestTrackingAuthorization();
 #elif UNITY_ANDROID
         private static AndroidJavaClass unityPlayer;
         private static AndroidJavaObject currentActivity;
@@ -46,7 +49,7 @@ public class BitLabs : MonoBehaviour
 
         bitlabsObject = new AndroidJavaObject ("ai.bitlabs.sdk.BitLabs");
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject> ("INSTANCE");
-        bitlabs.Call("init", token, uid);
+        bitlabs.Call("init", currentActivity, token, uid);
 #endif
     }
 
@@ -101,6 +104,13 @@ public class BitLabs : MonoBehaviour
         _setRewardCompletionHandler(gameObject);
 #elif UNITY_ANDROID
         bitlabs.Call("setOnRewardListener", gameObject);
+#endif
+    }
+
+    public static void requestTrackingAuthorization()
+    {
+#if UNITY_IOS
+        _requestTrackingAuthorization();
 #endif
     }
 }

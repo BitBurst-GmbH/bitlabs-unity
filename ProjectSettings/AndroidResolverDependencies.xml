@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:2.2.8</package>
+    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:2.3.0</package>
   </packages>
   <files>
     <file>Assets/Plugins/Android/androidx.activity.activity-1.2.4.aar</file>
@@ -38,7 +38,9 @@
     <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-animated-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.1.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-2.2.8.aar</file>
+    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-2.3.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-18.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-18.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.5.jar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>
     <file>Assets/Plugins/Android/com.squareup.okhttp3.okhttp-3.14.9.jar</file>
@@ -46,10 +48,10 @@
     <file>Assets/Plugins/Android/com.squareup.retrofit2.converter-gson-2.9.0.jar</file>
     <file>Assets/Plugins/Android/com.squareup.retrofit2.retrofit-2.9.0.jar</file>
     <file>Assets/Plugins/Android/org.jetbrains.annotations-13.0.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-1.6.10.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-common-1.6.10.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk7-1.6.10.jar</file>
-    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk8-1.6.10.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-1.6.21.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-common-1.6.21.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk7-1.6.21.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk8-1.6.21.jar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
