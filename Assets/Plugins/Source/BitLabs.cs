@@ -1,8 +1,9 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using UnityEngine.VspAttribution.BitLabs;
 
 public class BitLabs : MonoBehaviour
 {
@@ -51,6 +52,9 @@ public class BitLabs : MonoBehaviour
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject> ("INSTANCE");
         bitlabs.Call("init", currentActivity, token, uid);
 #endif
+
+        var result = VspAttribution.SendAttributionEvent("init", "BitLabs Publisher", token);
+        Debug.Log($"[VSP Attribution] Attribution Event returned status: {result}!");
     }
 
     public static void launchOfferWall()
