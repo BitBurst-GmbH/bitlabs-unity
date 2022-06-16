@@ -58,16 +58,10 @@ namespace UnityEngine.VspAttribution.BitLabs
 				bool isRuntimeAnalyticsEnabled = Analytics.Analytics.enabled;
 
 				if (!isRuntimeAnalyticsEnabled)
-                {
-					Debug.Log("Analytics not Enabled");
 					return AnalyticsResult.AnalyticsDisabled;
-				}
 
 				if (!Debug.isDebugBuild)
-                {
-					Debug.Log("Debug build");
 					return AnalyticsResult.UnsupportedPlatform;
-				}
 #endif
 
 				// Can an event be registered?

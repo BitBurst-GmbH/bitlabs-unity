@@ -860,7 +860,14 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 1
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -874,11 +881,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 4fa63c99-eb0d-4c84-b7d3-311b42a1a985
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: BitLabs
+  organizationId: bitlabs-as-publisher
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
