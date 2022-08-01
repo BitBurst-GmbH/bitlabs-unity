@@ -1,31 +1,34 @@
 using TMPro;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Container : MonoBehaviour
 {
+
+    [SerializeField] private Survey[] surveys;
+    [SerializeField] private GameObject prefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        GameObject templateObject = transform.GetChild(0).gameObject;
-        GameObject gO;
-
-        for (int i = 0; i < 5; i++)
-        {
-            gO = Instantiate(templateObject, transform);
-            Transform p0 = gO.transform.GetChild(0);
-
-            p0.transform.GetChild(0).transform.GetChild(1).GetComponent<TMP_Text>().text = "Hey " + i;
-        }
-
-        Destroy(templateObject);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateList(Survey[] surveys)
     {
-        
+        this.surveys = surveys;
+        GameObject gO;
+
+        while (transform.childCount > 0)
+        {
+            Destroy(transform.GetChild(0).gameObject);
+        }
+
+        foreach (var survey in this.surveys)
+        {
+            gO = Instantiate(prefab, transform);
+            Transform p0 = gO.transform.GetChild(0);
+
+            p0.transform.GetChild(0).transform.GetChild(1).GetComponent<TMP_Text>().text = survey.loi + " minutes";
+        }
     }
 }

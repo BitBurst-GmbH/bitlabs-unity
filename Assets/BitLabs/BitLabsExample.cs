@@ -50,6 +50,9 @@ public class BitLabsExample : MonoBehaviour
         {
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.details.category.name);
         }
+        GameObject container = GameObject.Find("container");
+        Container containerScript = container.GetComponent<Container>();
+        containerScript.UpdateList(surveyList.surveys);
     }
 
     public void rewardCallback(string payout)
