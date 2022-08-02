@@ -18,9 +18,10 @@ public class Container : MonoBehaviour
         this.surveys = surveys;
         GameObject gO;
 
-        while (transform.childCount > 0)
+        foreach (Transform child in transform)
         {
-            Destroy(transform.GetChild(0).gameObject);
+            Debug.Log("in while :)");
+            GameObject.Destroy(child.gameObject);
         }
 
         foreach (var survey in this.surveys)
