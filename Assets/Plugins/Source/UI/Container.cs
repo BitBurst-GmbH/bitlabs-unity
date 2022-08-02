@@ -3,33 +3,39 @@ using UnityEngine;
 
 public class Container : MonoBehaviour
 {
-
-    [SerializeField] private Survey[] surveys;
     [SerializeField] private GameObject prefab;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void UpdateList(Survey[] surveys)
     {
-        this.surveys = surveys;
-        GameObject gO;
+        GameObject surveyWidget;
+        Transform rightPanel, leftPanel;
 
         foreach (Transform child in transform)
         {
-            Debug.Log("in while :)");
-            GameObject.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
 
-        foreach (var survey in this.surveys)
+        foreach (var survey in surveys)
         {
-            gO = Instantiate(prefab, transform);
-            Transform p0 = gO.transform.GetChild(0);
+            surveyWidget = Instantiate(prefab, transform);
+            leftPanel = surveyWidget.transform.GetChild(0);
+            rightPanel = surveyWidget.transform.GetChild(1);
 
-            p0.transform.GetChild(0).transform.GetChild(1).GetComponent<TMP_Text>().text = survey.loi + " minutes";
+            leftPanel
+                .transform.GetChild(0)
+                .transform.GetChild(1)
+                .GetComponent<TMP_Text>().text = survey.loi + " minutes";
+
+            leftPanel
+                .transform.GetChild(1)
+                .transform.GetChild(5)
+                .GetComponent<TMP_Text>().text = survey.rating.ToString();
+
+            rightPanel
+                .transform.GetChild(1)
+                .GetComponent<TMP_Text>().text = "EARN\n" + survey.cpi;
         }
     }
+
+
 }
