@@ -20,6 +20,7 @@ public class Container : MonoBehaviour
         foreach (var survey in surveys)
         {
             surveyWidget = Instantiate(prefab, transform);
+            surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
             leftPanel = surveyWidget.transform.GetChild(0);
             rightPanel = surveyWidget.transform.GetChild(1);
 
@@ -47,5 +48,9 @@ public class Container : MonoBehaviour
         }
     }
 
+    private void SurveyOnClick()
+    {
+        BitLabs.launchOfferWall();
+    }
 
 }
