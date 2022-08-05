@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Container : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
+    [SerializeField] private Sprite fillStarImage;
 
     public void UpdateList(Survey[] surveys)
     {
@@ -31,9 +33,17 @@ public class Container : MonoBehaviour
                 .transform.GetChild(5)
                 .GetComponent<TMP_Text>().text = survey.rating.ToString();
 
+            for (int i = 0; i < survey.rating; i++)
+            {
+                leftPanel
+                    .transform.GetChild(1)
+                    .transform.GetChild(i)
+                    .GetComponent<Image>().sprite = fillStarImage;
+            }
+
             rightPanel
                 .transform.GetChild(1)
-                .GetComponent<TMP_Text>().text = "EARN\n" + survey.cpi;
+                .GetComponent<TMP_Text>().text = "EARN\n" + survey.cpi; 
         }
     }
 
