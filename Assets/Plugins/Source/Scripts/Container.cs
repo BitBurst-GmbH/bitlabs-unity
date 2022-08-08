@@ -50,7 +50,7 @@ public class Container : MonoBehaviour
 
     private void SurveyOnClick()
     {
-        BitLabs.launchOfferWall();
+        BitLabs.LaunchOfferWall();
     }
 
 }

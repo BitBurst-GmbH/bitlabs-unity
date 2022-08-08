@@ -208,8 +208,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 186635769}
-        m_TargetAssemblyTypeName: BitLabsExample, Assembly-CSharp
-        m_MethodName: showSurveys
+        m_TargetAssemblyTypeName: Example, Assembly-CSharp
+        m_MethodName: ShowSurveys
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -462,8 +462,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 186635769}
-        m_TargetAssemblyTypeName: BitLabsExample, Assembly-CSharp
-        m_MethodName: getSurveys
+        m_TargetAssemblyTypeName: Example, Assembly-CSharp
+        m_MethodName: GetSurveys
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -743,8 +743,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 186635769}
-        m_TargetAssemblyTypeName: BitLabsExample, Assembly-CSharp
-        m_MethodName: authorizeTracking
+        m_TargetAssemblyTypeName: Example, Assembly-CSharp
+        m_MethodName: AuthorizeTracking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2301,8 +2301,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 186635769}
-        m_TargetAssemblyTypeName: BitLabsExample, Assembly-CSharp
-        m_MethodName: checkSurveys
+        m_TargetAssemblyTypeName: Example, Assembly-CSharp
+        m_MethodName: CheckSurveys
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

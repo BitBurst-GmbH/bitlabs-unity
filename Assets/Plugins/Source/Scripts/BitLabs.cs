@@ -37,7 +37,7 @@ public class BitLabs : MonoBehaviour
         private static AndroidJavaObject bitlabs;
 #endif
 
-    public static void init(string token, string uid)
+    public static void Init(string token, string uid)
     {
 #if UNITY_IOS
         _init(token, uid);
@@ -55,7 +55,7 @@ public class BitLabs : MonoBehaviour
         Debug.Log($"[VSP Attribution] Attribution Event returned status: {result}!");
     }
 
-    public static void launchOfferWall()
+    public static void LaunchOfferWall()
     {
 #if UNITY_IOS
         _launchOfferWall();
@@ -64,7 +64,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void setTags(Dictionary<string, string> tags)
+    public static void SetTags(Dictionary<string, string> tags)
     {
 #if UNITY_IOS
         _setTags(tags);
@@ -73,7 +73,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void addTag(string key, string value)
+    public static void AddTag(string key, string value)
     {
 #if UNITY_IOS
         _addTag(key, value);
@@ -82,7 +82,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void checkSurveys(string gameObject)
+    public static void CheckSurveys(string gameObject)
     {
 #if UNITY_IOS
         _checkSurveys(gameObject);
@@ -91,7 +91,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void getSurveys(string gameObject)
+    public static void GetSurveys(string gameObject)
     {
 #if UNITY_IOS
         _getSurveys(gameObject);
@@ -100,7 +100,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void setRewardCallback(string gameObject)
+    public static void SetRewardCallback(string gameObject)
     {
 #if UNITY_IOS
         _setRewardCompletionHandler(gameObject);
@@ -109,7 +109,7 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void requestTrackingAuthorization()
+    public static void RequestTrackingAuthorization()
     {
 #if UNITY_IOS
         _requestTrackingAuthorization();
