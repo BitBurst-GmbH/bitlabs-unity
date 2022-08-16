@@ -38,12 +38,12 @@ public class Example : MonoBehaviour
         BitLabs.GetSurveys(gameObject.name);
     }
 
-    private void checkSurveysCallback(string surveyAvailable)
+    private void CheckSurveysCallback(string surveyAvailable)
     {
         Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
     }
 
-    private void getSurveysCallback(string surveysJson)
+    private void GetSurveysCallback(string surveysJson)
     {
         SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
         foreach (var survey in surveyList.surveys)
@@ -55,7 +55,7 @@ public class Example : MonoBehaviour
         containerScript.UpdateList(surveyList.surveys);
     }
 
-    private void rewardCallback(string payout)
+    private void RewardCallback(string payout)
     {
         Debug.Log("BitLabs Unity onReward: " + payout);
     }
