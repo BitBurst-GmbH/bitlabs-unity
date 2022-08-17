@@ -31,7 +31,7 @@ extern "C" {
         NSString *name = [NSString stringWithUTF8String:gameObject];
         [bitlabs checkSurveys:^(bool hasSurveys) {
             const char *hasSurveysStr = [@(hasSurveys).stringValue UTF8String];
-            UnitySendMessage([name UTF8String], "checkSurveysCallback", hasSurveysStr);
+            UnitySendMessage([name UTF8String], "CheckSurveysCallback", hasSurveysStr);
         }];
     }
 
@@ -46,7 +46,7 @@ extern "C" {
             NSString *surveysStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             const char *jsonStr = [surveysStr UTF8String];
-            UnitySendMessage([name UTF8String], "getSurveysCallback", jsonStr);
+            UnitySendMessage([name UTF8String], "GetSurveysCallback", jsonStr);
         }];
     }
 
@@ -54,7 +54,7 @@ extern "C" {
         NSString *name = [NSString stringWithUTF8String:gameObject];
         [bitlabs setRewardCompletionHandler:^(float payout) {
             const char *payoutStr = [@(payout).stringValue UTF8String];
-            UnitySendMessage([name UTF8String], "rewardCallback", payoutStr);
+            UnitySendMessage([name UTF8String], "RewardCallback", payoutStr);
         }];
     }
     
