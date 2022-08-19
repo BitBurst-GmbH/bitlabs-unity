@@ -50,8 +50,8 @@ public class Example : MonoBehaviour
         {
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.details.category.name);
         }
-        GameObject container = GameObject.Find("container");
-        Container containerScript = container.GetComponent<Container>();
+        GameObject container = GameObject.Find("SurveyContainer");
+        SurveyContainer containerScript = container.GetComponent<SurveyContainer>();
         containerScript.UpdateList(surveyList.surveys);
     }
 

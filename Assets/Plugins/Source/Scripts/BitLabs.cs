@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine.VspAttribution.BitLabs;
 
 public class BitLabs : MonoBehaviour
@@ -36,6 +35,8 @@ public class BitLabs : MonoBehaviour
         private static AndroidJavaObject bitlabsObject;
         private static AndroidJavaObject bitlabs;
 #endif
+
+    public static string WidgetColor;
 
     public static void Init(string token, string uid)
     {
@@ -96,6 +97,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
+        WidgetColor = bitlabs.Call<string>("getColor");
         bitlabs.Call("getSurveys", gameObject);
 #endif
     }

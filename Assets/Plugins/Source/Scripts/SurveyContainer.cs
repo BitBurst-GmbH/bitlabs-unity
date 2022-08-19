@@ -2,13 +2,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Container : MonoBehaviour
+public class SurveyContainer : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
 
     public void UpdateList(Survey[] surveys)
     {
+        if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor, out Color color))
+        {
+            prefab.GetComponent<Image>().color = color;
+            prefab
+                .transform.GetChild(1)
+                .transform.GetChild(1)
+                .GetComponent<TMP_Text>().color = color;
+        }
+
         GameObject surveyWidget;
         Transform rightPanel, leftPanel;
 

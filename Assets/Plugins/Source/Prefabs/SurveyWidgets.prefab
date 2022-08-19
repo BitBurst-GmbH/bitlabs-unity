@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7357968271052725715}
   - component: {fileID: 7357968271052725712}
   m_Layer: 5
-  m_Name: container
+  m_Name: SurveyContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7357968271052725718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eccca653a43e4b45934a5b1ef11bd5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fbf16c5d9c74f4ab1d611177d40fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3261092580751146952, guid: 08c012c0d6d3245beb46cb5fbceb6eab, type: 3}
