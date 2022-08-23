@@ -4,12 +4,12 @@
     <repositories>
       <repository>https://jitpack.io</repository>
     </repositories>
-    <androidPackage spec="com.github.BitBurst-GmbH.bitlabs-android-library:unity:2.3.0">
+    <androidPackage spec="com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.0.1">
     </androidPackage>
   </androidPackages>
   
     <iosPods>
-      <iosPod name="BitLabs/Unity" version="~> 2.3.0" bitcodeEnabled="true"
+      <iosPod name="BitLabs/Unity" version="~> 3.0.2" bitcodeEnabled="true"
               minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 

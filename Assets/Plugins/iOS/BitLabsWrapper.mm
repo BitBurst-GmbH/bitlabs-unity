@@ -10,12 +10,10 @@ extern void UnitySendMessage(const char * gameObjectName, const char * methodNam
 BitLabs *bitlabs;
 
 extern "C" {
-    BitLabs* _init(const char *token, const char *uid) {
+    void _init(const char *token, const char *uid) {
         bitlabs = [BitLabs shared];
         [bitlabs configureWithToken:[[NSString alloc] initWithCString:token encoding:NSUTF8StringEncoding]
          uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
-        
-        return bitlabs;
     }
 
     void _setTags(NSDictionary *tags) {
@@ -31,7 +29,7 @@ extern "C" {
         NSString *name = [NSString stringWithUTF8String:gameObject];
         [bitlabs checkSurveys:^(bool hasSurveys) {
             const char *hasSurveysStr = [@(hasSurveys).stringValue UTF8String];
-            UnitySendMessage([name UTF8String], "checkSurveysCallback", hasSurveysStr);
+            UnitySendMessage([name UTF8String], "CheckSurveysCallback", hasSurveysStr);
         }];
     }
 
@@ -46,7 +44,7 @@ extern "C" {
             NSString *surveysStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             const char *jsonStr = [surveysStr UTF8String];
-            UnitySendMessage([name UTF8String], "getSurveysCallback", jsonStr);
+            UnitySendMessage([name UTF8String], "GetSurveysCallback", jsonStr);
         }];
     }
 
@@ -54,7 +52,7 @@ extern "C" {
         NSString *name = [NSString stringWithUTF8String:gameObject];
         [bitlabs setRewardCompletionHandler:^(float payout) {
             const char *payoutStr = [@(payout).stringValue UTF8String];
-            UnitySendMessage([name UTF8String], "rewardCallback", payoutStr);
+            UnitySendMessage([name UTF8String], "RewardCallback", payoutStr);
         }];
     }
     
@@ -64,6 +62,15 @@ extern "C" {
     
     void _requestTrackingAuthorization() {
         [bitlabs requestTrackingAuthorization];
+    }
+    
+    char * _getColor() { // char* is the type accepted by Unity C# as string
+        const char* color = [[bitlabs getColor] UTF8String];
+        
+        char* res = (char*)malloc(strlen(color) + 1); // Allocate memory for the char*
+        
+        strcpy(res, color); // Copy the string in color to the new char* variable
+        return res;
     }
 }
 
