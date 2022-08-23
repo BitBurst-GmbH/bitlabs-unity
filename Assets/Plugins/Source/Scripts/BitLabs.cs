@@ -1,39 +1,43 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.VspAttribution.BitLabs;
+using System.Runtime.InteropServices;
 
 public class BitLabs : MonoBehaviour
 {
 
 #if UNITY_IOS
-        [DllImport ("__Internal")]
-        private static extern void _init(string token, string uid);
+    [DllImport("__Internal")]
+    private static extern void _init(string token, string uid);
 
-        [DllImport ("__Internal")]
-        private static extern void _launchOfferWall();
+    [DllImport("__Internal")]
+    private static extern void _launchOfferWall();
 
-        [DllImport ("__Internal")]
-        private static extern void _setTags(Dictionary<string,string> tags);
+    [DllImport("__Internal")]
+    private static extern void _setTags(Dictionary<string, string> tags);
 
-        [DllImport ("__Internal")]
-        private static extern void _addTag(string key, string value);
+    [DllImport("__Internal")]
+    private static extern void _addTag(string key, string value);
 
-        [DllImport ("__Internal")]
-        private static extern void _checkSurveys(string gameObject);
+    [DllImport("__Internal")]
+    private static extern void _checkSurveys(string gameObject);
 
-        [DllImport ("__Internal")]
-        private static extern void _getSurveys(string gameObject);
+    [DllImport("__Internal")]
+    private static extern void _getSurveys(string gameObject);
 
-        [DllImport ("__Internal")]
-        private static extern void _setRewardCompletionHandler(string gameObject);
+    [DllImport("__Internal")]
+    private static extern void _setRewardCompletionHandler(string gameObject);
 
-        [DllImport ("__Internal")]
-        private static extern void _requestTrackingAuthorization();
+    [DllImport("__Internal")]
+    private static extern void _requestTrackingAuthorization();
+
+    [DllImport("__Internal")]
+    private static extern string _getColor();
 #elif UNITY_ANDROID
-        private static AndroidJavaClass unityPlayer;
-        private static AndroidJavaObject currentActivity;
-        private static AndroidJavaObject bitlabsObject;
-        private static AndroidJavaObject bitlabs;
+    private static AndroidJavaClass unityPlayer;
+    private static AndroidJavaObject currentActivity;
+    private static AndroidJavaObject bitlabsObject;
+    private static AndroidJavaObject bitlabs;
 #endif
 
     public static string WidgetColor;
@@ -95,6 +99,7 @@ public class BitLabs : MonoBehaviour
     public static void GetSurveys(string gameObject)
     {
 #if UNITY_IOS
+        WidgetColor = _getColor();
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
         WidgetColor = bitlabs.Call<string>("getColor");
