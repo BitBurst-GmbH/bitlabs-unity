@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.VspAttribution.BitLabs;
 using System.Runtime.InteropServices;
+#if UNITY_EDITOR
+using UnityEditor.VSAttribution.BitLabs;
+#endif
 
 public class BitLabs : MonoBehaviour
 {
@@ -56,8 +58,6 @@ public class BitLabs : MonoBehaviour
         bitlabs.Call("init", currentActivity, token, uid);
 #endif
 
-        var result = VspAttribution.SendAttributionEvent("init", "BitLabs Publisher", token);
-        Debug.Log($"[VSP Attribution] Attribution Event returned status: {result}!");
     }
 
     public static void LaunchOfferWall()
