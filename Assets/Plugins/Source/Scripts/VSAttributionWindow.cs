@@ -2,16 +2,15 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.VSAttribution.BitLabs;
 
-public class StaticScriptSample : EditorWindow
+public class VSAttributionWindow : EditorWindow
 {
     static readonly Vector2 s_WindowSize = new(320, 100);
 
     public string customerUid;
 
-    [MenuItem("BitLabs/Initialise")]
     public static void Initialize()
     {
-        var window = GetWindow<StaticScriptSample>();
+        var window = GetWindow<VSAttributionWindow>();
 
         window.titleContent = new GUIContent("VS Attribution");
         window.minSize = s_WindowSize;
