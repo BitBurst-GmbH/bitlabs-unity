@@ -12,14 +12,13 @@ public class SurveyContainer : MonoBehaviour
         if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor, out Color color))
         {
             prefab.GetComponent<Image>().color = color;
-            prefab
-                .transform.GetChild(1)
-                .transform.GetChild(1)
+
+            prefab.transform
+                .Find("RightPanel/RewardText")
                 .GetComponent<TMP_Text>().color = color;
         }
 
         GameObject surveyWidget;
-        Transform rightPanel, leftPanel;
 
         foreach (Transform child in transform)
         {
@@ -30,30 +29,26 @@ public class SurveyContainer : MonoBehaviour
         {
             surveyWidget = Instantiate(prefab, transform);
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
-            leftPanel = surveyWidget.transform.GetChild(0);
-            rightPanel = surveyWidget.transform.GetChild(1);
-
-            leftPanel
-                .transform.GetChild(0)
-                .transform.GetChild(1)
+            
+            surveyWidget.transform
+                .Find("LeftPanel/TopPanel/LoiText")
                 .GetComponent<TMP_Text>().text = survey.loi + " minutes";
 
-            leftPanel
-                .transform.GetChild(1)
-                .transform.GetChild(5)
+            surveyWidget.transform
+                .Find("LeftPanel/BottomPanel/RatingText")
                 .GetComponent<TMP_Text>().text = survey.rating.ToString();
 
-            for (int i = 0; i < survey.rating; i++)
+
+            for (int i = 1; i <= survey.rating; i++)
             {
-                leftPanel
-                    .transform.GetChild(1)
-                    .transform.GetChild(i)
+                surveyWidget.transform
+                    .Find($"LeftPanel/BottomPanel/Star{i}")
                     .GetComponent<Image>().sprite = fillStarImage;
             }
 
-            rightPanel
-                .transform.GetChild(1)
-                .GetComponent<TMP_Text>().text = "EARN\n" + survey.cpi; 
+            surveyWidget.transform
+                .Find("RightPanel/RewardText")
+                .GetComponent<TMP_Text>().text = "EARN\n" + survey.cpi;
         }
     }
 

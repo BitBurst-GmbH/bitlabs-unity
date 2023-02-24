@@ -1,6 +1,7 @@
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 using UnityEditor.VSAttribution.BitLabs;
+
 
 public class VSAttributionWindow : EditorWindow
 {

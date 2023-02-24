@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3261092580751146957}
   - component: {fileID: 3261092580751146954}
   m_Layer: 5
-  m_Name: SurveyWidget
+  m_Name: CompactWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 3261092580766731986}
   - component: {fileID: 3261092580766731987}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 3261092581267984636}
   - component: {fileID: 3261092581267984634}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: TopPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 3261092581375135261}
   - component: {fileID: 3261092581375135258}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Star5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 3261092581406572753}
   - component: {fileID: 3261092581406572750}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,7 +768,7 @@ GameObject:
   - component: {fileID: 3261092581647228929}
   - component: {fileID: 3261092581647229054}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 3261092581680897575}
   - component: {fileID: 3261092581680897572}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Star4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 3261092582063842520}
   - component: {fileID: 3261092582063842521}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RatingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,8 +1055,8 @@ GameObject:
   - component: {fileID: 3261092582072202262}
   - component: {fileID: 3261092582072202263}
   m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_Name: RewardText
+  m_TagString: EarnReward
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 3261092582221575786}
   - component: {fileID: 3261092582221575787}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LoiText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1327,7 +1327,7 @@ GameObject:
   - component: {fileID: 3261092582388077428}
   - component: {fileID: 569019154304667480}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: BottomPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
