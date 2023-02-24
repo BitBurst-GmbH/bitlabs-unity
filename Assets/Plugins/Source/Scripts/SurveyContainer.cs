@@ -16,6 +16,10 @@ public class SurveyContainer : MonoBehaviour
             prefab.transform
                 .Find("RightPanel/RewardText")
                 .GetComponent<TMP_Text>().color = color;
+
+            prefab.transform
+                .Find("RightPanel/PlayImage")
+                .GetComponent<Image>().color = color;
         }
 
         GameObject surveyWidget;
