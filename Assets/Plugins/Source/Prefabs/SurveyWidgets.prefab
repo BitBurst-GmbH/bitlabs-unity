@@ -68,7 +68,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 270, y: 100}
+  m_CellSize: {x: 400, y: 40}
   m_Spacing: {x: 2, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fbf16c5d9c74f4ab1d611177d40fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3261092580751146952, guid: a136ac7873a2c41f6b557cc5ca3e1691, type: 3}
+  prefab: {fileID: 3261092580751146952, guid: 20cc8e79d02c744cca3fbd2e997f65ea, type: 3}
   fillStarImage: {fileID: 21300000, guid: e6294ce0c2f614fa9a4af46a846ccc3f, type: 3}
 --- !u!1 &7357968272085281673
 GameObject:

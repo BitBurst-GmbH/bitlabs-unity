@@ -13,7 +13,7 @@ public class SurveyContainer : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
 
-    private string rewardTextPath, playImagePath, loiTextPath, ratingTextPath;
+    private string rewardTextPath, playImagePath, loiTextPath, ratingTextPath, starsPath;
 
     public void UpdateList(Survey[] surveys)
     {
@@ -52,6 +52,7 @@ public class SurveyContainer : MonoBehaviour
         {
             SimpleWidget => $"EARN {cpi}",
             CompactWidget => $"EARN\n{cpi}",
+            FullWidthWidget => cpi,
             _ => "",
         };
     }
@@ -66,9 +67,9 @@ public class SurveyContainer : MonoBehaviour
 
 
         for (int i = 1; i <= rating; i++)
-        {
+        { 
             surveyWidget.transform
-                .Find($"LeftPanel/BottomPanel/Star{i}")
+                .Find(starsPath+i)
                 .GetComponent<Image>().sprite = fillStarImage;
         }
     }
@@ -84,6 +85,11 @@ public class SurveyContainer : MonoBehaviour
         {
             prefab.GetComponent<Image>().color = color;
 
+            if (prefab.name == FullWidthWidget)
+                prefab.transform
+                    .Find("RightPanel/EarnText")
+                    .GetComponent<TMP_Text>().color = color;
+
             if (prefab.name != CompactWidget) return;
          
             prefab.transform
@@ -93,7 +99,6 @@ public class SurveyContainer : MonoBehaviour
             prefab.transform
                 .Find(playImagePath)
                 .GetComponent<Image>().color = color;
-            
         }
     }
 
@@ -108,8 +113,15 @@ public class SurveyContainer : MonoBehaviour
             case CompactWidget:
                 playImagePath = "RightPanel/PlayImage";
                 rewardTextPath = "RightPanel/RewardText";
+                starsPath = "LeftPanel/BottomPanel/Star";
                 loiTextPath = "LeftPanel/TopPanel/LoiText";
                 ratingTextPath = "LeftPanel/BottomPanel/RatingText";
+                break;
+            case FullWidthWidget:
+                starsPath = "LeftPanel/FirstPanel/Star";
+                rewardTextPath = "LeftPanel/RewardText";
+                loiTextPath = "LeftPanel/SecondPanel/LoiText";
+                ratingTextPath = "LeftPanel/FirstPanel/RatingText";
                 break;
         }
     }
