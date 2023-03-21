@@ -102,7 +102,8 @@ public class BitLabs : MonoBehaviour
         WidgetColor = _getColor();
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
-        WidgetColor = bitlabs.Call<string>("getColor");
+        int[] color = bitlabs.Call<int[]>("getColor");
+        WidgetColor = "#" + color[0].ToString("X8")[2..];
         bitlabs.Call("getSurveys", gameObject);
 #endif
     }
