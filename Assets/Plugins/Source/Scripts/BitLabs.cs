@@ -1,9 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-#if UNITY_EDITOR
-using UnityEditor.VSAttribution.BitLabs;
-#endif
 
 public class BitLabs : MonoBehaviour
 {
@@ -102,7 +98,8 @@ public class BitLabs : MonoBehaviour
         WidgetColor = _getColor();
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
-        WidgetColor = bitlabs.Call<string>("getColor");
+        int[] color = bitlabs.Call<int[]>("getColor");
+        WidgetColor = "#" + color[0].ToString("X8").Substring(2);
         bitlabs.Call("getSurveys", gameObject);
 #endif
     }

@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,7 +82,8 @@ public class SurveyContainer : MonoBehaviour
     {
         if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor, out Color color))
         {
-            prefab.GetComponent<Image>().color = color;
+            prefab.GetComponent<UIGradient>().m_color1 = color;
+            prefab.GetComponent<UIGradient>().m_color2 = color;
 
             if (prefab.name == FullWidthWidget)
                 prefab.transform
