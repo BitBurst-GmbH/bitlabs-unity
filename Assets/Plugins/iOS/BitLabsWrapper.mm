@@ -64,13 +64,20 @@ extern "C" {
         [bitlabs requestTrackingAuthorization];
     }
     
-    char * _getColor() { // char* is the type accepted by Unity C# as string
-        const char* color = [[bitlabs getColor] UTF8String];
+    char ** _getColor() {
+        const NSArray<NSString *> *colors = [bitlabs getColor];
         
-        char* res = (char*)malloc(strlen(color) + 1); // Allocate memory for the char*
+        NSUInteger count = [colors count];
+        char **cColors = (char **)malloc(sizeof(char *) * (count + 1)); // Allocate memory for the C Array of colors
         
-        strcpy(res, color); // Copy the string in color to the new char* variable
-        return res;
+        for(NSUInteger i = 0; i < count; i++) {
+            const char *cColor = [[colors objectAtIndex:i] UTF8String];
+            
+            cColors[i] = (char *)malloc(strlen(cColor) + 1); // Allocate memory for the color at this index
+            strcpy(cColors[i], cColor); // Copy the color to the new allocation
+        }
+
+        return cColors;
     }
 }
 

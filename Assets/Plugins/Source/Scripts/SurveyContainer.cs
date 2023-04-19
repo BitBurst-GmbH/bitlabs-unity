@@ -80,25 +80,28 @@ public class SurveyContainer : MonoBehaviour
 
     private void UpdateColors()
     {
-        if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor, out Color color))
+        if (BitLabs.WidgetColor == null || BitLabs.WidgetColor.Length == 0) return;
+
+        if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor[0], out Color color1)
+            && ColorUtility.TryParseHtmlString(BitLabs.WidgetColor[1], out Color color2))
         {
-            prefab.GetComponent<UIGradient>().m_color1 = color;
-            prefab.GetComponent<UIGradient>().m_color2 = color;
+            prefab.GetComponent<UIGradient>().m_color2 = color1;
+            prefab.GetComponent<UIGradient>().m_color1 = color2;
 
             if (prefab.name == FullWidthWidget)
                 prefab.transform
                     .Find("RightPanel/EarnText")
-                    .GetComponent<TMP_Text>().color = color;
+                    .GetComponent<TMP_Text>().color = color1;
 
             if (prefab.name != CompactWidget) return;
          
             prefab.transform
                 .Find(rewardTextPath)
-                .GetComponent<TMP_Text>().color = color;
+                .GetComponent<TMP_Text>().color = color1;
 
             prefab.transform
                 .Find(playImagePath)
-                .GetComponent<Image>().color = color;
+                .GetComponent<Image>().color = color1;
         }
     }
 

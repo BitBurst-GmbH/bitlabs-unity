@@ -1,5 +1,8 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class BitLabs : MonoBehaviour
 {
@@ -30,7 +33,7 @@ public class BitLabs : MonoBehaviour
     private static extern void _requestTrackingAuthorization();
 
     [DllImport("__Internal")]
-    private static extern string _getColor();
+    private static extern IntPtr _getColor();
 #elif UNITY_ANDROID
     private static AndroidJavaClass unityPlayer;
     private static AndroidJavaObject currentActivity;
@@ -38,10 +41,11 @@ public class BitLabs : MonoBehaviour
     private static AndroidJavaObject bitlabs;
 #endif
 
-    public static string WidgetColor;
+    public static string[] WidgetColor;
 
     public static void Init(string token, string uid)
     {
+
 #if UNITY_IOS
         _init(token, uid);
 #elif UNITY_ANDROID
@@ -53,7 +57,37 @@ public class BitLabs : MonoBehaviour
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject> ("INSTANCE");
         bitlabs.Call("init", currentActivity, token, uid);
 #endif
+    }
 
+    private static void SetupWidgetColor()
+    {
+#if UNITY_IOS
+        IntPtr charPtr = _getColor();
+
+        int count = 0;
+        IntPtr[] ptrArray = new IntPtr[1024];
+        while (true)
+        {
+            IntPtr ptr = Marshal.ReadIntPtr(charPtr, count * IntPtr.Size);
+            if (ptr == IntPtr.Zero) break;
+
+            ptrArray[count] = ptr;
+            count++;
+        }
+
+        WidgetColor = new string[count];
+        for (int i = 0; i < count; i++)
+        {
+            IntPtr ptr = ptrArray[i];
+            string str = Marshal.PtrToStringAnsi(ptr);
+            WidgetColor[i] = str;
+        }
+
+        foreach (var color in WidgetColor)
+        {
+            Debug.Log("Color: " + color);
+        }
+#endif
     }
 
     public static void LaunchOfferWall()
@@ -95,11 +129,12 @@ public class BitLabs : MonoBehaviour
     public static void GetSurveys(string gameObject)
     {
 #if UNITY_IOS
-        WidgetColor = _getColor();
+        SetupWidgetColor();
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
-        int[] color = bitlabs.Call<int[]>("getColor");
-        WidgetColor = "#" + color[0].ToString("X8").Substring(2);
+        int[] colors = bitlabs.Call<int[]>("getColor");
+        WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
+        
         bitlabs.Call("getSurveys", gameObject);
 #endif
     }

@@ -6,6 +6,7 @@ public class UIGradient : BaseMeshEffect
 {
     public Color m_color1 = Color.white;
     public Color m_color2 = Color.white;
+    
     [Range(-180f, 180f)]
     public float m_angle = 0f;
     public bool m_ignoreRatio = true;
@@ -27,7 +28,7 @@ public class UIGradient : BaseMeshEffect
             {
                 vh.PopulateUIVertex(ref vertex, i);
                 Vector2 localPosition = localPositionMatrix * vertex.position;
-                vertex.color *= Color.Lerp(m_color2, m_color1, localPosition.y);
+                vertex.color *= Color.Lerp(m_color1, m_color2, localPosition.y);
                 vh.SetUIVertex(vertex, i);
             }
         }
