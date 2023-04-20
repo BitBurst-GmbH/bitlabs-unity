@@ -64,29 +64,16 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         IntPtr charPtr = _getColor();
 
-        int count = 0;
         IntPtr[] ptrArray = new IntPtr[1024];
-        while (true)
-        {
-            IntPtr ptr = Marshal.ReadIntPtr(charPtr, count * IntPtr.Size);
-            if (ptr == IntPtr.Zero) break;
 
-            ptrArray[count] = ptr;
-            count++;
-        }
+        Marshal.Copy(charPtr, ptrArray, 0, 1024);
 
-        WidgetColor = new string[count];
-        for (int i = 0; i < count; i++)
-        {
-            IntPtr ptr = ptrArray[i];
-            string str = Marshal.PtrToStringAnsi(ptr);
-            WidgetColor[i] = str;
-        }
-
-        foreach (var color in WidgetColor)
-        {
-            Debug.Log("Color: " + color);
-        }
+        WidgetColor = ptrArray.Select(ptr => Marshal.PtrToStringAnsi(ptr))
+            .TakeWhile(str => str != null)
+            .ToArray();
+#elif UNITY_ANDROID
+        int[] colors = bitlabs.Call<int[]>("getColor");
+        WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
 #endif
     }
 
@@ -128,13 +115,10 @@ public class BitLabs : MonoBehaviour
 
     public static void GetSurveys(string gameObject)
     {
-#if UNITY_IOS
         SetupWidgetColor();
+#if UNITY_IOS
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
-        int[] colors = bitlabs.Call<int[]>("getColor");
-        WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
-        
         bitlabs.Call("getSurveys", gameObject);
 #endif
     }
