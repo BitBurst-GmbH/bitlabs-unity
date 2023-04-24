@@ -47,6 +47,17 @@ extern "C" {
             UnitySendMessage([name UTF8String], "GetSurveysCallback", jsonStr);
         }];
     }
+    
+    void _getLeaderboard(const char *gameObject) {
+        NSString *name = [NSString stringWithUTF8String:gameObject];
+        [bitlabs getLeaderboard:^(GetLeaderboardResponse* leaderboard) {
+            NSData* leaderboardData = [NSJSONSerialization dataWithJSONObject: [leaderboard asDictionary] options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *leaderboardStr = [[NSString alloc] initWithData:leaderboardData encoding:NSUTF8StringEncoding];
+            
+            const char *string = [leaderboardStr UTF8String];
+            UnitySendMessage([name UTF8String], "GetLeaderboardCallback", string);
+        }];
+    }
 
     void _setRewardCompletionHandler(const char *gameObject) {
         NSString *name = [NSString stringWithUTF8String:gameObject];

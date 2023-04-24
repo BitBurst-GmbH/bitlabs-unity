@@ -27,6 +27,9 @@ public class BitLabs : MonoBehaviour
     private static extern void _getSurveys(string gameObject);
 
     [DllImport("__Internal")]
+    private static extern void _getLeaderboard(string gameObject);
+
+    [DllImport("__Internal")]
     private static extern void _setRewardCompletionHandler(string gameObject);
 
     [DllImport("__Internal")]
@@ -56,24 +59,6 @@ public class BitLabs : MonoBehaviour
         bitlabsObject = new AndroidJavaObject ("ai.bitlabs.sdk.BitLabs");
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject> ("INSTANCE");
         bitlabs.Call("init", currentActivity, token, uid);
-#endif
-    }
-
-    private static void SetupWidgetColor()
-    {
-#if UNITY_IOS
-        IntPtr charPtr = _getColor();
-
-        IntPtr[] ptrArray = new IntPtr[1024];
-
-        Marshal.Copy(charPtr, ptrArray, 0, 1024);
-
-        WidgetColor = ptrArray.Select(ptr => Marshal.PtrToStringAnsi(ptr))
-            .TakeWhile(str => str != null)
-            .ToArray();
-#elif UNITY_ANDROID
-        int[] colors = bitlabs.Call<int[]>("getColor");
-        WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
 #endif
     }
 
@@ -123,6 +108,13 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
+    public static void GetLeaderboard(string gameObject)
+    {
+#if UNITY_IOS
+        _getLeaderboard(gameObject);
+#endif
+    }
+
     public static void SetRewardCallback(string gameObject)
     {
 #if UNITY_IOS
@@ -136,6 +128,24 @@ public class BitLabs : MonoBehaviour
     {
 #if UNITY_IOS
         _requestTrackingAuthorization();
+#endif
+    }
+
+    private static void SetupWidgetColor()
+    {
+#if UNITY_IOS
+        IntPtr charPtr = _getColor();
+
+        IntPtr[] ptrArray = new IntPtr[1024];
+
+        Marshal.Copy(charPtr, ptrArray, 0, 1024);
+
+        WidgetColor = ptrArray.Select(ptr => Marshal.PtrToStringAnsi(ptr))
+            .TakeWhile(str => str != null)
+            .ToArray();
+#elif UNITY_ANDROID
+        int[] colors = bitlabs.Call<int[]>("getColor");
+        WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
 #endif
     }
 }
