@@ -59,6 +59,9 @@ public class Example : MonoBehaviour
     {
         Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
         Debug.Log("Leaderboard: " + JsonUtility.ToJson(leaderboard));
+        GameObject leaderboardContainer = GameObject.Find("Leaderboard");
+        LeaderboardScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardScript>();
+        leaderboardScript.UpdateRankings(leaderboard.topUsers, leaderboard.ownUser);
     }
 
     private void RewardCallback(string payout)

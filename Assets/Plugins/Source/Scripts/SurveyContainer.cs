@@ -12,7 +12,7 @@ public class SurveyContainer : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
 
-    private string rewardTextPath, playImagePath, loiTextPath, ratingTextPath, starsPath;
+    private string RewardTextPath, PlayImagePath, LoiTextPath, RatingTextPath, StarsPath;
 
     public void UpdateList(Survey[] surveys)
     {
@@ -23,10 +23,7 @@ public class SurveyContainer : MonoBehaviour
 
         GameObject surveyWidget;
 
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
+        foreach (Transform child in transform) Destroy(child.gameObject);
 
         foreach (var survey in surveys)
         {
@@ -34,11 +31,11 @@ public class SurveyContainer : MonoBehaviour
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
             
             surveyWidget.transform
-                .Find(loiTextPath)
+                .Find(LoiTextPath)
                 .GetComponent<TMP_Text>().text = GetLoi(survey.loi);
 
             surveyWidget.transform
-                .Find(rewardTextPath)
+                .Find(RewardTextPath)
                 .GetComponent<TMP_Text>().text = GetReward(survey.cpi);
 
             SetupRating(surveyWidget, survey.rating);
@@ -61,14 +58,14 @@ public class SurveyContainer : MonoBehaviour
         if (prefab.name == SimpleWidget) return;
 
         surveyWidget.transform
-                .Find(ratingTextPath)
+                .Find(RatingTextPath)
                 .GetComponent<TMP_Text>().text = rating.ToString();
 
 
         for (int i = 1; i <= rating; i++)
         { 
             surveyWidget.transform
-                .Find(starsPath+i)
+                .Find(StarsPath+i)
                 .GetComponent<Image>().sprite = fillStarImage;
         }
     }
@@ -96,11 +93,11 @@ public class SurveyContainer : MonoBehaviour
             if (prefab.name != CompactWidget) return;
          
             prefab.transform
-                .Find(rewardTextPath)
+                .Find(RewardTextPath)
                 .GetComponent<TMP_Text>().color = color1;
 
             prefab.transform
-                .Find(playImagePath)
+                .Find(PlayImagePath)
                 .GetComponent<Image>().color = color1;
         }
     }
@@ -110,21 +107,21 @@ public class SurveyContainer : MonoBehaviour
         switch(prefab.name)
         {
             case SimpleWidget:
-                loiTextPath = "RightPanel/LoiText";
-                rewardTextPath = "RightPanel/RewardText";
+                LoiTextPath = "RightPanel/LoiText";
+                RewardTextPath = "RightPanel/RewardText";
                 break;
             case CompactWidget:
-                playImagePath = "RightPanel/PlayImage";
-                rewardTextPath = "RightPanel/RewardText";
-                starsPath = "LeftPanel/BottomPanel/Star";
-                loiTextPath = "LeftPanel/TopPanel/LoiText";
-                ratingTextPath = "LeftPanel/BottomPanel/RatingText";
+                PlayImagePath = "RightPanel/PlayImage";
+                RewardTextPath = "RightPanel/RewardText";
+                StarsPath = "LeftPanel/BottomPanel/Star";
+                LoiTextPath = "LeftPanel/TopPanel/LoiText";
+                RatingTextPath = "LeftPanel/BottomPanel/RatingText";
                 break;
             case FullWidthWidget:
-                starsPath = "LeftPanel/FirstPanel/Star";
-                rewardTextPath = "LeftPanel/RewardText";
-                loiTextPath = "LeftPanel/SecondPanel/LoiText";
-                ratingTextPath = "LeftPanel/FirstPanel/RatingText";
+                StarsPath = "LeftPanel/FirstPanel/Star";
+                RewardTextPath = "LeftPanel/RewardText";
+                LoiTextPath = "LeftPanel/SecondPanel/LoiText";
+                RatingTextPath = "LeftPanel/FirstPanel/RatingText";
                 break;
         }
     }
