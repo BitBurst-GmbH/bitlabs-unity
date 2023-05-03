@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_color1: {r: 0.007843138, g: 0.48235297, b: 1, a: 1}
   m_color2: {r: 0.007843138, g: 0.48235297, b: 1, a: 1}
-  m_angle: 0
+  m_angle: 45
   m_ignoreRatio: 1
 --- !u!1 &3261092580766731985
 GameObject:

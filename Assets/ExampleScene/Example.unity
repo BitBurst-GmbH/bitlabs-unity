@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871e0e855119345a9a0503fe16765f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Token: 46d31e1e-315a-4b52-b0de-eca6062163af
+  Token: 7afbdd12-1a97-4496-bcbe-1d0a7376427e
   UserId: YOUR_USER_ID
 --- !u!1 &223974226
 GameObject:
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 365979277}
   - component: {fileID: 365979276}
   m_Layer: 5
-  m_Name: Authorize Tracking Button (1)
+  m_Name: Authorize Tracking Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,10 +1221,6 @@ PrefabInstance:
     - target: {fileID: 196432613966372743, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
       propertyPath: m_Name
       value: Leaderboard
-      objectReference: {fileID: 0}
-    - target: {fileID: 266073560148472799, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
-      propertyPath: m_text
-      value: Participate in a survey to join the leaderboard.
       objectReference: {fileID: 0}
     - target: {fileID: 3216759068513993839, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
       propertyPath: m_SizeDelta.y

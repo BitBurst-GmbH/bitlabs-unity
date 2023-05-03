@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 public class Example : MonoBehaviour
@@ -58,7 +59,6 @@ public class Example : MonoBehaviour
     private void GetLeaderboardCallback(string leaderboardJson)
     {
         Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
-        Debug.Log("Leaderboard: " + JsonUtility.ToJson(leaderboard));
         GameObject leaderboardContainer = GameObject.Find("Leaderboard");
         LeaderboardScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardScript>();
         leaderboardScript.UpdateRankings(leaderboard.topUsers, leaderboard.ownUser);

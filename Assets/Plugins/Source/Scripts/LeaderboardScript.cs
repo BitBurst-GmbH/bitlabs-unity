@@ -25,7 +25,7 @@ public class LeaderboardScript : MonoBehaviour
             return;
         }
 
-        setupOwnRank(ownUser);
+        SetupOwnRank(ownUser);
 
         foreach (var user in topUsers)
         {
@@ -45,12 +45,12 @@ public class LeaderboardScript : MonoBehaviour
         }
     }
 
-    private void setupOwnRank(User user)
+    private void SetupOwnRank(User user)
     {
         if (user == null) return;
 
         transform.Find(OwnRankText).GetComponent<TMP_Text>().text =
-            "You are currently ranked" + user.rank + "in our leaderboard.";
+            "You are currently ranked " + user.rank + " in our leaderboard.";
     }
 
     private void UpdateGamePaths()

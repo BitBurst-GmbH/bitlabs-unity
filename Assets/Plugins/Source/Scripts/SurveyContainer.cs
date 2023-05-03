@@ -82,8 +82,9 @@ public class SurveyContainer : MonoBehaviour
         if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor[0], out Color color1)
             && ColorUtility.TryParseHtmlString(BitLabs.WidgetColor[1], out Color color2))
         {
-            prefab.GetComponent<UIGradient>().m_color2 = color1;
-            prefab.GetComponent<UIGradient>().m_color1 = color2;
+            prefab.GetComponent<UIGradient>().m_color1 = color1;
+            prefab.GetComponent<UIGradient>().m_color2 = color2;
+
 
             if (prefab.name == FullWidthWidget)
                 prefab.transform
