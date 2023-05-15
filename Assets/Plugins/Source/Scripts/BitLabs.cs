@@ -37,6 +37,9 @@ public class BitLabs : MonoBehaviour
     private static extern void _requestTrackingAuthorization();
 
     [DllImport("__Internal")]
+    private static extern IntPtr _getCurrencyIconURL();
+
+    [DllImport("__Internal")]
     private static extern IntPtr _getColor();
 #elif UNITY_ANDROID
     private static AndroidJavaClass unityPlayer;
@@ -46,6 +49,7 @@ public class BitLabs : MonoBehaviour
 #endif
 
     public static string[] WidgetColor = new string[2];
+    public static string CurrencyIconUrl = null;
 
     public static void Init(string token, string uid)
     {
@@ -148,11 +152,14 @@ public class BitLabs : MonoBehaviour
                     break;
                 }
 
+                Thread.Sleep(300);
+
                 FetchiOSColor();
                 
-                Thread.Sleep(300);
                 tries++;
             } while (WidgetColor.Any(color => string.IsNullOrEmpty(color)));
+
+            CurrencyIconUrl = Marshal.PtrToStringAuto(_getCurrencyIconURL());
         }).Start();
 
 #elif UNITY_ANDROID

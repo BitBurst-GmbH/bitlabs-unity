@@ -90,6 +90,10 @@ extern "C" {
 
         return cColors;
     }
+    
+    const char* _getCurrencyIconURL() {
+        return [[bitlabs getCurrencyIconUrl] UTF8String];
+    }
 }
 
 @end
