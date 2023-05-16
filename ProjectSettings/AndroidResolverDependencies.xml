@@ -1,6 +1,10 @@
 <dependencies>
   <packages>
+<<<<<<< HEAD
     <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.1.4</package>
+=======
+    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.1.1</package>
+>>>>>>> master
   </packages>
   <files>
     <file>Assets/Plugins/Android/androidx.activity.activity-1.2.4.aar</file>
@@ -40,7 +44,11 @@
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.1.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/com.caverock.androidsvg-aar-1.4.aar</file>
+<<<<<<< HEAD
     <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.1.4.aar</file>
+=======
+    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.1.1.aar</file>
+>>>>>>> master
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-18.0.1.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-18.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.5.jar</file>

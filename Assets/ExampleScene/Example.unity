@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871e0e855119345a9a0503fe16765f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Token: 46d31e1e-315a-4b52-b0de-eca6062163af
+  Token: YOUR_APP_TOKEN
   UserId: YOUR_USER_ID
 --- !u!1 &223974226
 GameObject:
