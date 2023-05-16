@@ -173,6 +173,8 @@ public class BitLabs : MonoBehaviour
                 break;
             }
 
+            Thread.Sleep(100);
+
             int[] colors = bitlabs.Call<int[]>("getColor");
             if (colors.Any(color => color != 0))
             {
@@ -181,8 +183,9 @@ public class BitLabs : MonoBehaviour
             }
 
             tries++;
-            Thread.Sleep(100);
         }
+
+        CurrencyIconUrl = bitlabs.Call<string>("getCurrencyIconUrl");
 #endif
     }
 
