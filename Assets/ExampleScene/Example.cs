@@ -49,7 +49,7 @@ public class Example : MonoBehaviour
         SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
         foreach (var survey in surveyList.surveys)
         {
-            Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.details.category.name);
+            Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
         }
         GameObject container = GameObject.Find("SurveyContainer");
         SurveyContainer containerScript = container.GetComponent<SurveyContainer>();
