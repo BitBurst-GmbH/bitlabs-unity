@@ -12,7 +12,8 @@ public class SurveyContainer : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
 
-    private string RewardTextPath, PlayImagePath, LoiTextPath, RatingTextPath, StarsPath;
+    private string RewardTextPath, PlayImagePath, LoiTextPath, RatingTextPath,
+        StarsPath, OldRewardTextPath, BonusPanelPath, BonusTextPath;
 
     public void UpdateList(Survey[] surveys)
     {
@@ -100,6 +101,18 @@ public class SurveyContainer : MonoBehaviour
             prefab.transform
                 .Find(PlayImagePath)
                 .GetComponent<Image>().color = color1;
+
+            prefab.transform
+                .Find(OldRewardTextPath)
+                .GetComponent<TMP_Text>().color = color1;
+
+            prefab.transform
+                .Find(BonusPanelPath)
+                .GetComponent<UIGradient>().m_color1 = color1;
+
+            prefab.transform
+                .Find(BonusPanelPath)
+                .GetComponent<UIGradient>().m_color2 = color2;
         }
     }
 
@@ -112,11 +125,13 @@ public class SurveyContainer : MonoBehaviour
                 RewardTextPath = "RightPanel/RewardText";
                 break;
             case CompactWidget:
-                PlayImagePath = "RightPanel/PlayImage";
-                RewardTextPath = "RightPanel/RewardText";
                 StarsPath = "LeftPanel/BottomPanel/Star";
                 LoiTextPath = "LeftPanel/TopPanel/LoiText";
+                PlayImagePath = "RightPanel/TopPanel/PlayImage";
+                RewardTextPath = "RightPanel/TopPanel/RewardText";
                 RatingTextPath = "LeftPanel/BottomPanel/RatingText";
+                BonusPanelPath = "RightPanel/PromotionPanel/BonusPanel";
+                OldRewardTextPath = "RightPanel/PromotionPanel/OldRewardText";
                 break;
             case FullWidthWidget:
                 StarsPath = "LeftPanel/FirstPanel/Star";
