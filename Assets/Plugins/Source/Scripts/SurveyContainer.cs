@@ -92,7 +92,13 @@ public class SurveyContainer : MonoBehaviour
                     .Find("RightPanel/EarnText")
                     .GetComponent<TMP_Text>().color = color1;
 
-            if (prefab.name != CompactWidget) return;
+            if (prefab.name != CompactWidget)
+            {
+                prefab.transform
+                    .Find(BonusTextPath)
+                    .GetComponent<TMP_Text>().color = color1;
+                return;
+            }
          
             prefab.transform
                 .Find(RewardTextPath)
@@ -135,9 +141,10 @@ public class SurveyContainer : MonoBehaviour
                 break;
             case FullWidthWidget:
                 StarsPath = "LeftPanel/FirstPanel/Star";
-                RewardTextPath = "LeftPanel/RewardText";
                 LoiTextPath = "LeftPanel/SecondPanel/LoiText";
+                RewardTextPath = "LeftPanel/ThirdPanel/RewardPanel/RewardText";
                 RatingTextPath = "LeftPanel/FirstPanel/RatingText";
+                BonusTextPath = "LeftPanel/ThirdPanel/BonusPanel/BonusText";
                 break;
         }
     }

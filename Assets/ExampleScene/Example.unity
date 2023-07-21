@@ -1615,10 +1615,14 @@ PrefabInstance:
     - target: {fileID: 7357968271052725712, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 3261092580751146952, guid: 08c012c0d6d3245beb46cb5fbceb6eab, type: 3}
+      objectReference: {fileID: 3261092580751146952, guid: 20cc8e79d02c744cca3fbd2e997f65ea, type: 3}
+    - target: {fileID: 7357968271052725716, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
+      propertyPath: m_CellSize.x
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 7357968271052725716, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_CellSize.y
-      value: 80
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7357968271052725719, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_Pivot.x
