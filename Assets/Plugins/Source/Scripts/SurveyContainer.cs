@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading;
+using UnityEngine.Networking;
 
 public class SurveyContainer : MonoBehaviour
 {
@@ -12,15 +14,17 @@ public class SurveyContainer : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
 
-    private string RewardTextPath, PlayImagePath, LoiTextPath, RatingTextPath,
-        StarsPath, OldRewardTextPath, BonusPanelPath, BonusTextPath;
+    private string RewardText, PlayImage, LoiText, RatingText,
+        Stars, OldRewardText, BonusPanel, BonusText, CurrencyImage,
+        OldCurrencyImage, EarnText;
 
     public void UpdateList(Survey[] surveys)
     {
-
         UpdateGamePaths();
 
         UpdateColors();
+
+        GetCurrency();
 
         GameObject surveyWidget;
 
@@ -32,11 +36,11 @@ public class SurveyContainer : MonoBehaviour
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
             
             surveyWidget.transform
-                .Find(LoiTextPath)
+                .Find(LoiText)
                 .GetComponent<TMP_Text>().text = GetLoi(survey.loi);
 
             surveyWidget.transform
-                .Find(RewardTextPath)
+                .Find(RewardText)
                 .GetComponent<TMP_Text>().text = GetReward(survey.cpi);
 
             SetupRating(surveyWidget, survey.rating);
@@ -48,7 +52,7 @@ public class SurveyContainer : MonoBehaviour
         return prefab.name switch
         {
             SimpleWidget => $"EARN {cpi}",
-            CompactWidget => $"EARN\n{cpi}",
+            CompactWidget => cpi,
             FullWidthWidget => cpi,
             _ => "",
         };
@@ -59,14 +63,14 @@ public class SurveyContainer : MonoBehaviour
         if (prefab.name == SimpleWidget) return;
 
         surveyWidget.transform
-                .Find(RatingTextPath)
+                .Find(RatingText)
                 .GetComponent<TMP_Text>().text = rating.ToString();
 
 
         for (int i = 1; i <= rating; i++)
         { 
             surveyWidget.transform
-                .Find(StarsPath+i)
+                .Find(Stars+i)
                 .GetComponent<Image>().sprite = fillStarImage;
         }
     }
@@ -87,39 +91,108 @@ public class SurveyContainer : MonoBehaviour
             prefab.GetComponent<UIGradient>().m_color2 = color2;
 
 
-            if (prefab.name == FullWidthWidget)
+            if (prefab.name != SimpleWidget)
                 prefab.transform
-                    .Find("RightPanel/EarnText")
+                    .Find(EarnText)
                     .GetComponent<TMP_Text>().color = color1;
 
             if (prefab.name != CompactWidget)
             {
                 prefab.transform
-                    .Find(BonusTextPath)
+                    .Find(BonusText)
                     .GetComponent<TMP_Text>().color = color1;
                 return;
             }
          
             prefab.transform
-                .Find(RewardTextPath)
+                .Find(RewardText)
                 .GetComponent<TMP_Text>().color = color1;
 
             prefab.transform
-                .Find(PlayImagePath)
+                .Find(PlayImage)
                 .GetComponent<Image>().color = color1;
 
             prefab.transform
-                .Find(OldRewardTextPath)
+                .Find(OldRewardText)
                 .GetComponent<TMP_Text>().color = color1;
 
             prefab.transform
-                .Find(BonusPanelPath)
+                .Find(BonusPanel)
                 .GetComponent<UIGradient>().m_color1 = color1;
 
             prefab.transform
-                .Find(BonusPanelPath)
+                .Find(BonusPanel)
                 .GetComponent<UIGradient>().m_color2 = color2;
         }
+    }
+
+    private void GetCurrency()
+    {
+        for (int i = 0; BitLabs.CurrencyIconUrl == null; i++)
+        {
+            if (i == 5) return;
+            Debug.Log("[BitLabs] Waiting for Currency Icon URL.");
+            Thread.Sleep(300);
+        }
+
+        if (BitLabs.CurrencyIconUrl == "") return;
+
+        UnityWebRequest www = UnityWebRequest.Get(BitLabs.CurrencyIconUrl);
+
+        www.SendWebRequest();
+
+        while (!www.isDone)
+        {
+            Thread.Sleep(200);
+            Debug.Log("[BitLabs] Waiting for Currency Icon request to complete.");
+        }
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("[BitLabs] Failed to download icon: " + www.error);
+            return;
+        }
+
+        byte[] data = www.downloadHandler.data;
+
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(data);
+
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+
+        float bigSize = GetBigSize();
+        float smallSize = GetSmallSize();
+
+        prefab.transform.Find(CurrencyImage).GetComponent<Image>().sprite = sprite;
+        prefab.transform.Find(CurrencyImage).GetComponent<LayoutElement>().preferredWidth = bigSize;
+        prefab.transform.Find(CurrencyImage).GetComponent<LayoutElement>().preferredHeight = bigSize;
+
+        prefab.transform.Find(OldCurrencyImage).GetComponent<Image>().sprite = sprite;
+        prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredWidth = smallSize;
+        prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredHeight = smallSize;
+    }
+
+
+    private float GetBigSize()
+    {
+        return prefab.name switch
+        {
+            SimpleWidget => 17,
+            CompactWidget => 13,
+            FullWidthWidget => 13,
+            _ => 13,
+        };
+    }
+
+    private float GetSmallSize()
+    {
+        return prefab.name switch
+        {
+            SimpleWidget => 13,
+            CompactWidget => 10,
+            FullWidthWidget => 10,
+            _ => 10
+        };
     }
 
     private void UpdateGamePaths()
@@ -127,24 +200,33 @@ public class SurveyContainer : MonoBehaviour
         switch(prefab.name)
         {
             case SimpleWidget:
-                LoiTextPath = "RightPanel/LoiText";
-                RewardTextPath = "RightPanel/RewardText";
+                LoiText = "RightPanel/LoiText";
+                RewardText = "RightPanel/EarnPanel/RewardText";
+                CurrencyImage = "RightPanel/EarnPanel/CurrencyImage";
+                BonusText = "RightPanel/PromotionPanel/BonusPanel/BonusText";
+                OldCurrencyImage = "RightPanel/PromotionPanel/OldCurrencyImage";
                 break;
             case CompactWidget:
-                StarsPath = "LeftPanel/BottomPanel/Star";
-                LoiTextPath = "LeftPanel/TopPanel/LoiText";
-                PlayImagePath = "RightPanel/TopPanel/PlayImage";
-                RewardTextPath = "RightPanel/TopPanel/RewardText";
-                RatingTextPath = "LeftPanel/BottomPanel/RatingText";
-                BonusPanelPath = "RightPanel/PromotionPanel/BonusPanel";
-                OldRewardTextPath = "RightPanel/PromotionPanel/OldRewardText";
+                Stars = "LeftPanel/BottomPanel/Star";
+                LoiText = "LeftPanel/TopPanel/LoiText";
+                PlayImage = "RightPanel/TopPanel/PlayImage";
+                RatingText = "LeftPanel/BottomPanel/RatingText";
+                EarnText = "RightPanel/TopPanel/Column/EarnText";
+                BonusPanel = "RightPanel/PromotionPanel/BonusPanel";
+                RewardText = "RightPanel/TopPanel/Column/Row/RewardText";
+                OldRewardText = "RightPanel/PromotionPanel/OldRewardText";
+                CurrencyImage = "RightPanel/TopPanel/Column/Row/CurrencyImage";
+                OldCurrencyImage = "RightPanel/PromotionPanel/OldCurrencyImage";
                 break;
             case FullWidthWidget:
-                StarsPath = "LeftPanel/FirstPanel/Star";
-                LoiTextPath = "LeftPanel/SecondPanel/LoiText";
-                RewardTextPath = "LeftPanel/ThirdPanel/RewardPanel/RewardText";
-                RatingTextPath = "LeftPanel/FirstPanel/RatingText";
-                BonusTextPath = "LeftPanel/ThirdPanel/BonusPanel/BonusText";
+                EarnText = "RightPanel/EarnText";
+                Stars = "LeftPanel/FirstPanel/Star";
+                LoiText = "LeftPanel/SecondPanel/LoiText";
+                RatingText = "LeftPanel/FirstPanel/RatingText";
+                BonusText = "LeftPanel/ThirdPanel/BonusPanel/BonusText";
+                RewardText = "LeftPanel/ThirdPanel/RewardPanel/NewRewardPanel/RewardText";
+                CurrencyImage = "LeftPanel/ThirdPanel/RewardPanel/NewRewardPanel/CurrencyImage";
+                OldCurrencyImage = "LeftPanel/ThirdPanel/RewardPanel/OldRewardPanel/OldCurrencyImage";
                 break;
         }
     }

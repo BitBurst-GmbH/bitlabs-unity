@@ -13,12 +13,14 @@ public class LeaderboardScript : MonoBehaviour
 
     public void UpdateRankings(User[] topUsers, User ownUser)
     {
-        if (topUsers == null)
+        if (topUsers == null || topUsers.Length < 1)
         {
             Debug.Log("[BitLabs] No Users in the leaderboard. Removing it.");
             Destroy(gameObject);
             return;
         }
+
+        Debug.Log("[BitLabs] Show me Top Users: " + topUsers);
 
         UpdateGamePaths();
 
@@ -32,7 +34,7 @@ public class LeaderboardScript : MonoBehaviour
 
         SetupOwnRank(ownUser);
 
-        foreach (var user in topUsers)
+        foreach (User user in topUsers)
         {
             GameObject rank = Instantiate(prefab, ScrollViewTransform);
 
@@ -87,15 +89,12 @@ public class LeaderboardScript : MonoBehaviour
 
     private void GetCurrency()
     {
-        
         for (int i = 0; BitLabs.CurrencyIconUrl == null; i++)
         {
             if (i == 5) return;
             Debug.Log("[BitLabs] Waiting for Currency Icon URL.");
             Thread.Sleep(300);
         }
-
-        Debug.Log("GetCurrency: " + BitLabs.CurrencyIconUrl);
 
         if (BitLabs.CurrencyIconUrl == "") return;
 
