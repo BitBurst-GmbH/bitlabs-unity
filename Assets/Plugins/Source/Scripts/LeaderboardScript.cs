@@ -24,11 +24,11 @@ public class LeaderboardScript : MonoBehaviour
 
         UpdateGamePaths();
 
-        Transform ScrollViewTransform = transform.Find(ScrollContent).transform;
-
         UpdateColors();
 
         GetCurrency();
+
+        Transform ScrollViewTransform = transform.Find(ScrollContent).transform;
 
         foreach (Transform child in ScrollViewTransform) Destroy(child.gameObject);
 
@@ -124,7 +124,6 @@ public class LeaderboardScript : MonoBehaviour
         prefab.transform.Find(CurrencyImage).GetComponent<Image>().sprite = sprite;
         prefab.transform.Find(CurrencyImage).GetComponent<LayoutElement>().preferredWidth = 20;
     }
-
 
     private void UpdateGamePaths()
     {

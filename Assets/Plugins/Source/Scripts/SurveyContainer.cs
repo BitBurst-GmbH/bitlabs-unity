@@ -26,6 +26,8 @@ public class SurveyContainer : MonoBehaviour
 
         GetCurrency();
 
+        SetupDimensions();
+
         GameObject surveyWidget;
 
         foreach (Transform child in transform) Destroy(child.gameObject);
@@ -170,6 +172,17 @@ public class SurveyContainer : MonoBehaviour
         prefab.transform.Find(OldCurrencyImage).GetComponent<Image>().sprite = sprite;
         prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredWidth = smallSize;
         prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredHeight = smallSize;
+    }
+
+    private void SetupDimensions()
+    {
+        transform.GetComponent<GridLayoutGroup>().cellSize = prefab.name switch
+        {
+            SimpleWidget => new Vector2(265, 120),
+            CompactWidget => new Vector2(300, 80),
+            FullWidthWidget => new Vector2(430, 40),
+            _ => new Vector2(300, 80),
+        };
     }
 
 
