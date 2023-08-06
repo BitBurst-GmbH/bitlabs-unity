@@ -40,6 +40,9 @@ public class BitLabs : MonoBehaviour
     private static extern IntPtr _getCurrencyIconURL();
 
     [DllImport("__Internal")]
+    private static extern double _getBonusPercentage();
+
+    [DllImport("__Internal")]
     private static extern IntPtr _getColor();
 #elif UNITY_ANDROID
     private static AndroidJavaClass unityPlayer;
@@ -50,6 +53,7 @@ public class BitLabs : MonoBehaviour
 
     public static string[] WidgetColor = new string[2];
     public static string CurrencyIconUrl = null;
+    public static double BonusPercentage = 0.0;
 
     public static void Init(string token, string uid)
     {
@@ -160,6 +164,9 @@ public class BitLabs : MonoBehaviour
             } while (WidgetColor.Any(color => string.IsNullOrEmpty(color)));
 
             CurrencyIconUrl = Marshal.PtrToStringAuto(_getCurrencyIconURL());
+
+            BonusPercentage = _getBonusPercentage();
+            Debug.Log("BonusPercentage: " + BonusPercentage);
         }).Start();
 
 #elif UNITY_ANDROID

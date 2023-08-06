@@ -36,6 +36,8 @@ public class SurveyContainer : MonoBehaviour
         {
             surveyWidget = Instantiate(prefab, transform);
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
+
+            SetupPromotion(surveyWidget, survey);
             
             surveyWidget.transform
                 .Find(LoiText)
@@ -144,7 +146,7 @@ public class SurveyContainer : MonoBehaviour
         www.SendWebRequest();
 
         while (!www.isDone)
-        {
+        { 
             Thread.Sleep(200);
             Debug.Log("[BitLabs] Waiting for Currency Icon request to complete.");
         }
@@ -172,6 +174,22 @@ public class SurveyContainer : MonoBehaviour
         prefab.transform.Find(OldCurrencyImage).GetComponent<Image>().sprite = sprite;
         prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredWidth = smallSize;
         prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredHeight = smallSize;
+    }
+
+    private void SetupPromotion(GameObject surveyWidget, Survey survey)
+    {
+        if (BitLabs.BonusPercentage <= 0.0)
+        {
+            if(prefab.name == FullWidthWidget)
+            {
+                Destroy(surveyWidget.transform.Find("LeftPanel/ThirdPanel/RewardPanel/OldRewardPanel").gameObject);
+                Destroy(surveyWidget.transform.Find("LeftPanel/ThirdPanel/BonusPanel").gameObject);
+            }
+            else
+            {
+                Destroy(surveyWidget.transform.Find("RightPanel/PromotionPanel").gameObject);
+            }
+        }
     }
 
     private void SetupDimensions()
@@ -216,6 +234,7 @@ public class SurveyContainer : MonoBehaviour
                 LoiText = "RightPanel/LoiText";
                 RewardText = "RightPanel/EarnPanel/RewardText";
                 CurrencyImage = "RightPanel/EarnPanel/CurrencyImage";
+                OldRewardText = "RightPanel/PromotionPanel/OldRewardText";
                 BonusText = "RightPanel/PromotionPanel/BonusPanel/BonusText";
                 OldCurrencyImage = "RightPanel/PromotionPanel/OldCurrencyImage";
                 break;
