@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Threading;
 using UnityEngine.Networking;
+using System.Globalization;
 
 public class SurveyContainer : MonoBehaviour
 {
@@ -181,7 +182,7 @@ public class SurveyContainer : MonoBehaviour
         double bonus = BitLabs.BonusPercentage;
         if (bonus <= 0.0)
         {
-            if(prefab.name == FullWidthWidget)
+            if (prefab.name == FullWidthWidget)
             {
                 Destroy(surveyWidget.transform.Find("LeftPanel/ThirdPanel/RewardPanel/OldRewardPanel").gameObject);
                 Destroy(surveyWidget.transform.Find("LeftPanel/ThirdPanel/BonusPanel").gameObject);
@@ -196,11 +197,14 @@ public class SurveyContainer : MonoBehaviour
 
         surveyWidget.transform
             .Find(OldRewardText)
-            .GetComponent<TMP_Text>().text = "" + double.Parse(reward) / (1 + bonus);
+            .GetComponent<TMP_Text>().text = string.Format(
+                CultureInfo.InvariantCulture,
+                "{0}",
+                double.Parse(reward, CultureInfo.InvariantCulture) / (1 + bonus));
 
         surveyWidget.transform
             .Find(BonusText)
-            .GetComponent<TMP_Text>().text = "+" + (bonus * 100) + "%";
+            .GetComponent<TMP_Text>().text = string.Format("+{0}%", bonus * 100);
     }
 
     private void SetupDimensions()
