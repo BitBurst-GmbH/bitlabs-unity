@@ -37,7 +37,7 @@ public class SurveyContainer : MonoBehaviour
             surveyWidget = Instantiate(prefab, transform);
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
 
-            SetupPromotion(surveyWidget, survey);
+            SetupPromotion(surveyWidget, survey.value);
             
             surveyWidget.transform
                 .Find(LoiText)
@@ -45,7 +45,7 @@ public class SurveyContainer : MonoBehaviour
 
             surveyWidget.transform
                 .Find(RewardText)
-                .GetComponent<TMP_Text>().text = GetReward(survey.cpi);
+                .GetComponent<TMP_Text>().text = GetReward(survey.value);
 
             SetupRating(surveyWidget, survey.rating);
         }
@@ -176,9 +176,10 @@ public class SurveyContainer : MonoBehaviour
         prefab.transform.Find(OldCurrencyImage).GetComponent<LayoutElement>().preferredHeight = smallSize;
     }
 
-    private void SetupPromotion(GameObject surveyWidget, Survey survey)
+    private void SetupPromotion(GameObject surveyWidget, string reward)
     {
-        if (BitLabs.BonusPercentage <= 0.0)
+        double bonus = BitLabs.BonusPercentage;
+        if (bonus <= 0.0)
         {
             if(prefab.name == FullWidthWidget)
             {
@@ -189,7 +190,17 @@ public class SurveyContainer : MonoBehaviour
             {
                 Destroy(surveyWidget.transform.Find("RightPanel/PromotionPanel").gameObject);
             }
+
+            return;
         }
+
+        surveyWidget.transform
+            .Find(OldRewardText)
+            .GetComponent<TMP_Text>().text = "" + double.Parse(reward) / (1 + bonus);
+
+        surveyWidget.transform
+            .Find(BonusText)
+            .GetComponent<TMP_Text>().text = "+" + (bonus * 100) + "%";
     }
 
     private void SetupDimensions()
