@@ -166,7 +166,6 @@ public class BitLabs : MonoBehaviour
             CurrencyIconUrl = Marshal.PtrToStringAuto(_getCurrencyIconURL());
 
             BonusPercentage = _getBonusPercentage();
-            Debug.Log("BonusPercentage: " + BonusPercentage);
         }).Start();
 
 #elif UNITY_ANDROID
@@ -193,6 +192,8 @@ public class BitLabs : MonoBehaviour
         }
 
         CurrencyIconUrl = bitlabs.Call<string>("getCurrencyIconUrl");
+
+        BonusPercentage = bitlabs.Call<double>("getBonusPercentage");
 #endif
     }
 
