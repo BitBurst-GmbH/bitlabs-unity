@@ -376,8 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871e0e855119345a9a0503fe16765f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Token: 46d31e1e-315a-4b52-b0de-eca6062163af
-  UserId: YOUR_USER_ID
+  Token: APP_TOKEN
+  UserId: UID
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1612,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7357968271052725712, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 3261092580751146952, guid: a136ac7873a2c41f6b557cc5ca3e1691, type: 3}
     - target: {fileID: 7357968271052725719, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1654,7 +1658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7357968272085281670, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 108.08951
+      value: 57.971
       objectReference: {fileID: 0}
     - target: {fileID: 7357968272085281670, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1690,7 +1694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7357968272085281670, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -211
+      value: -199.9855
       objectReference: {fileID: 0}
     - target: {fileID: 7357968272085281670, guid: a777b9b99597242e69ef9ccb0e229752, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

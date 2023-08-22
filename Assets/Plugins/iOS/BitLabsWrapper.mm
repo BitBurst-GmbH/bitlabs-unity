@@ -94,6 +94,10 @@ extern "C" {
     const char* _getCurrencyIconURL() {
         return [[bitlabs getCurrencyIconUrl] UTF8String];
     }
+    
+    double _getBonusPercentage() {
+        return [bitlabs getBonusPercentage];
+    }
 }
 
 @end

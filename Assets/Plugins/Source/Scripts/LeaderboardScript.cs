@@ -13,26 +13,28 @@ public class LeaderboardScript : MonoBehaviour
 
     public void UpdateRankings(User[] topUsers, User ownUser)
     {
-        if (topUsers == null)
+        if (topUsers == null || topUsers.Length < 1)
         {
             Debug.Log("[BitLabs] No Users in the leaderboard. Removing it.");
             Destroy(gameObject);
             return;
         }
 
-        UpdateGamePaths();
+        Debug.Log("[BitLabs] Show me Top Users: " + topUsers);
 
-        Transform ScrollViewTransform = transform.Find(ScrollContent).transform;
+        UpdateGamePaths();
 
         UpdateColors();
 
         GetCurrency();
 
+        Transform ScrollViewTransform = transform.Find(ScrollContent).transform;
+
         foreach (Transform child in ScrollViewTransform) Destroy(child.gameObject);
 
         SetupOwnRank(ownUser);
 
-        foreach (var user in topUsers)
+        foreach (User user in topUsers)
         {
             GameObject rank = Instantiate(prefab, ScrollViewTransform);
 
@@ -87,15 +89,12 @@ public class LeaderboardScript : MonoBehaviour
 
     private void GetCurrency()
     {
-        
         for (int i = 0; BitLabs.CurrencyIconUrl == null; i++)
         {
             if (i == 5) return;
             Debug.Log("[BitLabs] Waiting for Currency Icon URL.");
             Thread.Sleep(300);
         }
-
-        Debug.Log("GetCurrency: " + BitLabs.CurrencyIconUrl);
 
         if (BitLabs.CurrencyIconUrl == "") return;
 
@@ -125,7 +124,6 @@ public class LeaderboardScript : MonoBehaviour
         prefab.transform.Find(CurrencyImage).GetComponent<Image>().sprite = sprite;
         prefab.transform.Find(CurrencyImage).GetComponent<LayoutElement>().preferredWidth = 20;
     }
-
 
     private void UpdateGamePaths()
     {
