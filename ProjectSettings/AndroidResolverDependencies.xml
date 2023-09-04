@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.1.9</package>
+    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.1.14</package>
   </packages>
   <files>
     <file>Assets/Plugins/Android/androidx.activity.activity-1.2.4.aar</file>
@@ -40,11 +40,12 @@
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.1.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/com.caverock.androidsvg-aar-1.4.aar</file>
-    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.1.9.aar</file>
+    <file>Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.1.14.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-18.0.1.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-18.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.5.jar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>
+    <file>Assets/Plugins/Android/com.google.zxing.core-3.5.2.jar</file>
     <file>Assets/Plugins/Android/com.squareup.okhttp3.okhttp-3.14.9.jar</file>
     <file>Assets/Plugins/Android/com.squareup.okio.okio-1.17.2.jar</file>
     <file>Assets/Plugins/Android/com.squareup.retrofit2.converter-gson-2.9.0.jar</file>
