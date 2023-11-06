@@ -9,7 +9,7 @@
   </androidPackages>
   
     <iosPods>
-      <iosPod name="BitLabs/Unity" version="~> 3.1.9" bitcodeEnabled="true"
+      <iosPod name="BitLabs/Unity" version="~> 3.1.11" bitcodeEnabled="true"
               minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 
