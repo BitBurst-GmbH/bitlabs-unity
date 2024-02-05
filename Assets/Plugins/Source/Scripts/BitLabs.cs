@@ -159,7 +159,7 @@ public class BitLabs : MonoBehaviour
                 Thread.Sleep(300);
 
                 FetchiOSColor();
-                
+
                 tries++;
             } while (WidgetColor.Any(color => string.IsNullOrEmpty(color)));
 
