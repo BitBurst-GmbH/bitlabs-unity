@@ -62,7 +62,7 @@ public class LeaderboardScript : MonoBehaviour
         }
     }
 
-    
+
     private void SetupOwnRank(User user)
     {
         if (user.rank == 0) return;
