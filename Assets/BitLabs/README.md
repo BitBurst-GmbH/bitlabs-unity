@@ -1,6 +1,6 @@
 # Welcome to BitLabs for Unity.
 
-Official Unity Asset for BitBurst's BitLabs. We have an example scene with Example.cs script that can be used as reference on how to integrate this SDK.
+Official Unity Asset for BitBurst's BitLabs. We have an demo scene with Demo.cs script that can be used as reference on how to integrate this SDK.
 
 # Usage
 

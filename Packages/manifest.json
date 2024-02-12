@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": "file:/Users/omaraad/Unity/unity-jar-resolver-1.2.178/upm",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.ide.rider": "3.0.27",

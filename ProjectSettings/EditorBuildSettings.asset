@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ExampleScene/Example.unity
+    path: Assets/BitLabs/Samples/DemoScene/Demo.unity
     guid: 9fc0d4010bbf28b4594072e72b86abcd
   m_configObjects: {}
