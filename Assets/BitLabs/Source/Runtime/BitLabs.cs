@@ -44,11 +44,10 @@ public class BitLabs : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern IntPtr _getColor();
+
 #elif UNITY_ANDROID
-    private static AndroidJavaClass unityPlayer;
-    private static AndroidJavaObject currentActivity;
-    private static AndroidJavaObject bitlabsObject;
-    private static AndroidJavaObject bitlabs;
+    private static AndroidJavaObject Context;
+    private static AndroidJavaObject Bitlabs;
 #endif
 
     public static string[] WidgetColor = new string[2];
@@ -60,13 +59,13 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _init(token, uid);
 #elif UNITY_ANDROID
-        //Get Activty
-        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        using (AndroidJavaClass unityPlayer = new("com.unity3d.player.UnityPlayer"))
+            Context = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
-        bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
-        bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
-        bitlabs.Call("init", currentActivity, token, uid);
+        using (AndroidJavaObject bitlabsObject = new("ai.bitlabs.sdk.BitLabs"))
+            Bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
+
+        Bitlabs.Call("init", Context, token, uid);
 #endif
         SetupWidgetColor();
     }
@@ -76,7 +75,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _launchOfferWall();
 #elif UNITY_ANDROID
-        bitlabs.Call("launchOfferWall", currentActivity);
+        Bitlabs.Call("launchOfferWall", Context);
 #endif
     }
 
@@ -85,7 +84,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _setTags(tags);
 #elif UNITY_ANDROID
-        bitlabs.Call("setTags", tags);
+        Bitlabs.Call("setTags", tags);
 #endif
     }
 
@@ -94,7 +93,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _addTag(key, value);
 #elif UNITY_ANDROID
-        bitlabs.Call("addTag", key, value);
+        Bitlabs.Call("addTag", key, value);
 #endif
     }
 
@@ -103,7 +102,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _checkSurveys(gameObject);
 #elif UNITY_ANDROID
-        bitlabs.Call("checkSurveys", gameObject);
+        Bitlabs.Call("checkSurveys", gameObject);
 #endif
     }
 
@@ -112,7 +111,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _getSurveys(gameObject);
 #elif UNITY_ANDROID
-        bitlabs.Call("getSurveys", gameObject);
+        Bitlabs.Call("getSurveys", gameObject);
 #endif
     }
 
@@ -121,7 +120,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _getLeaderboard(gameObject);
 #elif UNITY_ANDROID
-        bitlabs.Call("getLeaderboard", gameObject);
+        Bitlabs.Call("getLeaderboard", gameObject);
 #endif
     }
 
@@ -130,7 +129,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _setRewardCompletionHandler(gameObject);
 #elif UNITY_ANDROID
-        bitlabs.Call("setOnRewardListener", gameObject);
+        Bitlabs.Call("setOnRewardListener", gameObject);
 #endif
     }
 
@@ -181,7 +180,7 @@ public class BitLabs : MonoBehaviour
 
             Thread.Sleep(100);
 
-            int[] colors = bitlabs.Call<int[]>("getColor");
+            int[] colors = Bitlabs.Call<int[]>("getColor");
             if (colors.Any(color => color != 0))
             {
                 WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
@@ -191,9 +190,9 @@ public class BitLabs : MonoBehaviour
             tries++;
         }
 
-        CurrencyIconUrl = bitlabs.Call<string>("getCurrencyIconUrl");
+        CurrencyIconUrl = Bitlabs.Call<string>("getCurrencyIconUrl");
 
-        BonusPercentage = bitlabs.Call<double>("getBonusPercentage");
+        BonusPercentage = Bitlabs.Call<double>("getBonusPercentage");
 #endif
     }
 
