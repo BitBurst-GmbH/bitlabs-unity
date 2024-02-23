@@ -46,7 +46,6 @@ public class BitLabs : MonoBehaviour
     private static extern IntPtr _getColor();
 
 #elif UNITY_ANDROID
-    private static AndroidJavaObject Context;
     private static AndroidJavaObject Bitlabs;
 #endif
 
@@ -59,13 +58,10 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _init(token, uid);
 #elif UNITY_ANDROID
-        using (AndroidJavaClass unityPlayer = new("com.unity3d.player.UnityPlayer"))
-            Context = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-        using (AndroidJavaObject bitlabsObject = new("ai.bitlabs.sdk.BitLabs"))
+        using (AndroidJavaObject bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs"))
             Bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
 
-        Bitlabs.Call("init", Context, token, uid);
+        Bitlabs.Call("init", token, uid);
 #endif
         SetupWidgetColor();
     }
@@ -75,7 +71,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _launchOfferWall();
 #elif UNITY_ANDROID
-        Bitlabs.Call("launchOfferWall", Context);
+        Bitlabs.Call("launchOfferWall");
 #endif
     }
 
@@ -166,7 +162,6 @@ public class BitLabs : MonoBehaviour
 
             BonusPercentage = _getBonusPercentage();
         }).Start();
-
 #elif UNITY_ANDROID
         int tries = 0;
 
