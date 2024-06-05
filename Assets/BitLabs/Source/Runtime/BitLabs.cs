@@ -66,7 +66,7 @@ public class BitLabs : MonoBehaviour
 
         bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
-        bitlabs.Call("init", currentActivity, token, uid);
+        bitlabs.Call("init", token, uid);
 #endif
         SetupWidgetColor();
     }
@@ -76,7 +76,7 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _launchOfferWall();
 #elif UNITY_ANDROID
-        bitlabs.Call("launchOfferWall", currentActivity);
+        bitlabs.Call("launchOfferWall");
 #endif
     }
 
