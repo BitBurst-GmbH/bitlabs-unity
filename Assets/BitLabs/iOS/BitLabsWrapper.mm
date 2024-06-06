@@ -16,6 +16,10 @@ extern "C" {
          uid:[[NSString alloc] initWithCString:uid encoding:NSUTF8StringEncoding]];
     }
 
+    void _setIsDebugMode(bool isDebug) {
+        [bitlabs setIsDebugMode:isDebug];
+    }
+
     void _setTags(NSDictionary *tags) {
         [bitlabs setTags:tags];
     }

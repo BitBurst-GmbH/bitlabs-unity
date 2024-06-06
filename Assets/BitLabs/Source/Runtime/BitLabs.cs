@@ -44,6 +44,9 @@ public class BitLabs : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern IntPtr _getColor();
+
+    [DllImport("__Internal")]
+    private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
     private static AndroidJavaClass unityPlayer;
     private static AndroidJavaObject currentActivity;
@@ -77,6 +80,15 @@ public class BitLabs : MonoBehaviour
         _launchOfferWall();
 #elif UNITY_ANDROID
         bitlabs.Call("launchOfferWall");
+#endif
+    }
+
+    public static void SetIsDebugMode(bool isDebugMode)
+    {
+#if UNITY_IOS
+        _setIsDebugMode(isDebugMode);
+#elif UNITY_ANDROID
+        bitlabs.Call("setDebugMode", isDebugMode);
 #endif
     }
 
