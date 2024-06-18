@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Plugins/Android.meta
 guid: 9cf46e81577274777a17caff47d06cfe
+========
+guid: d30e7a230feb64e22ad4b43996de28db
+>>>>>>>> master:Assets/Plugins.meta
+=======
+guid: 67f653d0ca65144fc96627bba45101af
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

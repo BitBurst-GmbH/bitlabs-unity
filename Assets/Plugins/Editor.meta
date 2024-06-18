@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Editor.meta
 guid: 4cd467508c60745018120918846d7e87
+=======
+guid: 4a199e014450c494e8ca38ab68f16273
+>>>>>>> master:Assets/PlayServicesResolver/Editor.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

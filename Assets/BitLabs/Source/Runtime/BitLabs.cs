@@ -45,6 +45,8 @@ public class BitLabs : MonoBehaviour
     [DllImport("__Internal")]
     private static extern IntPtr _getColor();
 
+    [DllImport("__Internal")]
+    private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
     private static AndroidJavaObject Bitlabs;
 #endif
@@ -60,7 +62,7 @@ public class BitLabs : MonoBehaviour
 #elif UNITY_ANDROID
         using (AndroidJavaObject bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs"))
             Bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
-
+            
         Bitlabs.Call("init", token, uid);
 #endif
         SetupWidgetColor();
@@ -71,7 +73,16 @@ public class BitLabs : MonoBehaviour
 #if UNITY_IOS
         _launchOfferWall();
 #elif UNITY_ANDROID
-        Bitlabs.Call("launchOfferWall");
+        bitlabs.Call("launchOfferWall");
+#endif
+    }
+
+    public static void SetIsDebugMode(bool isDebugMode)
+    {
+#if UNITY_IOS
+        _setIsDebugMode(isDebugMode);
+#elif UNITY_ANDROID
+        bitlabs.Call("setDebugMode", isDebugMode);
 #endif
     }
 

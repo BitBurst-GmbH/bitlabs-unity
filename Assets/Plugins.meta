@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Plugins.meta
 guid: cbdeec93f78ca40e2b48c314998a7594
+========
+guid: d0ed4d36d54d84149aa702dce31f4e93
+>>>>>>>> master:Assets/PlayServicesResolver.meta
+=======
+<<<<<<<< HEAD:Assets/Plugins/Android.meta
+guid: 9cf46e81577274777a17caff47d06cfe
+========
+guid: d30e7a230feb64e22ad4b43996de28db
+>>>>>>>> master:Assets/Plugins.meta
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

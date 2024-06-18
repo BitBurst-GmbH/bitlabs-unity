@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/Android/androidx.recyclerview.recyclerview-1.2.1.aar.meta
 guid: 4f9f0effacb4d42b9aa2a6785f2bab20
+========
+guid: a73b601251488448eb636afc73d7d1c7
+>>>>>>>> master:Assets/Plugins/Android/androidx.customview.customview-poolingcontainer-1.0.0.aar.meta
 labels:
 - gpsr
 PluginImporter:
