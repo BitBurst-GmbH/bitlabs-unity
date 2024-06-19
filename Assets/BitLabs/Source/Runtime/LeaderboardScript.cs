@@ -1,144 +1,202 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Threading;
-using UnityEngine.Networking;
+using Gpm.WebView;
+using System.Collections.Generic;
 
 public class LeaderboardScript : MonoBehaviour
 {
-    [SerializeField] private GameObject prefab;
-
-    private string ScrollContent, OwnRankText, RankText, UsernameText, YouText,
-        Trophy, TrophyText, TrophyImage, RewardText, CurrencyImage;
-
-    public void UpdateRankings(User[] topUsers, User ownUser)
+    // Start function is called before the first frame update
+    void Start()
     {
-        if (topUsers == null || topUsers.Length < 1)
-        {
-            Debug.Log("[BitLabs] No Users in the leaderboard. Removing it.");
-            Destroy(gameObject);
-            return;
-        }
+        ShowHtmlString();
 
-        Debug.Log("[BitLabs] Show me Top Users: " + topUsers);
+        SetSize();
 
-        UpdateGamePaths();
-
-        UpdateColors();
-
-        GetCurrency();
-
-        Transform ScrollViewTransform = transform.Find(ScrollContent).transform;
-
-        foreach (Transform child in ScrollViewTransform) Destroy(child.gameObject);
-
-        SetupOwnRank(ownUser);
-
-        foreach (User user in topUsers)
-        {
-            GameObject rank = Instantiate(prefab, ScrollViewTransform);
-
-            if (ownUser.rank != user.rank)
-                Destroy(rank.transform.Find(YouText).gameObject);
-
-            if (user.rank > 3)
-                Destroy(rank.transform.Find(Trophy).gameObject);
-            else
-                rank.transform
-                    .Find(TrophyText)
-                    .GetComponent<TMP_Text>().text = user.rank.ToString();
-
-            rank.transform
-                .Find(RankText)
-                .GetComponent<TMP_Text>().text = user.rank.ToString();
-
-            rank.transform
-                .Find(UsernameText)
-                .GetComponent<TMP_Text>().text = user.name;
-
-            rank.transform
-                .Find(RewardText)
-                .GetComponent<TMP_Text>().text = user.earningsRaw.ToString();
-        }
+        SetPosition();
     }
 
+    const string HTML_STRING = @"""
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Pastel Background</title>
+        <style>
+            body {
+                background-color: #FFFBCC; /* Pastel yellow */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .content {
+                text-align: center;
+            }
+            .box {
+                width: 150px;
+                height: 150px;
+                background-color: #AEC6CF; /* Pastel blue */
+                margin: 20px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='content'>
+            <p>Here is some text</p>
+            <div class='box'></div>
+        </div>
+    </body>
+    </html>
+    """;
 
-    private void SetupOwnRank(User user)
+    public void ShowHtmlString()
     {
-        if (user.rank == 0) return;
 
-        transform.Find(OwnRankText).GetComponent<TMP_Text>().text =
-            "You are currently ranked " + user.rank + " in our leaderboard.";
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        Vector2 size = rectTransform.rect.size;
+
+        GpmWebView.ShowHtmlString(
+            HTML_STRING,
+            new GpmWebViewRequest.Configuration()
+            {
+                orientation = GpmOrientation.UNSPECIFIED,
+                isClearCookie = true,
+                isClearCache = true,
+#if UNITY_IOS
+                contentMode = GpmWebViewContentMode.MOBILE
+#endif
+            },
+            OnCallback,
+            new List<string>()
+            {
+            "USER_ CUSTOM_SCHEME"
+            }
+        );
     }
 
-    private void UpdateColors()
+    private void SetSize() 
     {
-        for (int i = 0; string.IsNullOrEmpty(BitLabs.WidgetColor[0]); i++)
-        {
-            if (i == 10) break;
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 
-            Debug.Log("[BitLabs] Waiting for WidgetColor.");
-            Thread.Sleep(300);
-        }
+        Vector2 size = rectTransform.rect.size;
+        Vector2 screenSize = new Vector2(
+            size.x * (Screen.width / canvasRectTransform.rect.width),
+            size.y * (Screen.height / canvasRectTransform.rect.height));
 
-        if (ColorUtility.TryParseHtmlString(BitLabs.WidgetColor[0], out Color color))
-        {
-            prefab.transform.Find(TrophyImage).GetComponent<Image>().color = color;
-        }
+        GpmWebView.SetSize((int)screenSize.x, (int)screenSize.y);
     }
 
-    private void GetCurrency()
+    private void SetPosition()
     {
-        for (int i = 0; BitLabs.CurrencyIconUrl == null; i++)
-        {
-            if (i == 5) return;
-            Debug.Log("[BitLabs] Waiting for Currency Icon URL.");
-            Thread.Sleep(300);
-        }
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
+    //     RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 
-        if (BitLabs.CurrencyIconUrl == "") return;
+    //     Vector2 anchoredPosition = rectTransform.anchoredPosition;
+    //     Vector2 anchorMin = rectTransform.anchorMin;
+    //     Vector2 anchorMax = rectTransform.anchorMax;
+    //     Vector2 pivot = rectTransform.pivot;
 
-        UnityWebRequest www = UnityWebRequest.Get(BitLabs.CurrencyIconUrl);
+    //     Vector2 size = rectTransform.rect.size;
+    //     Vector2 screenSize = new Vector2(
+    //         size.x * (Screen.width / canvasRectTransform.rect.width),
+    //         size.y * (Screen.height / canvasRectTransform.rect.height));
 
-        www.SendWebRequest();
+    //     Vector2 anchorOffset = new Vector2(
+    //         anchoredPosition.x + (anchorMin.x + anchorMax.x) * 0.5f * canvasRectTransform.rect.width,
+    //         anchoredPosition.y + (anchorMin.y + anchorMax.y) * 0.5f * canvasRectTransform.rect.height);
 
-        while (!www.isDone)
-        {
-            Thread.Sleep(200);
-            Debug.Log("[BitLabs] Waiting for Currency Icon request to complete.");
-        }
+    //     Vector2 screenPosition = new Vector2(
+    //         anchorOffset.x * (Screen.width / canvasRectTransform.rect.width),
+    //         Screen.height - (anchorOffset.y * (Screen.height / canvasRectTransform.rect.height)) - screenSize.y * (1 - pivot.y));
 
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError("[BitLabs] Failed to download icon: " + www.error);
-            return;
-        }
+    //     GpmWebView.SetPosition((int)screenPosition.x, (int)screenPosition.y);
+    RectTransform rectTransform = GetComponent<RectTransform>();
+    RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 
-        byte[] data = www.downloadHandler.data;
+    Vector2 anchoredPosition = rectTransform.anchoredPosition;
+    Vector2 anchorMin = rectTransform.anchorMin;
+    Vector2 anchorMax = rectTransform.anchorMax;
+    Vector2 pivot = rectTransform.pivot;
 
-        Texture2D texture = new Texture2D(2, 2);
-        texture.LoadImage(data);
+    // Screen position calculation
+    float screenX = (anchorMin.x + anchorMax.x) / 2 * Screen.width + anchoredPosition.x * (Screen.width / canvasRectTransform.rect.width);
+    float screenY = Screen.height - ((anchorMin.y + anchorMax.y) / 2 * Screen.height + anchoredPosition.y * (Screen.height / canvasRectTransform.rect.height));
 
-        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+    // Adjust for pivot
+    screenX -= rectTransform.rect.width * pivot.x * (Screen.width / canvasRectTransform.rect.width);
+    screenY -= rectTransform.rect.height * (1 - pivot.y) * (Screen.height / canvasRectTransform.rect.height);
 
-        prefab.transform.Find(CurrencyImage).GetComponent<Image>().sprite = sprite;
-        prefab.transform.Find(CurrencyImage).GetComponent<LayoutElement>().preferredWidth = 20;
+    GpmWebView.SetPosition((int)screenX, (int)screenY);
     }
 
-    private void UpdateGamePaths()
+    private void OnCallback(
+        GpmWebViewCallback.CallbackType callbackType,
+        string data,
+        GpmWebViewError error)
     {
-        ScrollContent = "ScrollPanel/VerticalContent";
-        OwnRankText = "OwnRankText";
-
-        RankText = "Panel/RankText";
-        UsernameText = "Panel/UsernameText";
-        YouText = "Panel/YouText";
-
-        Trophy = "Panel/Trophy";
-        TrophyImage = "Panel/Trophy/TrophyImage";
-        TrophyText = "Panel/Trophy/TrophyText";
-
-        RewardText = "Panel/RewardText";
-        CurrencyImage = "Panel/CurrencyImage";
+        Debug.Log("OnCallback: " + callbackType);
+        switch (callbackType)
+        {
+            case GpmWebViewCallback.CallbackType.Open:
+                if (error != null)
+                {
+                    Debug.LogFormat("Fail to open WebView. Error:{0}", error);
+                }
+                break;
+            case GpmWebViewCallback.CallbackType.Close:
+                if (error != null)
+                {
+                    Debug.LogFormat("Fail to close WebView. Error:{0}", error);
+                }
+                break;
+            case GpmWebViewCallback.CallbackType.PageStarted:
+                if (string.IsNullOrEmpty(data) == false)
+                {
+                    Debug.LogFormat("PageStarted Url : {0}", data);
+                }
+                break;
+            case GpmWebViewCallback.CallbackType.PageLoad:
+                if (string.IsNullOrEmpty(data) == false)
+                {
+                    Debug.LogFormat("Loaded Page:{0}", data);
+                }
+                break;
+            case GpmWebViewCallback.CallbackType.MultiWindowOpen:
+                Debug.Log("MultiWindowOpen");
+                break;
+            case GpmWebViewCallback.CallbackType.MultiWindowClose:
+                Debug.Log("MultiWindowClose");
+                break;
+            case GpmWebViewCallback.CallbackType.Scheme:
+                if (error == null)
+                {
+                    if (data.Equals("USER_ CUSTOM_SCHEME") == true || data.Contains("CUSTOM_SCHEME") == true)
+                    {
+                        Debug.Log(string.Format("scheme:{0}", data));
+                    }
+                }
+                else
+                {
+                    Debug.Log(string.Format("Fail to custom scheme. Error:{0}", error));
+                }
+                break;
+            case GpmWebViewCallback.CallbackType.GoBack:
+                Debug.Log("GoBack");
+                break;
+            case GpmWebViewCallback.CallbackType.GoForward:
+                Debug.Log("GoForward");
+                break;
+            case GpmWebViewCallback.CallbackType.ExecuteJavascript:
+                Debug.LogFormat("ExecuteJavascript data : {0}, error : {1}", data, error);
+                break;
+#if UNITY_ANDROID
+        case GpmWebViewCallback.CallbackType.BackButtonClose:
+            Debug.Log("BackButtonClose");
+            break;
+#endif
+        }
     }
 }

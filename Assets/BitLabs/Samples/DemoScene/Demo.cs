@@ -60,7 +60,7 @@ public class Example : MonoBehaviour
     {
         Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
         GameObject leaderboardContainer = GameObject.Find("Leaderboard");
-        LeaderboardScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardScript>();
+        LeaderboardOldScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardOldScript>();
         leaderboardScript.UpdateRankings(leaderboard.topUsers, leaderboard.ownUser);
     }
 
