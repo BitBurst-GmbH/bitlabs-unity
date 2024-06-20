@@ -1,6 +1,7 @@
 using UnityEngine;
 using Gpm.WebView;
 using System.Collections.Generic;
+using System.IO;
 
 public class LeaderboardScript : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class LeaderboardScript : MonoBehaviour
         SetPosition();
     }
 
-    const string HTML_STRING = @"""
+    const string HTML_STRING = @"
     <!DOCTYPE html>
     <html lang='en'>
     <head>
@@ -49,16 +50,29 @@ public class LeaderboardScript : MonoBehaviour
         </div>
     </body>
     </html>
-    """;
+    ";
 
     public void ShowHtmlString()
     {
+        var htmlFile = Path.Combine(Application.streamingAssetsPath, "html/WidgetTemplate.html");
+        var htmlString = File.ReadAllText(htmlFile);
 
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        Vector2 size = rectTransform.rect.size;
+        htmlString = htmlString.Replace("{{APP_TOKEN}}", "APP_TOKEN");
+        htmlString = htmlString.Replace("{{USER_ID}}", "USER_ID");
+        htmlString = htmlString.Replace("{{WIDGET_TYPE}}", "leaderboard");
 
-        GpmWebView.ShowHtmlString(
-            HTML_STRING,
+        var newWidgetFile = Path.Combine(Application.streamingAssetsPath, "html/Widget.html");
+        File.WriteAllText(newWidgetFile, htmlString);
+
+        var htmlFilePath = string.Empty;
+#if UNITY_IOS
+        htmlFilePath = string.Format("file://{0}/{1}", Application.streamingAssetsPath, "html/Widget.html");
+#elif UNITY_ANDROID
+        htmlFilePath = string.Format("file:///android_asset/{0}", "html/Widget.html");
+#endif
+
+        GpmWebView.ShowHtmlFile(
+            htmlFilePath,
             new GpmWebViewRequest.Configuration()
             {
                 orientation = GpmOrientation.UNSPECIFIED,
@@ -70,13 +84,10 @@ public class LeaderboardScript : MonoBehaviour
             },
             OnCallback,
             new List<string>()
-            {
-            "USER_ CUSTOM_SCHEME"
-            }
         );
     }
 
-    private void SetSize() 
+    private void SetSize()
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
         RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
@@ -91,45 +102,23 @@ public class LeaderboardScript : MonoBehaviour
 
     private void SetPosition()
     {
-    //     RectTransform rectTransform = GetComponent<RectTransform>();
-    //     RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 
-    //     Vector2 anchoredPosition = rectTransform.anchoredPosition;
-    //     Vector2 anchorMin = rectTransform.anchorMin;
-    //     Vector2 anchorMax = rectTransform.anchorMax;
-    //     Vector2 pivot = rectTransform.pivot;
+        Vector2 anchoredPosition = rectTransform.anchoredPosition;
+        Vector2 anchorMin = rectTransform.anchorMin;
+        Vector2 anchorMax = rectTransform.anchorMax;
+        Vector2 pivot = rectTransform.pivot;
 
-    //     Vector2 size = rectTransform.rect.size;
-    //     Vector2 screenSize = new Vector2(
-    //         size.x * (Screen.width / canvasRectTransform.rect.width),
-    //         size.y * (Screen.height / canvasRectTransform.rect.height));
+        // Screen position calculation
+        float screenX = (anchorMin.x + anchorMax.x) / 2 * Screen.width + anchoredPosition.x * (Screen.width / canvasRectTransform.rect.width);
+        float screenY = Screen.height - ((anchorMin.y + anchorMax.y) / 2 * Screen.height + anchoredPosition.y * (Screen.height / canvasRectTransform.rect.height));
 
-    //     Vector2 anchorOffset = new Vector2(
-    //         anchoredPosition.x + (anchorMin.x + anchorMax.x) * 0.5f * canvasRectTransform.rect.width,
-    //         anchoredPosition.y + (anchorMin.y + anchorMax.y) * 0.5f * canvasRectTransform.rect.height);
+        // Adjust for pivot
+        screenX -= rectTransform.rect.width * pivot.x * (Screen.width / canvasRectTransform.rect.width);
+        screenY -= rectTransform.rect.height * (1 - pivot.y) * (Screen.height / canvasRectTransform.rect.height);
 
-    //     Vector2 screenPosition = new Vector2(
-    //         anchorOffset.x * (Screen.width / canvasRectTransform.rect.width),
-    //         Screen.height - (anchorOffset.y * (Screen.height / canvasRectTransform.rect.height)) - screenSize.y * (1 - pivot.y));
-
-    //     GpmWebView.SetPosition((int)screenPosition.x, (int)screenPosition.y);
-    RectTransform rectTransform = GetComponent<RectTransform>();
-    RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
-
-    Vector2 anchoredPosition = rectTransform.anchoredPosition;
-    Vector2 anchorMin = rectTransform.anchorMin;
-    Vector2 anchorMax = rectTransform.anchorMax;
-    Vector2 pivot = rectTransform.pivot;
-
-    // Screen position calculation
-    float screenX = (anchorMin.x + anchorMax.x) / 2 * Screen.width + anchoredPosition.x * (Screen.width / canvasRectTransform.rect.width);
-    float screenY = Screen.height - ((anchorMin.y + anchorMax.y) / 2 * Screen.height + anchoredPosition.y * (Screen.height / canvasRectTransform.rect.height));
-
-    // Adjust for pivot
-    screenX -= rectTransform.rect.width * pivot.x * (Screen.width / canvasRectTransform.rect.width);
-    screenY -= rectTransform.rect.height * (1 - pivot.y) * (Screen.height / canvasRectTransform.rect.height);
-
-    GpmWebView.SetPosition((int)screenX, (int)screenY);
+        GpmWebView.SetPosition((int)screenX, (int)screenY);
     }
 
     private void OnCallback(
