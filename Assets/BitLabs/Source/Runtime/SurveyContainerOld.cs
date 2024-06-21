@@ -97,15 +97,22 @@ public class SurveyContainerOld : MonoBehaviour
 
 
             if (prefab.name != SimpleWidget)
+            {
                 prefab.transform
                     .Find(EarnText)
                     .GetComponent<TMP_Text>().color = color1;
+                Debug.Log("[BitLabs] Updating colors.1");
+            }
 
             if (prefab.name != CompactWidget)
             {
+                Debug.Log("[BitLabs] Updating colors.2");
+
                 prefab.transform
                     .Find(BonusText)
                     .GetComponent<TMP_Text>().color = color1;
+
+                Debug.Log("[BitLabs] Updating colors.3");
                 return;
             }
 
