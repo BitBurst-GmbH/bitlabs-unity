@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 7357968272085281666}
   - component: {fileID: 7357968272085281664}
   m_Layer: 5
-  m_Name: SurveyWidgets
+  m_Name: SurveyWidgets-old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine.Networking;
 using System.Globalization;
 
-public class SurveyContainer : MonoBehaviour
+public class SurveyContainerOld : MonoBehaviour
 {
 
     private const string SimpleWidget = "SimpleWidget";
@@ -39,7 +39,7 @@ public class SurveyContainer : MonoBehaviour
             surveyWidget.GetComponent<Button>().onClick.AddListener(SurveyOnClick);
 
             SetupPromotion(surveyWidget, survey.value);
-            
+
             surveyWidget.transform
                 .Find(LoiText)
                 .GetComponent<TMP_Text>().text = GetLoi(survey.loi);
@@ -73,9 +73,9 @@ public class SurveyContainer : MonoBehaviour
 
 
         for (int i = 1; i <= rating; i++)
-        { 
+        {
             surveyWidget.transform
-                .Find(Stars+i)
+                .Find(Stars + i)
                 .GetComponent<Image>().sprite = fillStarImage;
         }
     }
@@ -108,7 +108,7 @@ public class SurveyContainer : MonoBehaviour
                     .GetComponent<TMP_Text>().color = color1;
                 return;
             }
-         
+
             prefab.transform
                 .Find(RewardText)
                 .GetComponent<TMP_Text>().color = color1;
@@ -147,7 +147,7 @@ public class SurveyContainer : MonoBehaviour
         www.SendWebRequest();
 
         while (!www.isDone)
-        { 
+        {
             Thread.Sleep(200);
             Debug.Log("[BitLabs] Waiting for Currency Icon request to complete.");
         }
@@ -243,7 +243,7 @@ public class SurveyContainer : MonoBehaviour
 
     private void UpdateGamePaths()
     {
-        switch(prefab.name)
+        switch (prefab.name)
         {
             case SimpleWidget:
                 LoiText = "RightPanel/LoiText";

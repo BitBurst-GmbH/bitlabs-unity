@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2473752086527892686}
   - component: {fileID: 974668296477557452}
   m_Layer: 0
-  m_Name: Leaderboard
+  m_Name: BitLabsWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

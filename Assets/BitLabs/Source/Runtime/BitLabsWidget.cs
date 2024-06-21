@@ -3,9 +3,13 @@ using Gpm.WebView;
 using System.Collections.Generic;
 using System.IO;
 
-public class LeaderboardScript : MonoBehaviour
+public class BitLabsWidget : MonoBehaviour
 {
-    // Start function is called before the first frame update
+
+    public string token = "APP_TOKEN";
+    public string userId = "USER_ID";
+    public WidgetType widgetType = WidgetType.Leaderboard;
+
     void Start()
     {
         ShowHtmlString();
@@ -15,51 +19,14 @@ public class LeaderboardScript : MonoBehaviour
         SetPosition();
     }
 
-    const string HTML_STRING = @"
-    <!DOCTYPE html>
-    <html lang='en'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Pastel Background</title>
-        <style>
-            body {
-                background-color: #FFFBCC; /* Pastel yellow */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-                font-family: Arial, sans-serif;
-            }
-            .content {
-                text-align: center;
-            }
-            .box {
-                width: 150px;
-                height: 150px;
-                background-color: #AEC6CF; /* Pastel blue */
-                margin: 20px auto;
-            }
-        </style>
-    </head>
-    <body>
-        <div class='content'>
-            <p>Here is some text</p>
-            <div class='box'></div>
-        </div>
-    </body>
-    </html>
-    ";
-
     public void ShowHtmlString()
     {
         var htmlFile = Path.Combine(Application.streamingAssetsPath, "html/WidgetTemplate.html");
         var htmlString = File.ReadAllText(htmlFile);
 
-        htmlString = htmlString.Replace("{{APP_TOKEN}}", "APP_TOKEN");
-        htmlString = htmlString.Replace("{{USER_ID}}", "USER_ID");
-        htmlString = htmlString.Replace("{{WIDGET_TYPE}}", "leaderboard");
+        htmlString = htmlString.Replace("{{APP_TOKEN}}", token);
+        htmlString = htmlString.Replace("{{USER_ID}}", userId);
+        htmlString = htmlString.Replace("{{WIDGET_TYPE}}", GetStringFromWidgetType(widgetType));
 
         var newWidgetFile = Path.Combine(Application.streamingAssetsPath, "html/Widget.html");
         File.WriteAllText(newWidgetFile, htmlString);
@@ -188,4 +155,24 @@ public class LeaderboardScript : MonoBehaviour
 #endif
         }
     }
+
+    private string GetStringFromWidgetType(WidgetType widgetType)
+    {
+        return widgetType switch
+        {
+            WidgetType.Leaderboard => "leaderboard",
+            WidgetType.CompactSurvey => "compact_survey",
+            WidgetType.SimpleSurvey => "simple_survey",
+            WidgetType.FullWidthSurvey => "full_width_survey",
+            _ => "leaderboard",
+        };
+    }
+}
+
+public enum WidgetType
+{
+    Leaderboard,
+    CompactSurvey,
+    SimpleSurvey,
+    FullWidthSurvey
 }

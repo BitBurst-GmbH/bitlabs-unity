@@ -13,7 +13,7 @@ public class Example : MonoBehaviour
 
         BitLabs.AddTag("userType", "new");
         BitLabs.AddTag("isPremium", "false");
-        
+
         BitLabs.SetRewardCallback(gameObject.name);
 
         BitLabs.GetLeaderboard(gameObject.name);
@@ -52,7 +52,7 @@ public class Example : MonoBehaviour
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
         }
         GameObject container = GameObject.Find("SurveyContainer");
-        SurveyContainer containerScript = container.GetComponent<SurveyContainer>();
+        SurveyContainerOld containerScript = container.GetComponent<SurveyContainerOld>();
         containerScript.UpdateList(surveyList.surveys);
     }
 
