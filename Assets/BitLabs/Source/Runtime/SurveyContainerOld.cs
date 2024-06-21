@@ -8,9 +8,9 @@ using System.Globalization;
 public class SurveyContainerOld : MonoBehaviour
 {
 
-    private const string SimpleWidget = "SimpleWidget";
-    private const string CompactWidget = "CompactWidget";
-    private const string FullWidthWidget = "FullWidthWidget";
+    private const string SimpleWidget = "SimpleWidget-old";
+    private const string CompactWidget = "CompactWidget-old";
+    private const string FullWidthWidget = "FullWidthWidget-old";
 
     [SerializeField] private GameObject prefab;
     [SerializeField] private Sprite fillStarImage;
