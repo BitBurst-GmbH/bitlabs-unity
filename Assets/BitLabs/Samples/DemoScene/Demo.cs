@@ -1,7 +1,6 @@
-using System.IO;
 using UnityEngine;
 
-public class Example : MonoBehaviour
+public class Demo : MonoBehaviour
 {
     public string Token = "YOUR_TOKEN";
     public string UserId = "YOUR_USER_ID";
@@ -15,8 +14,6 @@ public class Example : MonoBehaviour
         BitLabs.AddTag("isPremium", "false");
 
         BitLabs.SetRewardCallback(gameObject.name);
-
-        BitLabs.GetLeaderboard(gameObject.name);
     }
 
     public void AuthorizeTracking()
@@ -39,6 +36,11 @@ public class Example : MonoBehaviour
         BitLabs.GetSurveys(gameObject.name);
     }
 
+    public void GetLeaderboard()
+    {
+        BitLabs.GetLeaderboard(gameObject.name);
+    }
+
     private void CheckSurveysCallback(string surveyAvailable)
     {
         Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
@@ -51,17 +53,15 @@ public class Example : MonoBehaviour
         {
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
         }
-        GameObject container = GameObject.Find("SurveyContainer");
-        SurveyContainerOld containerScript = container.GetComponent<SurveyContainerOld>();
-        containerScript.UpdateList(surveyList.surveys);
     }
 
     private void GetLeaderboardCallback(string leaderboardJson)
     {
         Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
-        GameObject leaderboardContainer = GameObject.Find("Leaderboard");
-        LeaderboardOldScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardOldScript>();
-        leaderboardScript.UpdateRankings(leaderboard.topUsers, leaderboard.ownUser);
+        foreach (var user in leaderboard.topUsers)
+        {
+            Debug.Log("User: " + user.name + ", Earnings: " + user.earningsRaw);
+        }
     }
 
     private void RewardCallback(string payout)
