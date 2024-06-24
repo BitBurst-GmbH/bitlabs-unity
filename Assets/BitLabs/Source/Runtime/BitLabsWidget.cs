@@ -161,9 +161,9 @@ public class BitLabsWidget : MonoBehaviour
         return widgetType switch
         {
             WidgetType.Leaderboard => "leaderboard",
-            WidgetType.CompactSurvey => "compact_survey",
-            WidgetType.SimpleSurvey => "simple_survey",
-            WidgetType.FullWidthSurvey => "full_width_survey",
+            WidgetType.CompactSurvey => "compact",
+            WidgetType.SimpleSurvey => "simple",
+            WidgetType.FullWidthSurvey => "full-width",
             _ => "leaderboard",
         };
     }
