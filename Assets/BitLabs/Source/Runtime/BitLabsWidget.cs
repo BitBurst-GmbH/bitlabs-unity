@@ -1,7 +1,9 @@
+using System.IO;
 using UnityEngine;
 using Gpm.WebView;
+using System.Collections;
+using UnityEngine.Networking;
 using System.Collections.Generic;
-using System.IO;
 
 public class BitLabsWidget : MonoBehaviour
 {
@@ -12,31 +14,45 @@ public class BitLabsWidget : MonoBehaviour
 
     void Start()
     {
-        ShowHtmlString();
-
-        SetSize();
-
-        SetPosition();
+        StartCoroutine(LoadTemplate());
     }
 
-    public void ShowHtmlString()
+    private IEnumerator LoadTemplate()
     {
+        var htmlString = string.Empty;
         var htmlFile = Path.Combine(Application.streamingAssetsPath, "html/WidgetTemplate.html");
-        var htmlString = File.ReadAllText(htmlFile);
+#if UNITY_IOS
+        htmlString = File.ReadAllText(htmlFile);
+        yield return null;
+#elif UNITY_ANDROID
+        var uri = "jar:file://" + Application.dataPath + "!/assets/html/WidgetTemplate.html";
+        using (var www = UnityWebRequest.Get(uri))
+        {
+            yield return www.SendWebRequest();
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+                yield break;
+            }
 
-        htmlString = htmlString.Replace("{{APP_TOKEN}}", token);
-        htmlString = htmlString.Replace("{{USER_ID}}", userId);
-        htmlString = htmlString.Replace("{{WIDGET_TYPE}}", GetStringFromWidgetType(widgetType));
+            htmlString = www.downloadHandler.text;
+        }
+#endif
 
-        var newWidgetFile = Path.Combine(Application.streamingAssetsPath, "html/Widget.html");
+        ShowHtmlString(htmlString);
+    }
+
+    public void ShowHtmlString(string htmlString)
+    {
+        htmlString = htmlString.Replace("{{APP_TOKEN}}", token)
+                           .Replace("{{USER_ID}}", userId)
+                           .Replace("{{WIDGET_TYPE}}", GetStringFromWidgetType(widgetType));
+
+        string newWidgetFile = Path.Combine(Application.persistentDataPath, "Widget.html");
+        Directory.CreateDirectory(Path.GetDirectoryName(newWidgetFile));
         File.WriteAllText(newWidgetFile, htmlString);
 
-        var htmlFilePath = string.Empty;
-#if UNITY_IOS
-        htmlFilePath = string.Format("file://{0}/{1}", Application.streamingAssetsPath, "html/Widget.html");
-#elif UNITY_ANDROID
-        htmlFilePath = string.Format("file:///android_asset/{0}", "html/Widget.html");
-#endif
+        string htmlFilePath = "file://" + newWidgetFile;
 
         GpmWebView.ShowHtmlFile(
             htmlFilePath,
@@ -52,6 +68,11 @@ public class BitLabsWidget : MonoBehaviour
             OnCallback,
             new List<string>()
         );
+
+
+        SetSize();
+
+        SetPosition();
     }
 
     private void SetSize()
@@ -149,9 +170,9 @@ public class BitLabsWidget : MonoBehaviour
                 Debug.LogFormat("ExecuteJavascript data : {0}, error : {1}", data, error);
                 break;
 #if UNITY_ANDROID
-        case GpmWebViewCallback.CallbackType.BackButtonClose:
-            Debug.Log("BackButtonClose");
-            break;
+            case GpmWebViewCallback.CallbackType.BackButtonClose:
+                Debug.Log("BackButtonClose");
+                break;
 #endif
         }
     }

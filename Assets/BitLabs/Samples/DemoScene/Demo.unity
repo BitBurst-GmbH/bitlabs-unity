@@ -777,6 +777,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leaderboard
       objectReference: {fileID: 0}
+    - target: {fileID: 974668296477557452, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
+      propertyPath: token
+      value: 7afbdd12-1a97-4496-bcbe-1d0a7376427e
+      objectReference: {fileID: 0}
+    - target: {fileID: 974668296477557452, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
+      propertyPath: userId
+      value: lettherebebitlabs
+      objectReference: {fileID: 0}
     - target: {fileID: 5288818355010873713, guid: d89faee3799c64ee9af0a85e4434ce86, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

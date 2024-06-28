@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Plugins/Android/library-unity-release.aar.meta
 guid: f13592e15736248e39553884d14e9aa6
-========
-guid: 6f0cf164b7a684f2aab0c586e7f31111
 labels:
 - gpsr
->>>>>>>> master:Assets/Plugins/Android/androidx.recyclerview.recyclerview-1.3.2.aar.meta
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2

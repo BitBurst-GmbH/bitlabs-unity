@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Plugins/iOS/BitLabsWrapper.mm.meta
 guid: 93e06a6d159384f86ae0286aa35873bb
-========
-guid: b92f5037668064a4ba80625dd593a144
 labels:
 - gpsr
->>>>>>>> master:Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.2.4.aar.meta
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -31,19 +27,8 @@ PluginImporter:
       Editor: Editor
     second:
       enabled: 0
-<<<<<<<< HEAD:Assets/Plugins/iOS/BitLabsWrapper.mm.meta
       settings:
         DefaultValueInitialized: true
-  - first:
-      iPhone: iOS
-    second:
-      enabled: 1
-      settings:
-        AddToEmbeddedBinaries: false
-========
-      settings:
-        DefaultValueInitialized: true
->>>>>>>> master:Assets/Plugins/Android/com.github.BitBurst-GmbH.bitlabs-android-library.unity-3.2.4.aar.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
