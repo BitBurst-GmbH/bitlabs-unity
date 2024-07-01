@@ -19,5 +19,23 @@ public class BitLabsWidget : MonoBehaviour
             webView = new AndroidJavaObject("ai.bitlabs.sdk.views.WidgetLayout", activity);
             webView.Call("render", token, uid, type);
         }));
+
+        SetSize();
+    }
+
+    private void SetSize()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+
+        Vector2 size = rectTransform.rect.size;
+        Vector2 screenSize = new Vector2(
+            size.x * (Screen.width / canvasRectTransform.rect.width),
+            size.y * (Screen.height / canvasRectTransform.rect.height));
+
+        activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            webView.Call("setSize", (int)screenSize.x, (int)screenSize.y);
+        }));
     }
 }
