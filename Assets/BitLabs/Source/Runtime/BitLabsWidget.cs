@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BitLabsWidget : MonoBehaviour
@@ -14,13 +15,20 @@ public class BitLabsWidget : MonoBehaviour
     {
         activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
 
+        Render();
+
+        SetSize();
+
+        SetPosition();
+    }
+
+    private void Render()
+    {
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             webView = new AndroidJavaObject("ai.bitlabs.sdk.views.WidgetLayout", activity);
             webView.Call("render", token, uid, type);
         }));
-
-        SetSize();
     }
 
     private void SetSize()
@@ -36,6 +44,30 @@ public class BitLabsWidget : MonoBehaviour
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             webView.Call("setSize", (int)screenSize.x, (int)screenSize.y);
+        }));
+    }
+
+    private void SetPosition()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+
+        Vector2 anchoredPosition = rectTransform.anchoredPosition;
+        Vector2 anchorMin = rectTransform.anchorMin;
+        Vector2 anchorMax = rectTransform.anchorMax;
+        Vector2 pivot = rectTransform.pivot;
+
+        // Screen position calculation
+        float screenX = (anchorMin.x + anchorMax.x) / 2 * Screen.width + anchoredPosition.x * (Screen.width / canvasRectTransform.rect.width);
+        float screenY = Screen.height - ((anchorMin.y + anchorMax.y) / 2 * Screen.height + anchoredPosition.y * (Screen.height / canvasRectTransform.rect.height));
+
+        // Adjust for pivot
+        screenX -= rectTransform.rect.width * pivot.x * (Screen.width / canvasRectTransform.rect.width);
+        screenY -= rectTransform.rect.height * (1 - pivot.y) * (Screen.height / canvasRectTransform.rect.height);
+
+        activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            webView.Call("setPosition", (int)screenX, (int)screenY);
         }));
     }
 }
