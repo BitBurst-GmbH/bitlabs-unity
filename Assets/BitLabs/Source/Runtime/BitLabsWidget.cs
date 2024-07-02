@@ -1,18 +1,26 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BitLabsWidget : MonoBehaviour
 {
+#if UNITY_ANDROID
     private AndroidJavaObject webView;
     private AndroidJavaObject activity;
+#endif
 
     public string token = "APP_TOKEN";
     public string uid = "USER_ID";
-    public string type = "leaderboard";
+    public WidgetType type = WidgetType.Leaderboard;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (type != WidgetType.Leaderboard)
+        {
+            GetComponent<Image>().enabled = false;
+        }
+
+#if UNITY_ANDROID
         activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
 
         Render();
@@ -20,14 +28,16 @@ public class BitLabsWidget : MonoBehaviour
         SetSize();
 
         SetPosition();
+#endif
     }
 
+#if UNITY_ANDROID
     private void Render()
     {
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             webView = new AndroidJavaObject("ai.bitlabs.sdk.views.WidgetLayout", activity);
-            webView.Call("render", token, uid, type);
+            webView.Call("render", token, uid, GetStringFromWidgetType(type));
         }));
     }
 
@@ -70,4 +80,25 @@ public class BitLabsWidget : MonoBehaviour
             webView.Call("setPosition", (int)screenX, (int)screenY);
         }));
     }
+#endif
+
+    private string GetStringFromWidgetType(WidgetType widgetType)
+    {
+        return widgetType switch
+        {
+            WidgetType.Leaderboard => "leaderboard",
+            WidgetType.CompactSurvey => "compact",
+            WidgetType.SimpleSurvey => "simple",
+            WidgetType.FullWidthSurvey => "full-width",
+            _ => "leaderboard",
+        };
+    }
+}
+
+public enum WidgetType
+{
+    Leaderboard,
+    CompactSurvey,
+    SimpleSurvey,
+    FullWidthSurvey
 }

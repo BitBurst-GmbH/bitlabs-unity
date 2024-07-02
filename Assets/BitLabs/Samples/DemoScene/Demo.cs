@@ -13,7 +13,7 @@ public class Example : MonoBehaviour
 
         BitLabs.AddTag("userType", "new");
         BitLabs.AddTag("isPremium", "false");
-        
+
         BitLabs.SetRewardCallback(gameObject.name);
 
         BitLabs.GetLeaderboard(gameObject.name);
@@ -51,17 +51,16 @@ public class Example : MonoBehaviour
         {
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
         }
-        GameObject container = GameObject.Find("SurveyContainer");
-        SurveyContainer containerScript = container.GetComponent<SurveyContainer>();
-        containerScript.UpdateList(surveyList.surveys);
     }
 
     private void GetLeaderboardCallback(string leaderboardJson)
     {
         Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
-        GameObject leaderboardContainer = GameObject.Find("Leaderboard");
-        LeaderboardScript leaderboardScript = leaderboardContainer.GetComponent<LeaderboardScript>();
-        leaderboardScript.UpdateRankings(leaderboard.topUsers, leaderboard.ownUser);
+
+        foreach (var ranking in leaderboard.topUsers)
+        {
+            Debug.Log("Rank: " + ranking.rank + ", User: " + ranking.name + ", Earnings: " + ranking.earningsRaw);
+        }
     }
 
     private void RewardCallback(string payout)
