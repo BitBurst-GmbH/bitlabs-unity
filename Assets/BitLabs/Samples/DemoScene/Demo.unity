@@ -801,7 +801,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 196432613966372743, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_Name
-      value: BitLabsWidget
+      value: Leaderboard
       objectReference: {fileID: 0}
     - target: {fileID: 5288818355010873713, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_Pivot.x
@@ -1247,7 +1247,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 196432613966372743, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_Name
-      value: BitLabsWidget (1)
+      value: Survey Widget
       objectReference: {fileID: 0}
     - target: {fileID: 5288818355010873713, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_Pivot.x
