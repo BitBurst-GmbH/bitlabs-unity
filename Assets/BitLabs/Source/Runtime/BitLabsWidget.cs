@@ -1,9 +1,20 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BitLabsWidget : MonoBehaviour
 {
-#if UNITY_ANDROID
+#if UNITY_IOS
+    [DllImport("__Internal")]
+    private static extern void _initWidget(string token, string uid, string type);
+
+
+    [DllImport("__Internal")]
+    private static extern void _setPosition(double x, double y);
+
+    [DllImport("__Internal")]
+    private static extern void _setSize(double width, double height);
+#elif UNITY_ANDROID
     private AndroidJavaObject webView;
     private AndroidJavaObject activity;
 #endif
@@ -20,15 +31,16 @@ public class BitLabsWidget : MonoBehaviour
             GetComponent<Image>().enabled = false;
         }
 
-#if UNITY_ANDROID
+#if UNITY_IOS
+        _initWidget(token, uid, GetStringFromWidgetType(type));
+#elif UNITY_ANDROID
         activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
 
         Render();
-
+#endif
         SetSize();
 
         SetPosition();
-#endif
     }
 
 #if UNITY_ANDROID
@@ -40,6 +52,7 @@ public class BitLabsWidget : MonoBehaviour
             webView.Call("render", token, uid, GetStringFromWidgetType(type));
         }));
     }
+#endif
 
     private void SetSize()
     {
@@ -51,10 +64,14 @@ public class BitLabsWidget : MonoBehaviour
             size.x * (Screen.width / canvasRectTransform.rect.width),
             size.y * (Screen.height / canvasRectTransform.rect.height));
 
+#if UNITY_IOS
+        _setSize(screenSize.x, screenSize.y);
+#elif UNITY_ANDROID
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             webView.Call("setSize", (int)screenSize.x, (int)screenSize.y);
         }));
+#endif
     }
 
     private void SetPosition()
@@ -75,12 +92,15 @@ public class BitLabsWidget : MonoBehaviour
         screenX -= rectTransform.rect.width * pivot.x * (Screen.width / canvasRectTransform.rect.width);
         screenY -= rectTransform.rect.height * (1 - pivot.y) * (Screen.height / canvasRectTransform.rect.height);
 
+#if UNITY_IOS
+        _setPosition(screenX, screenY);
+#elif UNITY_ANDROID
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             webView.Call("setPosition", (int)screenX, (int)screenY);
         }));
-    }
 #endif
+    }
 
     private string GetStringFromWidgetType(WidgetType widgetType)
     {

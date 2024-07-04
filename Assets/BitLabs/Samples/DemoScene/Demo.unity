@@ -883,6 +883,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
+      propertyPath: uid
+      value: lettherebebitlabs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
+      propertyPath: token
+      value: 7afbdd12-1a97-4496-bcbe-1d0a7376427e
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
