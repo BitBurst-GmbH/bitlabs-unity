@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871e0e855119345a9a0503fe16765f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Token: 46d31e1e-315a-4b52-b0de-eca6062163af
+  Token: TOKEN
   UserId: oblivatevariegata
 --- !u!1 &223974226
 GameObject:
@@ -883,14 +883,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: uid
-      value: lettherebebitlabs
-      objectReference: {fileID: 0}
-    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: token
-      value: 7afbdd12-1a97-4496-bcbe-1d0a7376427e
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1283,7 +1275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5288818355010873713, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 5288818355010873713, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1336,22 +1328,6 @@ PrefabInstance:
     - target: {fileID: 5288818355010873713, guid: 9feab81c62a5543769f82210be280933, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: uid
-      value: oblivatevariegata
-      objectReference: {fileID: 0}
-    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6342304088162283435, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: token
-      value: 46d31e1e-315a-4b52-b0de-eca6062163af
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299775751731503414, guid: 9feab81c62a5543769f82210be280933, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
