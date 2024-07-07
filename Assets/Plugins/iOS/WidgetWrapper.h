@@ -1,0 +1,2 @@
+@interface WidgetWrapper : NSObject
+@end
