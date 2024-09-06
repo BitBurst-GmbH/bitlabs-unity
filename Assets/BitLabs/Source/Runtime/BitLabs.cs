@@ -49,7 +49,6 @@ public class BitLabs : MonoBehaviour
     private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
     private static AndroidJavaClass unityPlayer;
-    private static AndroidJavaObject currentActivity;
     private static AndroidJavaObject bitlabsObject;
     private static AndroidJavaObject bitlabs;
 #endif
@@ -65,7 +64,6 @@ public class BitLabs : MonoBehaviour
 #elif UNITY_ANDROID
         //Get Activty
         unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
         bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
