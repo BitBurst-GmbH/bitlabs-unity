@@ -44,6 +44,16 @@ public class Example : MonoBehaviour
         Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
     }
 
+    private void CheckSurveysException(string error)
+    {
+        Debug.LogError("BitLabs checkSurveys failed: " + error);
+    }
+
+    private void GetSurveysException(string error)
+    {
+        Debug.LogError("BitLabs getSurveys failed: " + error);
+    }
+
     private void GetSurveysCallback(string surveysJson)
     {
         SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
