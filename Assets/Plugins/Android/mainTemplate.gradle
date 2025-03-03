@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.18' // Assets/Plugins/Editor/BitLabsDependencies.xml:8
+    implementation 'com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.24' // Assets/Plugins/Editor/BitLabsDependencies.xml:8
 // Android Resolver Dependencies End
 **DEPS**}
 

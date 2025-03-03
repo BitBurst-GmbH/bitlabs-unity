@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.18</package>
+    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.24</package>
   </packages>
   <files />
   <settings>
