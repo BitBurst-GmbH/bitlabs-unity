@@ -16,7 +16,6 @@ public class Example : MonoBehaviour
 
         BitLabs.SetRewardCallback(gameObject.name);
 
-        BitLabs.GetLeaderboard(gameObject.name);
     }
 
     public void AuthorizeTracking()
@@ -60,16 +59,6 @@ public class Example : MonoBehaviour
         foreach (var survey in surveyList.surveys)
         {
             Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
-        }
-    }
-
-    private void GetLeaderboardCallback(string leaderboardJson)
-    {
-        Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(leaderboardJson);
-
-        foreach (var ranking in leaderboard.topUsers)
-        {
-            Debug.Log("Rank: " + ranking.rank + ", User: " + ranking.name + ", Earnings: " + ranking.earningsRaw);
         }
     }
 

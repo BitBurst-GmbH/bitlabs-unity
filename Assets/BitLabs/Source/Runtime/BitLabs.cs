@@ -126,15 +126,6 @@ public class BitLabs : MonoBehaviour
 #endif
     }
 
-    public static void GetLeaderboard(string gameObject)
-    {
-#if UNITY_IOS
-        _getLeaderboard(gameObject);
-#elif UNITY_ANDROID
-        bitlabs.Call("getLeaderboard", gameObject);
-#endif
-    }
-
     public static void SetRewardCallback(string gameObject)
     {
 #if UNITY_IOS
