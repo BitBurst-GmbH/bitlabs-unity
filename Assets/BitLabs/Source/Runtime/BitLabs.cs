@@ -53,10 +53,6 @@ public class BitLabs : MonoBehaviour
     private static AndroidJavaObject bitlabs;
 #endif
 
-    public static string[] WidgetColor = new string[2];
-    public static string CurrencyIconUrl = null;
-    public static double BonusPercentage = 0.0;
-
     public static void Init(string token, string uid)
     {
 #if UNITY_IOS
@@ -69,7 +65,6 @@ public class BitLabs : MonoBehaviour
         bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
         bitlabs.Call("init", token, uid);
 #endif
-        SetupWidgetColor();
     }
 
     public static void LaunchOfferWall()
@@ -141,81 +136,4 @@ public class BitLabs : MonoBehaviour
         _requestTrackingAuthorization();
 #endif
     }
-
-    private static void SetupWidgetColor()
-    {
-#if UNITY_IOS
-        new Thread(() =>
-        {
-            int tries = 0;
-
-            do
-            {
-                if (tries == 10)
-                {
-                    WidgetColor = new string[] { "#027BFF", "#027BFF" };
-                    break;
-                }
-
-                Thread.Sleep(300);
-
-                FetchiOSColor();
-
-                tries++;
-            } while (WidgetColor.Any(color => string.IsNullOrEmpty(color)));
-
-            CurrencyIconUrl = Marshal.PtrToStringAuto(_getCurrencyIconURL());
-
-            BonusPercentage = _getBonusPercentage();
-        }).Start();
-
-#elif UNITY_ANDROID
-        int tries = 0;
-
-        while (true)
-        {
-            if (tries > 10)
-            {
-                WidgetColor = new string[] { "#027BFF", "#027BFF" };
-                break;
-            }
-
-            Thread.Sleep(100);
-
-            int[] colors = bitlabs.Call<int[]>("getColor");
-            if (colors.Any(color => color != 0))
-            {
-                WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
-                break;
-            }
-
-            tries++;
-        }
-
-        CurrencyIconUrl = bitlabs.Call<string>("getCurrencyIconUrl");
-
-        BonusPercentage = bitlabs.Call<double>("getBonusPercentage");
-#endif
-    }
-
-#if UNITY_IOS
-    private static void FetchiOSColor()
-    {
-        IntPtr charPtr = _getColor();
-
-        for (int i = 0; i < 2; i++)
-        {
-            IntPtr ptr = Marshal.ReadIntPtr(charPtr, i * IntPtr.Size);
-            WidgetColor[i] = Marshal.PtrToStringAnsi(ptr);
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            IntPtr ptr = Marshal.ReadIntPtr(charPtr, i * IntPtr.Size);
-            Marshal.FreeCoTaskMem(ptr);
-        }
-
-        Marshal.FreeCoTaskMem(charPtr);
-    }
-#endif
 }
