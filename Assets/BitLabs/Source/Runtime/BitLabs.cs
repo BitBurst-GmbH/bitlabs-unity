@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System;
 using System.Threading;
+using BitLabsCallbacks;
 
 public class BitLabs : MonoBehaviour
 {
@@ -48,92 +49,108 @@ public class BitLabs : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
-    private static AndroidJavaClass unityPlayer;
-    private static AndroidJavaObject bitlabsObject;
-    private static AndroidJavaObject bitlabs;
+        private static AndroidJavaClass unityPlayer;
+        private static AndroidJavaObject bitlabsObject;
+        private static AndroidJavaObject bitlabs;
 #endif
 
-    public static void Init(string token, string uid)
-    {
+        public static void Init(string token, string uid, Action onSuccess = null, Action<string> onError = null)
+        {
 #if UNITY_IOS
         _init(token, uid);
+        onSuccess?.Invoke();
 #elif UNITY_ANDROID
-        //Get Activty
-        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                //Get Activity
+                unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 
-        bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
-        bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
-        bitlabs.Call("init", token, uid);
+                bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
+                bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
+
+                // Now try init
+                var responseListener = new ResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
+
+                bitlabs.Call("init", token, uid, responseListener, exceptionListener);
 #endif
-    }
+        }
 
-    public static void LaunchOfferWall()
-    {
+        public static void LaunchOfferWall()
+        {
 #if UNITY_IOS
         _launchOfferWall();
 #elif UNITY_ANDROID
-        bitlabs.Call("launchOfferWall");
+                bitlabs.Call("launchOfferWall");
 #endif
-    }
+        }
 
-    public static void SetIsDebugMode(bool isDebugMode)
-    {
+        public static void SetIsDebugMode(bool isDebugMode)
+        {
 #if UNITY_IOS
         _setIsDebugMode(isDebugMode);
 #elif UNITY_ANDROID
-        bitlabs.Call("setDebugMode", isDebugMode);
+                bitlabs.Call("setDebugMode", isDebugMode);
 #endif
-    }
+        }
 
-    public static void SetTags(Dictionary<string, string> tags)
-    {
+        public static void SetTags(Dictionary<string, string> tags)
+        {
 #if UNITY_IOS
         _setTags(tags);
 #elif UNITY_ANDROID
-        bitlabs.Call("setTags", tags);
+                bitlabs.Call("setTags", tags);
 #endif
-    }
+        }
 
-    public static void AddTag(string key, string value)
-    {
+        public static void AddTag(string key, string value)
+        {
 #if UNITY_IOS
         _addTag(key, value);
 #elif UNITY_ANDROID
-        bitlabs.Call("addTag", key, value);
+                bitlabs.Call("addTag", key, value);
 #endif
-    }
+        }
 
-    public static void CheckSurveys(string gameObject)
-    {
+        public static void CheckSurveys(Action<bool> onSuccess, Action<string> onError)
+        {
 #if UNITY_IOS
-        _checkSurveys(gameObject);
+        // TODO: Update iOS implementation to use callbacks
+        _checkSurveys("BitLabs");
 #elif UNITY_ANDROID
-        bitlabs.Call("checkSurveys", gameObject);
-#endif
-    }
+                var responseListener = new BooleanResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
 
-    public static void GetSurveys(string gameObject)
-    {
+                bitlabs.Call("checkSurveys", responseListener, exceptionListener);
+#endif
+        }
+
+        public static void GetSurveys(Action<string> onSuccess, Action<string> onError)
+        {
 #if UNITY_IOS
-        _getSurveys(gameObject);
+        // TODO: Update iOS implementation to use callbacks
+        _getSurveys("BitLabs");
 #elif UNITY_ANDROID
-        bitlabs.Call("getSurveys", gameObject);
-#endif
-    }
+                var responseListener = new StringResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
 
-    public static void SetRewardCallback(string gameObject)
-    {
+                bitlabs.Call("getSurveys", responseListener, exceptionListener);
+#endif
+        }
+
+        public static void SetRewardCallback(Action<double> onReward)
+        {
 #if UNITY_IOS
-        _setRewardCompletionHandler(gameObject);
+        // TODO: Update iOS implementation to use callbacks
+        _setRewardCompletionHandler("BitLabs");
 #elif UNITY_ANDROID
-        bitlabs.Call("setOnRewardListener", gameObject);
+                var rewardListener = new RewardListener(onReward);
+                bitlabs.Call("setOnRewardListener", rewardListener);
 #endif
-    }
+        }
 
-    public static void RequestTrackingAuthorization()
-    {
+        public static void RequestTrackingAuthorization()
+        {
 #if UNITY_IOS
         _requestTrackingAuthorization();
 #endif
-    }
+        }
 }

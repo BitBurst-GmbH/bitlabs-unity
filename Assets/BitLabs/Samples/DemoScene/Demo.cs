@@ -9,13 +9,19 @@ public class Example : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BitLabs.Init(Token, UserId);
+        BitLabs.Init(Token, UserId,
+            onSuccess: () => {
+                Debug.Log("BitLabs SDK initialized successfully!");
 
-        BitLabs.AddTag("userType", "new");
-        BitLabs.AddTag("isPremium", "false");
+                BitLabs.AddTag("userType", "new");
+                BitLabs.AddTag("isPremium", "false");
 
-        BitLabs.SetRewardCallback(gameObject.name);
-
+                BitLabs.SetRewardCallback(RewardCallback);
+            },
+            onError: (error) => {
+                Debug.LogError($"BitLabs initialization failed: {error}");
+            }
+        );
     }
 
     public void AuthorizeTracking()
@@ -25,7 +31,22 @@ public class Example : MonoBehaviour
 
     public void CheckSurveys()
     {
-        BitLabs.CheckSurveys(gameObject.name);
+        BitLabs.CheckSurveys(
+            onSuccess: (hasSurveys) => {
+                Debug.Log($"BitLabs CheckSurveys: {hasSurveys}");
+                if (hasSurveys)
+                {
+                    Debug.Log("Surveys are available!");
+                }
+                else
+                {
+                    Debug.Log("No surveys available at the moment.");
+                }
+            },
+            onError: (error) => {
+                Debug.LogError($"BitLabs CheckSurveys failed: {error}");
+            }
+        );
     }
 
     public void ShowSurveys()
@@ -35,36 +56,24 @@ public class Example : MonoBehaviour
 
     public void GetSurveys()
     {
-        BitLabs.GetSurveys(gameObject.name);
+        BitLabs.GetSurveys(
+            onSuccess: (surveysJson) => {
+                Debug.Log("BitLabs GetSurveys response: " + surveysJson);
+                SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
+                foreach (var survey in surveyList.surveys)
+                {
+                    Debug.Log($"Survey Id: {survey.id}, in Category: {survey.category.name}");
+                }
+            },
+            onError: (error) => {
+                Debug.LogError($"BitLabs GetSurveys failed: {error}");
+            }
+        );
     }
 
-    private void CheckSurveysCallback(string surveyAvailable)
+    private void RewardCallback(double payout)
     {
-        Debug.Log("BitLabs Unity checkSurveys: " + surveyAvailable);
-    }
-
-    private void CheckSurveysException(string error)
-    {
-        Debug.LogError("BitLabs checkSurveys failed: " + error);
-    }
-
-    private void GetSurveysException(string error)
-    {
-        Debug.LogError("BitLabs getSurveys failed: " + error);
-    }
-
-    private void GetSurveysCallback(string surveysJson)
-    {
-        SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
-        foreach (var survey in surveyList.surveys)
-        {
-            Debug.Log("Survey Id: " + survey.id + ", in Category: " + survey.category.name);
-        }
-    }
-
-    private void RewardCallback(string payout)
-    {
-        Debug.Log("BitLabs Unity onReward: " + payout);
+        Debug.Log($"BitLabs Reward received: {payout}");
     }
 }
 

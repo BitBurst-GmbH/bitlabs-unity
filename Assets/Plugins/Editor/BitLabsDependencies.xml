@@ -3,9 +3,16 @@
   <androidPackages>
     <repositories>
       <repository>https://jitpack.io</repository>
+      <!-- Note: mavenLocal() is already configured in settingsTemplate.gradle -->
     </repositories>
+    <!-- Use local version for testing (published to Maven Local) -->
+    <androidPackage spec="com.prodege.bitlabs:unity:5.1.0">
+    </androidPackage>
+    <!-- Original remote version (commented out for testing) -->
+    <!--
     <androidPackage spec="com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.24">
     </androidPackage>
+    -->
   </androidPackages>
   
     <iosPods>
