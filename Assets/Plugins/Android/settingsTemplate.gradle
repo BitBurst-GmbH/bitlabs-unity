@@ -14,13 +14,9 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         **ARTIFACTORYREPOSITORY**
-        mavenLocal() // Check local Maven first for testing
         google()
         mavenCentral()
 // Android Resolver Repos Start
-        maven {
-            url "https://jitpack.io" // Assets/Plugins/Editor/BitLabsDependencies.xml:7
-        }
         mavenLocal()
 // Android Resolver Repos End
         flatDir {

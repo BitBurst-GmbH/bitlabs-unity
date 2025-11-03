@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.prodege.bitlabs:unity:5.1.0</package>
+    <package>com.prodege.bitlabs:unity:5.1.1</package>
   </packages>
   <files />
   <settings>

@@ -5,7 +5,7 @@ apply from: '../shared/keepUnitySymbols.gradle'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.prodege.bitlabs:unity:5.1.0' // Assets/Plugins/Editor/BitLabsDependencies.xml:10
+    implementation 'com.prodege.bitlabs:unity:5.1.1' // Assets/Plugins/Editor/BitLabsDependencies.xml:4
 // Android Resolver Dependencies End
 **DEPS**}
 
