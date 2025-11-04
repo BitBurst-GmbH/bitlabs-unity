@@ -10,44 +10,39 @@ public class BitLabs : MonoBehaviour
 {
 
 #if UNITY_IOS
-    [DllImport("__Internal")]
-    private static extern void _init(string token, string uid);
+        [DllImport("__Internal")]
+        private static extern void _init(string token, string uid,
+            OnInitSuccessDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _launchOfferWall();
+        [DllImport("__Internal")]
+        private static extern void _launchOfferWall();
 
-    [DllImport("__Internal")]
-    private static extern void _setTags(Dictionary<string, string> tags);
+        [DllImport("__Internal")]
+        private static extern void _setTags(Dictionary<string, string> tags);
 
-    [DllImport("__Internal")]
-    private static extern void _addTag(string key, string value);
+        [DllImport("__Internal")]
+        private static extern void _addTag(string key, string value);
 
-    [DllImport("__Internal")]
-    private static extern void _checkSurveys(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _checkSurveys(
+            OnBooleanResponseDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _getSurveys(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _getSurveys(
+            OnStringResponseDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _getLeaderboard(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _setRewardCompletionHandler(
+            OnRewardDelegate onReward);
 
-    [DllImport("__Internal")]
-    private static extern void _setRewardCompletionHandler(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _requestTrackingAuthorization();
 
-    [DllImport("__Internal")]
-    private static extern void _requestTrackingAuthorization();
-
-    [DllImport("__Internal")]
-    private static extern IntPtr _getCurrencyIconURL();
-
-    [DllImport("__Internal")]
-    private static extern double _getBonusPercentage();
-
-    [DllImport("__Internal")]
-    private static extern IntPtr _getColor();
-
-    [DllImport("__Internal")]
-    private static extern void _setIsDebugMode(bool isDebugMode);
+        [DllImport("__Internal")]
+        private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
         private static AndroidJavaClass unityPlayer;
         private static AndroidJavaObject bitlabsObject;
@@ -57,8 +52,12 @@ public class BitLabs : MonoBehaviour
         public static void Init(string token, string uid, Action onSuccess = null, Action<string> onError = null)
         {
 #if UNITY_IOS
-        _init(token, uid);
-        onSuccess?.Invoke();
+                // Store user callbacks in static fields
+                IOSCallbackHandlers.InitSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.InitErrorCallback_User = onError;
+
+                // Pass static methods to native code
+                _init(token, uid, IOSCallbackHandlers.OnInitSuccess, IOSCallbackHandlers.OnInitError);
 #elif UNITY_ANDROID
                 //Get Activity
                 unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -77,7 +76,7 @@ public class BitLabs : MonoBehaviour
         public static void LaunchOfferWall()
         {
 #if UNITY_IOS
-        _launchOfferWall();
+                _launchOfferWall();
 #elif UNITY_ANDROID
                 bitlabs.Call("launchOfferWall");
 #endif
@@ -86,7 +85,7 @@ public class BitLabs : MonoBehaviour
         public static void SetIsDebugMode(bool isDebugMode)
         {
 #if UNITY_IOS
-        _setIsDebugMode(isDebugMode);
+                _setIsDebugMode(isDebugMode);
 #elif UNITY_ANDROID
                 bitlabs.Call("setDebugMode", isDebugMode);
 #endif
@@ -95,7 +94,7 @@ public class BitLabs : MonoBehaviour
         public static void SetTags(Dictionary<string, string> tags)
         {
 #if UNITY_IOS
-        _setTags(tags);
+                _setTags(tags);
 #elif UNITY_ANDROID
                 bitlabs.Call("setTags", tags);
 #endif
@@ -104,7 +103,7 @@ public class BitLabs : MonoBehaviour
         public static void AddTag(string key, string value)
         {
 #if UNITY_IOS
-        _addTag(key, value);
+                _addTag(key, value);
 #elif UNITY_ANDROID
                 bitlabs.Call("addTag", key, value);
 #endif
@@ -113,8 +112,9 @@ public class BitLabs : MonoBehaviour
         public static void CheckSurveys(Action<bool> onSuccess, Action<string> onError)
         {
 #if UNITY_IOS
-        // TODO: Update iOS implementation to use callbacks
-        _checkSurveys("BitLabs");
+                IOSCallbackHandlers.CheckSurveysSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.CheckSurveysErrorCallback_User = onError;
+                _checkSurveys(IOSCallbackHandlers.OnCheckSurveysSuccess, IOSCallbackHandlers.OnCheckSurveysError);
 #elif UNITY_ANDROID
                 var responseListener = new BooleanResponseListener(onSuccess);
                 var exceptionListener = new ExceptionListener(onError);
@@ -126,8 +126,9 @@ public class BitLabs : MonoBehaviour
         public static void GetSurveys(Action<string> onSuccess, Action<string> onError)
         {
 #if UNITY_IOS
-        // TODO: Update iOS implementation to use callbacks
-        _getSurveys("BitLabs");
+                IOSCallbackHandlers.GetSurveysSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.GetSurveysErrorCallback_User = onError;
+                _getSurveys(IOSCallbackHandlers.OnGetSurveysSuccess, IOSCallbackHandlers.OnGetSurveysError);
 #elif UNITY_ANDROID
                 var responseListener = new StringResponseListener(onSuccess);
                 var exceptionListener = new ExceptionListener(onError);
@@ -139,8 +140,8 @@ public class BitLabs : MonoBehaviour
         public static void SetRewardCallback(Action<double> onReward)
         {
 #if UNITY_IOS
-        // TODO: Update iOS implementation to use callbacks
-        _setRewardCompletionHandler("BitLabs");
+                IOSCallbackHandlers.RewardCallback_User = onReward;
+                _setRewardCompletionHandler(IOSCallbackHandlers.OnReward);
 #elif UNITY_ANDROID
                 var rewardListener = new RewardListener(onReward);
                 bitlabs.Call("setOnRewardListener", rewardListener);
@@ -150,7 +151,7 @@ public class BitLabs : MonoBehaviour
         public static void RequestTrackingAuthorization()
         {
 #if UNITY_IOS
-        _requestTrackingAuthorization();
+                _requestTrackingAuthorization();
 #endif
         }
 }
