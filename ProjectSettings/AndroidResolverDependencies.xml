@@ -1,10 +1,10 @@
 <dependencies>
   <packages>
-    <package>com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.24</package>
+    <package>com.prodege.bitlabs:unity:5.1.1</package>
   </packages>
   <files />
   <settings>
-    <setting name="androidAbis" value="armeabi-v7a" />
+    <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
     <setting name="bundleId" value="com.bitburst.BitLabs" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />

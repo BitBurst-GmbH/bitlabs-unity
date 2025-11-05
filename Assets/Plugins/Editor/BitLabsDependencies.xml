@@ -1,16 +1,11 @@
 <dependencies>
 
   <androidPackages>
-    <repositories>
-      <repository>https://jitpack.io</repository>
-    </repositories>
-    <androidPackage spec="com.github.BitBurst-GmbH.bitlabs-android-library:unity:3.2.24">
-    </androidPackage>
+    <androidPackage spec="com.prodege.bitlabs:unity:5.1.1" />
   </androidPackages>
   
     <iosPods>
-      <iosPod name="BitLabs/Unity" version="~> 3.2.10" bitcodeEnabled="true"
-              minTargetSdk="11.0" addToAllTargets="false" />
+      <iosPod name="BitLabs/Unity" version="~> 4.1.1" bitcodeEnabled="true" minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 
 </dependencies>

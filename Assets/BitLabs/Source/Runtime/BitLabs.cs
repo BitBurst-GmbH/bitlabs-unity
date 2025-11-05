@@ -1,230 +1,155 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Linq;
 using UnityEngine;
 using System;
-using System.Threading;
+using BitLabsCallbacks;
 
 public class BitLabs : MonoBehaviour
 {
 
 #if UNITY_IOS
-    [DllImport("__Internal")]
-    private static extern void _init(string token, string uid);
+        [DllImport("__Internal")]
+        private static extern void _init(string token, string uid,
+            OnInitSuccessDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _launchOfferWall();
+        [DllImport("__Internal")]
+        private static extern void _launchOfferWall();
 
-    [DllImport("__Internal")]
-    private static extern void _setTags(Dictionary<string, string> tags);
+        [DllImport("__Internal")]
+        private static extern void _setTags(Dictionary<string, string> tags);
 
-    [DllImport("__Internal")]
-    private static extern void _addTag(string key, string value);
+        [DllImport("__Internal")]
+        private static extern void _addTag(string key, string value);
 
-    [DllImport("__Internal")]
-    private static extern void _checkSurveys(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _checkSurveys(
+            OnBooleanResponseDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _getSurveys(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _getSurveys(
+            OnStringResponseDelegate onSuccess,
+            OnErrorDelegate onError);
 
-    [DllImport("__Internal")]
-    private static extern void _getLeaderboard(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _setRewardCompletionHandler(
+            OnRewardDelegate onReward);
 
-    [DllImport("__Internal")]
-    private static extern void _setRewardCompletionHandler(string gameObject);
+        [DllImport("__Internal")]
+        private static extern void _requestTrackingAuthorization();
 
-    [DllImport("__Internal")]
-    private static extern void _requestTrackingAuthorization();
-
-    [DllImport("__Internal")]
-    private static extern IntPtr _getCurrencyIconURL();
-
-    [DllImport("__Internal")]
-    private static extern double _getBonusPercentage();
-
-    [DllImport("__Internal")]
-    private static extern IntPtr _getColor();
-
-    [DllImport("__Internal")]
-    private static extern void _setIsDebugMode(bool isDebugMode);
+        [DllImport("__Internal")]
+        private static extern void _setIsDebugMode(bool isDebugMode);
 #elif UNITY_ANDROID
-    private static AndroidJavaClass unityPlayer;
-    private static AndroidJavaObject bitlabsObject;
-    private static AndroidJavaObject bitlabs;
+        private static AndroidJavaClass unityPlayer;
+        private static AndroidJavaObject bitlabsObject;
+        private static AndroidJavaObject bitlabs;
 #endif
 
-    public static string[] WidgetColor = new string[2];
-    public static string CurrencyIconUrl = null;
-    public static double BonusPercentage = 0.0;
-
-    public static void Init(string token, string uid)
-    {
-#if UNITY_IOS
-        _init(token, uid);
-#elif UNITY_ANDROID
-        //Get Activty
-        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-
-        bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
-        bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
-        bitlabs.Call("init", token, uid);
-#endif
-        SetupWidgetColor();
-    }
-
-    public static void LaunchOfferWall()
-    {
-#if UNITY_IOS
-        _launchOfferWall();
-#elif UNITY_ANDROID
-        bitlabs.Call("launchOfferWall");
-#endif
-    }
-
-    public static void SetIsDebugMode(bool isDebugMode)
-    {
-#if UNITY_IOS
-        _setIsDebugMode(isDebugMode);
-#elif UNITY_ANDROID
-        bitlabs.Call("setDebugMode", isDebugMode);
-#endif
-    }
-
-    public static void SetTags(Dictionary<string, string> tags)
-    {
-#if UNITY_IOS
-        _setTags(tags);
-#elif UNITY_ANDROID
-        bitlabs.Call("setTags", tags);
-#endif
-    }
-
-    public static void AddTag(string key, string value)
-    {
-#if UNITY_IOS
-        _addTag(key, value);
-#elif UNITY_ANDROID
-        bitlabs.Call("addTag", key, value);
-#endif
-    }
-
-    public static void CheckSurveys(string gameObject)
-    {
-#if UNITY_IOS
-        _checkSurveys(gameObject);
-#elif UNITY_ANDROID
-        bitlabs.Call("checkSurveys", gameObject);
-#endif
-    }
-
-    public static void GetSurveys(string gameObject)
-    {
-#if UNITY_IOS
-        _getSurveys(gameObject);
-#elif UNITY_ANDROID
-        bitlabs.Call("getSurveys", gameObject);
-#endif
-    }
-
-    public static void GetLeaderboard(string gameObject)
-    {
-#if UNITY_IOS
-        _getLeaderboard(gameObject);
-#elif UNITY_ANDROID
-        bitlabs.Call("getLeaderboard", gameObject);
-#endif
-    }
-
-    public static void SetRewardCallback(string gameObject)
-    {
-#if UNITY_IOS
-        _setRewardCompletionHandler(gameObject);
-#elif UNITY_ANDROID
-        bitlabs.Call("setOnRewardListener", gameObject);
-#endif
-    }
-
-    public static void RequestTrackingAuthorization()
-    {
-#if UNITY_IOS
-        _requestTrackingAuthorization();
-#endif
-    }
-
-    private static void SetupWidgetColor()
-    {
-#if UNITY_IOS
-        new Thread(() =>
+        public static void Init(string token, string uid, Action onSuccess = null, Action<string> onError = null)
         {
-            int tries = 0;
+#if UNITY_IOS
+                // Store user callbacks in static fields
+                IOSCallbackHandlers.InitSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.InitErrorCallback_User = onError;
 
-            do
-            {
-                if (tries == 10)
-                {
-                    WidgetColor = new string[] { "#027BFF", "#027BFF" };
-                    break;
-                }
-
-                Thread.Sleep(300);
-
-                FetchiOSColor();
-
-                tries++;
-            } while (WidgetColor.Any(color => string.IsNullOrEmpty(color)));
-
-            CurrencyIconUrl = Marshal.PtrToStringAuto(_getCurrencyIconURL());
-
-            BonusPercentage = _getBonusPercentage();
-        }).Start();
-
+                // Pass static methods to native code
+                _init(token, uid, IOSCallbackHandlers.OnInitSuccess, IOSCallbackHandlers.OnInitError);
 #elif UNITY_ANDROID
-        int tries = 0;
+                //Get Activity
+                unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 
-        while (true)
-        {
-            if (tries > 10)
-            {
-                WidgetColor = new string[] { "#027BFF", "#027BFF" };
-                break;
-            }
+                bitlabsObject = new AndroidJavaObject("ai.bitlabs.sdk.BitLabs");
+                bitlabs = bitlabsObject.GetStatic<AndroidJavaObject>("INSTANCE");
 
-            Thread.Sleep(100);
+                // Now try init
+                var responseListener = new ResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
 
-            int[] colors = bitlabs.Call<int[]>("getColor");
-            if (colors.Any(color => color != 0))
-            {
-                WidgetColor = colors.Select(color => "#" + color.ToString("X8").Substring(2)).ToArray();
-                break;
-            }
-
-            tries++;
+                bitlabs.Call("init", token, uid, responseListener, exceptionListener);
+#endif
         }
 
-        CurrencyIconUrl = bitlabs.Call<string>("getCurrencyIconUrl");
-
-        BonusPercentage = bitlabs.Call<double>("getBonusPercentage");
-#endif
-    }
-
+        public static void LaunchOfferWall()
+        {
 #if UNITY_IOS
-    private static void FetchiOSColor()
-    {
-        IntPtr charPtr = _getColor();
-
-        for (int i = 0; i < 2; i++)
-        {
-            IntPtr ptr = Marshal.ReadIntPtr(charPtr, i * IntPtr.Size);
-            WidgetColor[i] = Marshal.PtrToStringAnsi(ptr);
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            IntPtr ptr = Marshal.ReadIntPtr(charPtr, i * IntPtr.Size);
-            Marshal.FreeCoTaskMem(ptr);
-        }
-
-        Marshal.FreeCoTaskMem(charPtr);
-    }
+                _launchOfferWall();
+#elif UNITY_ANDROID
+                bitlabs.Call("launchOfferWall");
 #endif
+        }
+
+        public static void SetIsDebugMode(bool isDebugMode)
+        {
+#if UNITY_IOS
+                _setIsDebugMode(isDebugMode);
+#elif UNITY_ANDROID
+                bitlabs.Call("setDebugMode", isDebugMode);
+#endif
+        }
+
+        public static void SetTags(Dictionary<string, string> tags)
+        {
+#if UNITY_IOS
+                _setTags(tags);
+#elif UNITY_ANDROID
+                bitlabs.Call("setTags", tags);
+#endif
+        }
+
+        public static void AddTag(string key, string value)
+        {
+#if UNITY_IOS
+                _addTag(key, value);
+#elif UNITY_ANDROID
+                bitlabs.Call("addTag", key, value);
+#endif
+        }
+
+        public static void CheckSurveys(Action<bool> onSuccess, Action<string> onError)
+        {
+#if UNITY_IOS
+                IOSCallbackHandlers.CheckSurveysSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.CheckSurveysErrorCallback_User = onError;
+                _checkSurveys(IOSCallbackHandlers.OnCheckSurveysSuccess, IOSCallbackHandlers.OnCheckSurveysError);
+#elif UNITY_ANDROID
+                var responseListener = new BooleanResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
+
+                bitlabs.Call("checkSurveys", responseListener, exceptionListener);
+#endif
+        }
+
+        public static void GetSurveys(Action<string> onSuccess, Action<string> onError)
+        {
+#if UNITY_IOS
+                IOSCallbackHandlers.GetSurveysSuccessCallback_User = onSuccess;
+                IOSCallbackHandlers.GetSurveysErrorCallback_User = onError;
+                _getSurveys(IOSCallbackHandlers.OnGetSurveysSuccess, IOSCallbackHandlers.OnGetSurveysError);
+#elif UNITY_ANDROID
+                var responseListener = new StringResponseListener(onSuccess);
+                var exceptionListener = new ExceptionListener(onError);
+
+                bitlabs.Call("getSurveys", responseListener, exceptionListener);
+#endif
+        }
+
+        public static void SetRewardCallback(Action<double> onReward)
+        {
+#if UNITY_IOS
+                IOSCallbackHandlers.RewardCallback_User = onReward;
+                _setRewardCompletionHandler(IOSCallbackHandlers.OnReward);
+#elif UNITY_ANDROID
+                var rewardListener = new RewardListener(onReward);
+                bitlabs.Call("setOnRewardListener", rewardListener);
+#endif
+        }
+
+        public static void RequestTrackingAuthorization()
+        {
+#if UNITY_IOS
+                _requestTrackingAuthorization();
+#endif
+        }
 }
