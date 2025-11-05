@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 
 public class Example : MonoBehaviour
@@ -10,7 +9,8 @@ public class Example : MonoBehaviour
     void Start()
     {
         BitLabs.Init(Token, UserId,
-            onSuccess: () => {
+            onSuccess: () =>
+            {
                 Debug.Log("BitLabs SDK initialized successfully!");
 
                 BitLabs.AddTag("userType", "new");
@@ -18,7 +18,8 @@ public class Example : MonoBehaviour
 
                 BitLabs.SetRewardCallback(RewardCallback);
             },
-            onError: (error) => {
+            onError: (error) =>
+            {
                 Debug.LogError($"BitLabs initialization failed: {error}");
             }
         );
@@ -32,8 +33,8 @@ public class Example : MonoBehaviour
     public void CheckSurveys()
     {
         BitLabs.CheckSurveys(
-            onSuccess: (hasSurveys) => {
-                Debug.Log($"BitLabs CheckSurveys: {hasSurveys}");
+            onSuccess: (hasSurveys) =>
+            {
                 if (hasSurveys)
                 {
                     Debug.Log("Surveys are available!");
@@ -43,7 +44,8 @@ public class Example : MonoBehaviour
                     Debug.Log("No surveys available at the moment.");
                 }
             },
-            onError: (error) => {
+            onError: (error) =>
+            {
                 Debug.LogError($"BitLabs CheckSurveys failed: {error}");
             }
         );
@@ -57,15 +59,16 @@ public class Example : MonoBehaviour
     public void GetSurveys()
     {
         BitLabs.GetSurveys(
-            onSuccess: (surveysJson) => {
-                Debug.Log("BitLabs GetSurveys response: " + surveysJson);
+            onSuccess: (surveysJson) =>
+            {
                 SurveyList surveyList = JsonUtility.FromJson<SurveyList>("{ \"surveys\": " + surveysJson + "}");
                 foreach (var survey in surveyList.surveys)
                 {
                     Debug.Log($"Survey Id: {survey.id}, in Category: {survey.category.name}");
                 }
             },
-            onError: (error) => {
+            onError: (error) =>
+            {
                 Debug.LogError($"BitLabs GetSurveys failed: {error}");
             }
         );

@@ -5,9 +5,7 @@
   </androidPackages>
   
     <iosPods>
-      <!-- Using local iOS SDK with callback support -->
-      <iosPod name="BitLabs/Unity" version="~> 4.1.1" bitcodeEnabled="true"
-              minTargetSdk="11.0" addToAllTargets="false" />
+      <iosPod name="BitLabs/Unity" version="~> 4.1.1" bitcodeEnabled="true" minTargetSdk="11.0" addToAllTargets="false" />
     </iosPods>
 
 </dependencies>
