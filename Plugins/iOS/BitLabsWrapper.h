@@ -1,0 +1,2 @@
+@interface BitLabsWrapper : NSObject
+@end
