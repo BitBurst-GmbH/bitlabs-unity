@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "displayName": "BitLabs",
   "description": "BitLabs Unity SDK for integrating BitLabs services into Unity projects.",
-  "unity": "2020.3",
+  "unity": "2023.1",
   "keywords": [
     "bitlabs",
     "sdk",
@@ -15,9 +15,17 @@
   ],
   "author": {
     "name": "Prodege, LLC",
-    "email": "support@prodege.com"
+    "url": "https://github.com/BitBurst-GmbH/bitlabs-unity"
   },
   "license": "MIT",
-  "dependencies": {},
-  "type": "library"
+  "dependencies": {
+    "com.google.external-dependency-manager": "1.2.186"
+  },
+  "samples": [
+    {
+      "displayName": "Demo Scene",
+      "description": "Example scene demonstrating BitLabs SDK integration with UI buttons for all API methods",
+      "path": "Samples/DemoScene"
+    }
+  ]
 }
