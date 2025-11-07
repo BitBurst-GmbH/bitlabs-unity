@@ -75,3 +75,6 @@ ios-build/
 
 # Allow ~ folders in package (override global *~ pattern for Unity hidden folders)
 !/Packages/com.prodege.bitlabs/**/*~
+
+# Development Sample Scenes
+/Assets/Samples
