@@ -62,3 +62,13 @@ ios-build/
 
 # Ignored MD Files
 /ignoredMDs/
+
+# Project manifest (development dependencies, not part of package distribution)
+/Packages/manifest.json
+/Packages/packages-lock.json
+
+# UserSettings (personal Unity Editor preferences)
+/UserSettings/
+
+# VS Code settings (personal IDE configuration)
+/.vscode/
