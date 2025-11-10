@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+# MacOS system files
+.DS_Store
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -30,7 +34,7 @@
 /UserSettings/
 
 # VS Code settings (personal IDE configuration)
-/.vscode/
+.vscode/
 
 # Gradle cache directory
 .gradle/
