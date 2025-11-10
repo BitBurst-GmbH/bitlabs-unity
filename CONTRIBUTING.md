@@ -113,7 +113,6 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
    - Open `Assets/BitLabsExportConfig` (Upload Config asset)
    - Click "Export for Local Testing"
    - Save as `BitLabs-vX.X.X.unitypackage`
-   - Copy to `BitLabs-latest.unitypackage`
 
 3. **Test the package:**
 
@@ -149,7 +148,7 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
 
 6. **Create GitHub release:**
    - Tag: `vX.X.X` (on upm branch)
-   - Attach `.unitypackage` files
+   - Attach `bitlabs-vX.X.X.unitypackage` file
    - Copy CHANGELOG entries to release notes
 
 ## Branch Strategy

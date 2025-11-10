@@ -69,10 +69,10 @@ void Start()
 }
 ```
 
-3. **Show surveys:**
+3. **Show the Offerwall:**
 
 ```csharp
-BitLabs.ShowOfferwall();
+BitLabs.LaunchOfferWall();
 ```
 
 For a complete integration example, check the **Demo Scene** included with the package:
@@ -117,7 +117,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 ## Support
 
-- Email: support@bitlabs.ai
+- Email: bitlabs@bitburst.net
 - Documentation: https://developer.bitlabs.ai
 
 ## License
