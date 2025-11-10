@@ -126,16 +126,34 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
    - Verify EDM4U resolves dependencies
    - Test Android and iOS builds
 
-4. **Commit and push:**
+4. **Commit and push to master:**
 
    ```bash
-   git add -f BitLabs-v*.unitypackage BitLabs-latest.unitypackage
-   git commit -m "Release vX.X.X"
+   git add .
+   git commit -m "vX.X.X"
    git push origin master
    ```
 
-5. **Create GitHub release:**
-   - Tag: `vX.X.X`
+5. **Create and push UPM branch:**
+
+   ```bash
+   # Split package subfolder to upm branch
+   git subtree split --prefix=Packages/com.prodege.bitlabs --branch upm
+
+   # Push upm branch
+   git push origin upm
+
+   # Tag the release on upm branch
+   git checkout upm
+   git tag vX.X.X
+   git push origin upm --tags
+
+   # Return to master
+   git checkout master
+   ```
+
+6. **Create GitHub release:**
+   - Tag: `vX.X.X` (on upm branch)
    - Attach `.unitypackage` files
    - Copy CHANGELOG entries to release notes
 
@@ -162,29 +180,26 @@ git commit -m "Add GetUserRewards API method"
 git push origin feature/new-api-method
 ```
 
-## Git Subtree Workflow (Potential in the future)
+## Git Subtree Workflow
 
-For cleaner distribution, we can use `git subtree` to create a clean `upm` branch:
+We use `git subtree` to create a clean `upm` branch for distribution. This keeps the package at the root for cleaner UPM URLs.
 
-```bash
-# Split package to upm branch
-git subtree split --prefix=Packages/com.prodege.bitlabs --branch upm
-
-# Push upm branch
-git push origin upm
-
-# Tag the release on upm branch
-git checkout upm
-git tag v4.0.0
-git push origin v4.0.0
-git checkout master
-```
-
-Users can then install via:
+**The workflow is integrated into the release checklist above.** Users install via:
 
 ```json
+// Specific version
 "com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#v4.0.0"
+
+// Latest (upm branch HEAD)
+"com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#upm"
 ```
+
+**How it works:**
+
+- `master` branch: Development with full Unity project structure
+- `upm` branch: Auto-generated from `Packages/com.prodege.bitlabs/` subfolder
+- On each release, run `git subtree split` to regenerate `upm` branch from master
+- Tag the version on the `upm` branch, not master
 
 ## Testing Guidelines
 
