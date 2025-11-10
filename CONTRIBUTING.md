@@ -30,20 +30,15 @@ Internal development guide for BitLabs Unity SDK maintainers and contributors.
    Assets/Samples/                   # Local development demo (gitignored)
    ```
 
-3. **Install EDM4U dependency:**
-   Since `Packages/manifest.json` is gitignored, you need to manually add EDM4U:
+3. **Install development dependencies:**
 
-   Add to your local `Packages/manifest.json`:
+   Unity will automatically resolve all dependencies from `Packages/manifest.json` when you open the project. The required dependencies are:
 
-   ```json
-   {
-     "dependencies": {
-       "com.google.external-dependency-manager": "https://github.com/googlesamples/unity-jar-resolver.git?path=upm#v1.2.186"
-     }
-   }
-   ```
+   - **EDM4U** (`com.google.external-dependency-manager`): Resolves Android/iOS native dependencies
+   - **Hybrid Packages** (`com.needle.upm-in-unitypackage`): Required for exporting `.unitypackage` files
+   - **Unity UI** (`com.unity.ugui`): Required for Demo scene UI components
 
-   Unity will then resolve all dependencies automatically.
+   No manual setup needed - just open the project in Unity.
 
 ## Development Workflow
 
