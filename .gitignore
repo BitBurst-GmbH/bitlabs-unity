@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+# MacOS system files
+.DS_Store
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -21,6 +25,16 @@
 
 # Visual Studio cache directory
 .vs/
+
+# Project manifest (development dependencies, not part of package distribution)
+/Packages/manifest.json
+/Packages/packages-lock.json
+
+# UserSettings (personal Unity Editor preferences)
+/UserSettings/
+
+# VS Code settings (personal IDE configuration)
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -62,3 +76,9 @@ ios-build/
 
 # Ignored MD Files
 /ignoredMDs/
+
+# Allow ~ folders in package (override global *~ pattern for Unity hidden folders)
+!/Packages/com.prodege.bitlabs/**/*~
+
+# Development Sample Scenes
+/Assets/Samples
