@@ -4,8 +4,9 @@
     <androidPackage spec="com.prodege.bitlabs:unity:5.1.1" />
   </androidPackages>
   
-    <iosPods>
-      <iosPod name="BitLabs/Unity" version="~> 4.1.1" bitcodeEnabled="true" minTargetSdk="11.0" addToAllTargets="false" />
-    </iosPods>
+  <remoteSwiftPackage url="https://github.com/BitBurst-GmbH/bitlabs-ios-sdk"
+                      version="4.2.0">
+    <swiftPackage name="BitLabsUnity"/>
+  </remoteSwiftPackage>
 
 </dependencies>
