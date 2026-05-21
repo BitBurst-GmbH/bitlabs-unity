@@ -41,17 +41,17 @@ MonoBehaviour:
     swiftPackageManagerEnabled:
       value: 1
     allowEmptyPodfileGeneration:
-      value: 1
+      value: 0
     podfileGenerationEnabled:
-      value: 1
+      value: 0
     cocoapodsIntegrationMethod:
-      value: 2
+      value: 0
     podToolExecutionViaShellEnabled:
-      value: 1
+      value: 0
     podToolShellExecutionSetLang:
       value: 1
     autoPodToolInstallInEditor:
-      value: 1
+      value: 0
     podfileAddUseFrameworks:
       value: 1
     podfileStaticLinkFrameworks:

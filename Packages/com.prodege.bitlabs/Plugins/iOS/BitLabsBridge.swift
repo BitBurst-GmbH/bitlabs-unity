@@ -1,5 +1,5 @@
 import Foundation
-import BitLabs
+import BitLabsUnity
 
 /// Swift bridge for Unity integration with BitLabs SDK.
 /// This class provides @objc-compatible methods that can be called from Objective-C++.

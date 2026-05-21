@@ -35,7 +35,7 @@ Internal development guide for BitLabs Unity SDK maintainers and contributors.
    Unity will automatically resolve all dependencies from `Packages/manifest.json` when you open the project. The required dependencies are:
 
    - **External Dependency Manager** (`com.unity.external-dependency-manager`): Resolves Android/iOS native dependencies
-   - **Hybrid Packages** (`com.needle.upm-in-unitypackage`): Required for exporting `.unitypackage` files
+   - **Hybrid Packages** (`com.needle.upm-in-unitypackage`): Required for exporting `.unitypackage` files (breaks on Unity 6000.6, export from 6000.2.8f1)
    - **Unity UI** (`com.unity.ugui`): Required for Demo scene UI components
 
    No manual setup needed - just open the project in Unity.
@@ -69,7 +69,9 @@ When BitLabs Android or iOS SDK releases a new version:
    ```xml
    <!-- Packages/com.prodege.bitlabs/Editor/BitLabsDependencies.xml -->
    <androidPackage spec="com.prodege.bitlabs:unity:NEW_VERSION" />
-   <iosPod name="BitLabs/Unity" version="~> NEW_VERSION" />
+   <remoteSwiftPackage url="https://github.com/BitBurst-GmbH/bitlabs-ios-sdk" version="NEW_VERSION">
+     <swiftPackage name="BitLabsUnity"/>
+   </remoteSwiftPackage>
    ```
 
 2. **Update iOS bridge if needed:**
@@ -110,7 +112,8 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
 
 2. **Export .unitypackage:**
 
-   - Open `Assets/BitLabsExportConfig` (Upload Config asset)
+   - Use Unity 6000.2.8f1. Hybrid Packages does not compile on Unity 6000.6 yet
+   - Open `Assets/BitLabsNeedleConfig` (Upload Config asset)
    - Click "Export for Local Testing"
    - Save as `BitLabs-vX.X.X.unitypackage`
 
@@ -224,8 +227,8 @@ We use `git subtree` to create a clean `upm` branch for distribution. This keeps
 
 ### iOS build fails:
 
-- Check CocoaPods installed: `pod --version`
-- Run iOS resolver: Assets → External Dependency Manager → iOS Resolver → Install Cocoapods
+- iOS dependencies are resolved with Swift Package Manager. In the exported Xcode project, check that `bitlabs-ios-sdk` is listed under Package Dependencies, and run File → Packages → Resolve Package Versions
+- Check that `BitLabs_BitLabsShared.bundle` is inside the built `.app`. If it's missing, the offerwall crashes at runtime with "unable to find bundle named BitLabs_BitLabsShared"
 
 ### Android SDK version conflicts:
 
