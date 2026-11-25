@@ -11,21 +11,7 @@ Official Unity SDK for [BitLabs](https://www.bitlabs.ai/) - Monetize your Unity 
 
 ### Prerequisites
 
-This SDK requires **External Dependency Manager for Unity (EDM4U)** to resolve Android and iOS native dependencies.
-
-**Install EDM4U first:**
-
-Add to your `Packages/manifest.json`:
-
-```json
-{
-  "dependencies": {
-    "com.google.external-dependency-manager": "https://github.com/googlesamples/unity-jar-resolver.git?path=upm#v1.2.186"
-  }
-}
-```
-
-Or download from: [EDM4U](https://github.com/googlesamples/unity-jar-resolver)
+This SDK uses Unity's **External Dependency Manager** (`com.unity.external-dependency-manager`) to resolve Android and iOS native dependencies. It is installed automatically with the package.
 
 ### Option 1: Install via UPM (Unity Package Manager)
 

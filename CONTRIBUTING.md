@@ -34,7 +34,7 @@ Internal development guide for BitLabs Unity SDK maintainers and contributors.
 
    Unity will automatically resolve all dependencies from `Packages/manifest.json` when you open the project. The required dependencies are:
 
-   - **EDM4U** (`com.google.external-dependency-manager`): Resolves Android/iOS native dependencies
+   - **External Dependency Manager** (`com.unity.external-dependency-manager`): Resolves Android/iOS native dependencies
    - **Hybrid Packages** (`com.needle.upm-in-unitypackage`): Required for exporting `.unitypackage` files
    - **Unity UI** (`com.unity.ugui`): Required for Demo scene UI components
 
@@ -64,7 +64,7 @@ Internal development guide for BitLabs Unity SDK maintainers and contributors.
 
 When BitLabs Android or iOS SDK releases a new version:
 
-1. **Update EDM4U config:**
+1. **Update EDM config:**
 
    ```xml
    <!-- Packages/com.prodege.bitlabs/Editor/BitLabsDependencies.xml -->
@@ -117,7 +117,7 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
 3. **Test the package:**
 
    - Import `.unitypackage` in a clean Unity project
-   - Verify EDM4U resolves dependencies
+   - Verify EDM resolves dependencies
    - Test Android and iOS builds
 
 4. **Commit and push to master:**
@@ -218,7 +218,7 @@ We use `git subtree` to create a clean `upm` branch for distribution. This keeps
 
 ## Common Issues
 
-### EDM4U not resolving:
+### EDM not resolving:
 
 - **Fix:** Assets → External Dependency Manager → Android Resolver → Resolve
 
