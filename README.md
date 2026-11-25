@@ -20,7 +20,7 @@ Add to your `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#v4.0.0"
+    "com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#4.0.0"
   }
 }
 ```

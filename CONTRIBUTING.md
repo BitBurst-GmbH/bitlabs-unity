@@ -142,7 +142,7 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
 
    # Tag the release on upm branch
    git checkout upm
-   git tag vX.X.X
+   git tag X.X.X
    git push origin upm --tags
 
    # Return to master
@@ -150,7 +150,7 @@ Follow Semantic Versioning (MAJOR.MINOR.PATCH):
    ```
 
 6. **Create GitHub release:**
-   - Tag: `vX.X.X` (on upm branch)
+   - Tag: `X.X.X` (on upm branch), release title `vX.X.X`
    - Attach `bitlabs-vX.X.X.unitypackage` file
    - Copy CHANGELOG entries to release notes
 
@@ -185,7 +185,7 @@ We use `git subtree` to create a clean `upm` branch for distribution. This keeps
 
 ```json
 // Specific version
-"com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#v4.0.0"
+"com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#4.0.0"
 
 // Latest (upm branch HEAD)
 "com.prodege.bitlabs": "https://github.com/BitBurst-GmbH/bitlabs-unity.git#upm"
